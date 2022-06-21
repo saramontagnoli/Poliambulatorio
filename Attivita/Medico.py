@@ -15,6 +15,13 @@ class Medico(Utilizzatore):
         self.setInfoUtilizzatore(password=password, cognome=cognome, nome=nome, data_nascita=data_nascita, CF=CF,
                                  telefono=telefono, genere=genere, mail=mail, indirizzo=indirizzo, nota=nota)
         self.abilitazione = abilitazione
+        medici = {}
+        if os.path.isfile('Dati/Medici.pickle'):
+            with open('Dati/Medici.pickle', 'rb') as f:
+                medici = pickle.load(f)
+        medici[id] = self
+        with open('Dati/Medici.pickle', 'wb') as f:
+            pickle.dump(medici, f, pickle.HIGHEST_PROTOCOL)
 
     def getInfoMedico(self):
         info = self.getInfoUtilizzatore()
