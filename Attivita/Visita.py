@@ -15,7 +15,7 @@ class Visita:
         self.nota = nota
 
     def getNota(self):
-        return self.nota;
+        return self.nota
 
     #metodo per stampare i dati di una visita
     def visualizza(self):
