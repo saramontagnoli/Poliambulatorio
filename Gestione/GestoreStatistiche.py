@@ -10,6 +10,7 @@ class GestoreStatistica:
     def richiediStatisticheRicevuta(self):
         return
 
+#Elabora dati viene richiamato dentro richiediStatistiche
     def elaboraDatiMora(self):
         return
 
