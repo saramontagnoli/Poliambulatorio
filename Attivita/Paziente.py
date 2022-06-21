@@ -50,3 +50,37 @@ class Paziente(Utilizzatore):
                 return pazienti.get(id, None)
         else:
             return None
+
+#Rimozione di un paziente mediante il suo id
+    def rimuoviPaziente(self):
+        if os.path.isfile('File/Pazienti.pickle'):
+            with open('File/Pazienti.pickle', 'rb') as f:
+                pazienti = dict(pickle.load(f))
+                del pazienti[self.id]
+            with open('File/Pazienti.pickle', 'wb') as f:
+                pickle.dump(pazienti, f, pickle.HIGHEST_PROTOCOL)
+        self.rimuoviUtilizzatore()
+        self.prenotazioni = []
+        self.allergia = False
+        self.malattia_pregressa = False
+        del self
+
+#Metodi getter degli attributi contenuti in Paziente (non ereditati da Utilizzatore)
+    def isAleergia(self):
+        return self.allergia
+
+    def isMalattia_pregressa(self):
+        return self.malattia_pregressa
+
+#Metodi setter degli attributi contenuti in Paziente (non ereditati da Utilizzatore)
+
+    def setMalattia_pregressa(self, malattia_pregressa):
+        self.malattia_pregressa = malattia_pregressa
+
+    def setAllergia(self, allergia):
+        self.allergia = allergia
+
+
+#Modifica di un paziente
+    def modificaPaziente(self):
+        return
