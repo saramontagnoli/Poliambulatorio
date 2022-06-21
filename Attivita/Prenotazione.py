@@ -6,7 +6,7 @@ import pickle
 class Prenotazione:
 
     def __init__(self):
-        self.id = 0
+        self.id = -1
         self.data = datetime.date(1970, 1, 1)
         self.ora = datetime.time(0, 0)
         self.scaduta = False
@@ -29,17 +29,22 @@ class Prenotazione:
             pickle.dump(prenotazioni, handle, pickle.HIGHEST_PROTOCOL)
 
     def getID(self):
-
+        return self.id
 
     def getData(self):
+        return self.data
 
     def getOra(self):
+        return self.ora
 
     def isScaduta(self):
+        return self.scaduta
 
     def isDisdetta(self):
+        return self.disdetta
 
     def isConclusa(self):
+        return self.conclusa
 
     def setData(self, data):
         self.data = data
