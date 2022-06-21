@@ -3,9 +3,14 @@ from abc import abstractmethod
 
 
 class Utilizzatore:
+    def incrementaId(self):
+        self.incrementaId.id += 1
+        return self.incrementaId.id
+
+    incrementaId.id = 0
 
     def __init__(self):
-        self.id = -1
+        self.id = self.incrementaId()
         self.password = ""
         self.cognome = ""
         self.nome = ""
@@ -17,9 +22,8 @@ class Utilizzatore:
         self.indirizzo = ""
         self.nota = ""
 
-    def aggiungiUtilizzatore(self, id, password, cognome, nome, data_nascita, CF, telefono, genere, mail, indirizzo,
+    def aggiungiUtilizzatore(self, password, cognome, nome, data_nascita, CF, telefono, genere, mail, indirizzo,
                              nota):
-        self.id = id
         self.password = password
         self.cognome = cognome
         self.nome = nome
