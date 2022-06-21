@@ -4,6 +4,7 @@ import pickle
 
 class Visita:
 
+    #metodi set e get dei vari attributi
     def getId(self):
         return self.id
 
@@ -16,4 +17,6 @@ class Visita:
     def getNota(self):
         return self.nota;
 
-
+    #metodo per stampare i dati di una visita
+    def visualizza(self):
+        return
