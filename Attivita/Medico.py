@@ -1,11 +1,12 @@
 import os.path
 import pickle
-from abc import ABC
+
 
 from Attivita.Utilizzatore import Utilizzatore
 
 
-class Medico(Utilizzatore, ABC):
+class Medico(Utilizzatore):
+
     def __init__(self):
         super().__init__()
         self.abilitazione = ""
@@ -36,3 +37,18 @@ class Medico(Utilizzatore, ABC):
                 return medici.get(id, None)
         else:
             return None
+
+    def modificaUtilizzatore(self):
+        pass
+
+    def rimuoviMedico(self):
+        if os.path.isfile('Dati/Medici.pickle'):
+            with open('Dati/Medici.pickle', 'wb+') as f:
+                medici = dict(pickle.load(f))
+                del medici[self.id]
+                pickle.dump(medici, f, pickle.HIGHEST_PROTOCOL)
+        self.rimuoviUtilizzatore()
+        self.abilitazione = ""
+        del self
+
+
