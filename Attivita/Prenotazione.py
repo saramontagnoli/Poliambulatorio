@@ -30,6 +30,7 @@ class Prenotazione:
 
     def getID(self):
 
+
     def getData(self):
 
     def getOra(self):
@@ -40,12 +41,17 @@ class Prenotazione:
 
     def isConclusa(self):
 
-    def setData(self):
+    def setData(self, data):
+        self.data = data
 
-    def setScaduta(self):
+    def setScaduta(self, scaduta):
+        self.scaduta = scaduta
 
-    def setOra(self):
+    def setOra(self, ora):
+        self.ora = ora
 
-    def setDisdetta(self):
+    def setDisdetta(self, disdetta):
+        self.disdetta = disdetta
 
-    def setConclusa(self):
+    def setConclusa(self, conclusa):
+        self.conclusa = conclusa
