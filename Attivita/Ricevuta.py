@@ -4,8 +4,14 @@ import pickle
 
 class Ricevuta:
 
+    def incrementaId(self):
+        self.incrementaId.id += 1
+        return self.incrementaId.id
+
+    incrementaId.id = 0
+
     def __init__(self):
-        self.id = 0
+        self.id = self.incrementaId()
         self.importo = 0.0
         self.data = datetime.date(1970, 1, 1)
         self.ora = datetime.time(0, 0)
