@@ -66,7 +66,7 @@ class Paziente(Utilizzatore):
         del self
 
 #Metodi getter degli attributi contenuti in Paziente (non ereditati da Utilizzatore)
-    def isAleergia(self):
+    def isAllergia(self):
         return self.allergia
 
     def isMalattia_pregressa(self):
@@ -82,5 +82,8 @@ class Paziente(Utilizzatore):
 
 
 #Modifica di un paziente
-    def modificaPaziente(self):
-        return
+    def modificaPaziente(self, password, telefono, mail, indirizzo, nota, malattia_pregressa, allergia):
+        self.modificaUtilizzatore(password, telefono, mail, indirizzo, nota)
+        self.malattia_pregressa = malattia_pregressa
+        self.allergia = allergia
+
