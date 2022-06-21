@@ -6,10 +6,46 @@ import pickle
 class Prenotazione:
 
     def __init__(self):
-        self.id = -1
+        self.id = 0
         self.data = datetime.date(1970, 1, 1)
-        self.time = datetime.date(0, 0)
+        self.ora = datetime.time(0, 0)
         self.scaduta = False
         self.disdetta = False
         self.conclusa = False
 
+    def aggiungiPrenotazione(self, id, data, ora, scaduta, disdetta, conclusa):
+        self.id = id
+        self.data = data
+        self.ora = ora
+        self.scaduta = scaduta
+        self.disdetta = disdetta
+        self.conclusa = conclusa
+        prenotazioni = {}
+        if os.path.isfile('File/Prenotazioni.pickle'):
+            with open('File/Prenotazioni.pickle', 'rb') as f:
+                prenotazioni = pickle.load(f)
+        prenotazioni[id] = self
+        with open('File/Prenotazioni.pickle', 'wb') as handle:
+            pickle.dump(prenotazioni, handle, pickle.HIGHEST_PROTOCOL)
+
+    def getID(self):
+
+    def getData(self):
+
+    def getOra(self):
+
+    def isScaduta(self):
+
+    def isDisdetta(self):
+
+    def isConclusa(self):
+
+    def setData(self):
+
+    def setScaduta(self):
+
+    def setOra(self):
+
+    def setDisdetta(self):
+
+    def setConclusa(self):
