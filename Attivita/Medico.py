@@ -44,8 +44,9 @@ class Medico(Utilizzatore):
         else:
             return None
 
-    def modificaUtilizzatore(self):
-        pass
+    def modificaMedico(self, password, telefono, mail, indirizzo, nota, abilitazione):
+        self.modificaUtilizzatore(password, telefono, mail, indirizzo, nota)
+        self.abilitazione = abilitazione
 
     def rimuoviMedico(self):
         if os.path.isfile('Dati/Medici.pickle'):
