@@ -5,18 +5,24 @@ import pickle
 
 class Prenotazione:
 
+    def incrementaId(self):
+        self.incrementaId.id += 1
+        return self.incrementaId.id
+
+    incrementaId.id = 0
+
     #costruttore di Prenotazione
     def __init__(self):
-        self.id = -1
+        self.id = 0
         self.data = datetime.date(1970, 1, 1)
         self.ora = datetime.time(0, 0)
         self.scaduta = False
         self.disdetta = False
         self.conclusa = False
 
-    #metodo per l'aggiunta della prenotazione al file Prenotazioni.pickle
-    def aggiungiPrenotazione(self, id, data, ora, scaduta, disdetta, conclusa):
-        self.id = id
+
+    def aggiungiPrenotazione(self, data, ora, scaduta, disdetta, conclusa):
+        self.id = self.incrementaId()
         self.data = data
         self.ora = ora
         self.scaduta = scaduta
@@ -31,8 +37,9 @@ class Prenotazione:
         with open('File/Prenotazioni.pickle', 'wb') as handle:
             pickle.dump(prenotazioni, handle, pickle.HIGHEST_PROTOCOL)
 
+
     #Definizione di tutti i metodi getter degli attributi di prenotazione
-    def getID(self):
+    def getId(self):
         return self.id
 
     def getData(self):
