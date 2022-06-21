@@ -22,8 +22,8 @@ class Utilizzatore:
         self.indirizzo = ""
         self.nota = ""
 
-    def aggiungiUtilizzatore(self, password, cognome, nome, data_nascita, CF, telefono, genere, mail, indirizzo,
-                             nota):
+    def setInfoUtilizzatore(self, password, cognome, nome, data_nascita, CF, telefono, genere, mail, indirizzo,
+                            nota):
         self.password = password
         self.cognome = cognome
         self.nome = nome
@@ -57,9 +57,12 @@ class Utilizzatore:
     def ricercaUtilizzatoreId(self, id):
         pass
 
-    @abstractmethod
-    def modificaUtilizzatore(self):
-        pass
+    def modificaUtilizzatore(self, password, telefono, mail, indirizzo, nota):
+        self.password = password
+        self.telefono = telefono
+        self.mail = mail
+        self.indirizzo = indirizzo
+        self.nota = nota
 
     def rimuoviUtilizzatore(self):
         self.id = -1
