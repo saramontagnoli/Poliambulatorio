@@ -3,9 +3,14 @@ import os
 import pickle
 
 class Mora:
+    def incrementaId(self):
+        self.incrementaId.id += 1
+        return self.incrementaId.id
+
+    incrementaId.id = 0
 
     def __init__(self):
-        self.id = 0
+        self.id = self.incrementaId()
         self.importo = 0.0
         self.nota = ''
         self.data_emissione = datetime(1970, 0, 0, 0)
