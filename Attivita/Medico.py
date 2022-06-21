@@ -18,6 +18,21 @@ class Medico(Utilizzatore, ABC):
 
     def getInfoMedico(self):
         info = self.getInfoUtilizzatore()
-        info["abilitazione"] = self.abilitazione +
+        info["abilitazione"] = self.abilitazione
         return info
 
+    def ricercaUtilizzatoreCF(self, CF):
+        if os.path.isfile('File/Medici.pickle'):
+            with open('File/Medici.pickle', 'rb') as f:
+                medici = dict(pickle.load(f))
+                return medici.get(CF, None)
+        else:
+            return None
+
+    def ricercaUtilizzatoreId(self, id):
+        if os.path.isfile('File/Medici.pickle'):
+            with open('File/Medici.pickle', 'rb') as f:
+                medici = dict(pickle.load(f))
+                return medici.get(id, None)
+        else:
+            return None
