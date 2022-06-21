@@ -19,7 +19,12 @@ class GestoreBackUp:
         # boolean
         return
 
-    def effettuaBackup(self):
+    def effettuaBackUp(self):
+        self.copiaDatiUtilizzatore()
+        self.copiaDatiPrenotazione()
+        self.copiaDatiReferto()
+        self.copiaDatiRicevuta()
+        self.copiaDatiMora()
         #void
         return
 
