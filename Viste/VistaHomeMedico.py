@@ -1,6 +1,6 @@
 from PyQt5.QtWidgets import QWidget, QGridLayout, QPushButton, QSizePolicy
 
-from Viste.VistaGestisciMedici import VistaGestisciMedici
+#from Viste.VistaGestisciMedici import VistaGestisciMedici
 
 
 class VistaHome(QWidget):
