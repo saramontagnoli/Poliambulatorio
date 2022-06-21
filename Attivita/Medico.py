@@ -1,7 +1,6 @@
 import os.path
 import pickle
 
-
 from Attivita.Utilizzatore import Utilizzatore
 
 
@@ -51,4 +50,8 @@ class Medico(Utilizzatore):
         self.abilitazione = ""
         del self
 
+    def getAbilitazione(self):
+        return self.abilitazione
 
+    def setAbilitazione(self, abilitazione):
+        self.abilitazione = abilitazione
