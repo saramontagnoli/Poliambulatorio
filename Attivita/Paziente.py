@@ -5,12 +5,14 @@ from Attivita.Utilizzatore import Utilizzatore
 
 class Paziente(Utilizzatore):
 
+#Costruttore della classe Paziente
     def __init__(self):
         super().__init__()
         self.prenotazioni = []
         self.allergia = False
         self.malattia_pregressa = False
 
+#Set delle informazioni del paziente (richiamo la superclasse che è Utilizzatore)
     def setInfoPaziente(self, nome, cognome, password, data_nascita, CF, telefono, genere, mail, indirizzo, nota, allergia, malattia_pregressa):
         self.setInfoUtilizzatore(nome, cognome, password, data_nascita, CF, telefono, genere, mail, indirizzo, nota)
         self.allergia = allergia
@@ -22,3 +24,29 @@ class Paziente(Utilizzatore):
         pazienti[id] = self
         with open('File/Pazienti.pickle', 'wb') as f:
             pickle.dump(pazienti, f, pickle.HIGHEST_PROTOCOL)
+
+#Ritorna un dizionario con le informazioni di Paziente
+    def getInfoPaziente(self):
+        info = self.getInfoUtilizzatore()
+        info["prenotazioni"] = self.prenotazioni
+        info["allergia"] = self.allergia
+        info["malattia_pregressa"] = self.malattia_pregressa
+        return info
+
+#Ricerca paziente per codice fiscale
+    def ricercaUtilizzatoreCF(self, CF):
+        if os.path.isfile('File/Pazienti.pickle'):
+            with open('File/Pazienti.pickle', 'rb') as f:
+                pazienti = dict(pickle.load(f))
+                return pazienti.get(CF, None)
+        else:
+            return None
+
+#Ricerca paziente per id
+    def ricercaUtilizzatoreId(self, id):
+        if os.path.isfile('File/Pazienti.pickle'):
+            with open('File/Pazienti.pickle', 'rb') as f:
+                pazienti = dict(pickle.load(f))
+                return pazienti.get(id, None)
+        else:
+            return None
