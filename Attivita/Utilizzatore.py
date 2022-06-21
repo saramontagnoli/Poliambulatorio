@@ -22,7 +22,7 @@ class Utilizzatore:
         self.indirizzo = ""
         self.nota = ""
 
-    def aggiungiUtilizzatore(self, password, cognome, nome, data_nascita, CF, telefono, genere, mail, indirizzo,
+    def setInfoUtilizzatore(self, password, cognome, nome, data_nascita, CF, telefono, genere, mail, indirizzo,
                              nota):
         self.password = password
         self.cognome = cognome
