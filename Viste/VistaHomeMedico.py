@@ -1,12 +1,9 @@
 from PyQt5.QtWidgets import QWidget, QGridLayout, QPushButton, QSizePolicy
 
-#from Viste.VistaGestisciMedici import VistaGestisciMedici
-
-
-class VistaHome(QWidget):
+class VistaHomeMedico(QWidget):
 
     def __init__(self, parent=None):
-        super(VistaHome, self).__init__(parent)
+        super(VistaHomeMedico, self).__init__(parent)
         grid_layout = QGridLayout()
         grid_layout.addWidget(self.get_generic_button("Vedi Prenotazioni", self.go_prenotazioni), 0, 0)
         grid_layout.addWidget(self.get_generic_button("Vedi Turni", self.go_turni), 0, 1)
@@ -30,8 +27,7 @@ class VistaHome(QWidget):
         pass
 
     def go_informazioni(self):
-        self.vista_gestisci_medici = VistaGestisciMedici()
-        self.vista_gestisci_medici.show()
+        pass
 
     def go_logout(self):
         pass
