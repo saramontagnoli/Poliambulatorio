@@ -20,15 +20,16 @@ class Ricevuta:
         return self.importo
 
     def setData(self, date):
-        self.data = date;
+        self.data = date
 
     def getData(self):
         return self.date
 
     def setOra(self, ora):
-        self.ora = ora;
+        self.ora = ora
 
     def getOra(self):
         return self.ora
 
-
+    def visualizza(self):
+        return
