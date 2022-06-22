@@ -4,6 +4,7 @@ import pickle
 
 class Ricevuta:
 
+    #Metodo per l'incremento dell'id
     def incrementaId(self):
         self.incrementaId.id += 1
         return self.incrementaId.id
@@ -16,23 +17,25 @@ class Ricevuta:
         self.data = datetime.date(1970, 1, 1)
         self.ora = datetime.time(0, 0)
 
-    def getId(self):
-        return self.id
-
+    #Metodi Setter per gli attributi
     def setImporto(self, importo):
         self.importo = importo
-
-    def getImporto(self):
-        return self.importo
 
     def setData(self, date):
         self.data = date
 
-    def getData(self):
-        return self.date
-
     def setOra(self, ora):
         self.ora = ora
+
+    #Metodi getter degli attributi
+    def getId(self):
+        return self.id
+
+    def getImporto(self):
+        return self.importo
+
+    def getData(self):
+        return self.date
 
     def getOra(self):
         return self.ora
