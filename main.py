@@ -6,7 +6,7 @@ from Viste.VistaHomeAmm import VistaHomeAmm
 from Viste.VistaHomePaziente import VistaHomePaziente
 from Viste.VistaHomeMedico import VistaHomeMedico
 from Viste.VistaLogin import VistaLogin
-
+#main con viste
 if __name__ == '__main__':
     app = QApplication(sys.argv)
     form = VistaLogin()
