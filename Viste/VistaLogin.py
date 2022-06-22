@@ -18,20 +18,17 @@ class VistaLogin(QWidget):
         grid_layout.addWidget(label2, 1, 0)
         grid_layout.addWidget(self.user_pwd, 1, 1)
         # salvataggio in stringa
-        password = self.user_pwd.text()
-        print("Password: "+str(password))
-        grid_layout.addWidget(self.get_generic_button("Login", self.go_login, password), 2, 0, 2, 2)
+        # password = self.user_pwd.text()
+        # print("Password: " + str(password))
+        grid_layout.addWidget(self.get_generic_button("Login", self.go_login), 2, 0, 2, 2)
         self.setLayout(grid_layout)
 
     # Funzionalità del bottone
-    def get_generic_button(self, titolo, on_click, password):
+    def get_generic_button(self, titolo, on_click):
         button = QPushButton(titolo)
         button.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
-        button.clicked.connect(lambda: on_click(self.stampa()))
+        button.clicked.connect(on_click)
         return button
 
-    def stampa(self):
+    def go_login(self):
         print(self.user_pwd.text())
-
-    def go_login(self, password):
-        print(str(password))
