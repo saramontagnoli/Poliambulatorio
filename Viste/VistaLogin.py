@@ -38,4 +38,4 @@ class VistaLogin(QWidget):
         print("Username: " + username)
         print("Password: " + password)
 
-        GestoreAccesso.login(username, password)
+        GestoreAccesso.login(self, username, password)
