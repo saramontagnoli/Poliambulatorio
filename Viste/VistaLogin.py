@@ -38,8 +38,4 @@ class VistaLogin(QWidget):
         print("Username: " + username)
         print("Password: " + password)
 
-        GestoreAccesso.login()
-        if username == "admin" and password == "admin":
-            print("Admin. Apertura.")
-            self.vista_home = VistaHomeAmm()
-            self.vista_home.show()
+        GestoreAccesso.login(username, password)
