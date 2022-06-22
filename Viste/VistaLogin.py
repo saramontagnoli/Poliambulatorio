@@ -1,5 +1,7 @@
 from PyQt5.QtWidgets import (QApplication, QWidget, QPushButton, QLabel, QLineEdit, QGridLayout, QSizePolicy)
 
+from Viste.VistaHomeAmm import VistaHomeAmm
+from Gestione.GestoreAccesso import GestoreAccesso
 
 class VistaLogin(QWidget):
     def __init__(self):
@@ -31,4 +33,13 @@ class VistaLogin(QWidget):
         return button
 
     def go_login(self):
-        print(self.user_pwd.text())
+        username = self.user_obj.text()
+        password = self.user_pwd.text()
+        print("Username: " + username)
+        print("Password: " + password)
+
+        GestoreAccesso.login()
+        if username == "admin" and password == "admin":
+            print("Admin. Apertura.")
+            self.vista_home = VistaHomeAmm()
+            self.vista_home.show()
