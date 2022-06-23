@@ -6,7 +6,7 @@ from PyQt5.QtWidgets import QWidget, QHBoxLayout, QListView, QVBoxLayout, QPushB
 
 from Attivita.Paziente import Paziente
 from Viste.VistaPaziente import VistaPaziente
-from Viste.VistaInserisciPaziente import VistaInserisciPaziente
+from Viste.VistaInserisciPazienti import VistaInserisciPazienti
 
 
 class VistaGestisciPazienti(QWidget):
@@ -71,5 +71,5 @@ class VistaGestisciPazienti(QWidget):
             return
 
     def show_new(self):
-        self.inserisci_paziente = VistaInserisciPaziente(callback=self.update_ui)
+        self.inserisci_paziente = VistaInserisciPazienti(callback=self.update_ui)
         self.inserisci_paziente.show()
