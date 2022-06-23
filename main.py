@@ -18,7 +18,7 @@ if __name__ == '__main__':
     vista_home2.show()
     vista_home3 = VistaHomePaziente()
     vista_home3.show()
-    vista_home4 = VistaInserisciPazienti()
-    vista_home4.show()
+    #vista_home4 = VistaInserisciPazienti()
+    #vista_home4.show()
     sys.exit(app.exec())
 
