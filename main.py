@@ -6,6 +6,7 @@ from Viste.VistaHomeAmm import VistaHomeAmm
 from Viste.VistaHomePaziente import VistaHomePaziente
 from Viste.VistaHomeMedico import VistaHomeMedico
 from Viste.VistaLogin import VistaLogin
+from Viste.VistaInserisciPazienti import VistaInserisciPazienti
 #main con viste
 if __name__ == '__main__':
     app = QApplication(sys.argv)
@@ -17,5 +18,7 @@ if __name__ == '__main__':
     vista_home2.show()
     vista_home3 = VistaHomePaziente()
     vista_home3.show()
+    vista_home4 = VistaInserisciPazienti()
+    vista_home4.show()
     sys.exit(app.exec())
 
