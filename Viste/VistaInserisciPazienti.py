@@ -7,12 +7,12 @@ from Attivita.Paziente import Paziente
 
 class VistaInserisciPazienti(QWidget):
 
-    def __init__(self, callback):
+    def __init__(self):
         super(VistaInserisciPazienti, self).__init__()
-        self.callback = callback
+        #self.callback = callback
         self.v_layout = QVBoxLayout()
         self.qlines = {}
-        self.add_info_text("id", "Id")
+        #self.add_info_text("id", "Id")
         self.add_info_text("password", "Password")
         self.add_info_text("nome", "Nome")
         self.add_info_text("cognome", "Cognome")
@@ -42,11 +42,11 @@ class VistaInserisciPazienti(QWidget):
         self.v_layout.addWidget(current_text)
 
     def aggiungi_paziente(self):
-        try:
+        """try:
             id = int(self.qlines["id"].text())
         except:
             QMessageBox.critical(self, 'Errore', 'L id non sembra un numero valido.', QMessageBox.Ok, QMessageBox.Ok)
-            return
+            return """
         for value in self.qlines.values():
             if isinstance(value, QLineEdit):
                 if value.text() == "":
@@ -73,5 +73,5 @@ class VistaInserisciPazienti(QWidget):
             QMessageBox.critical(self, 'Errore', 'Controlla bene i dati inseriti',
                                  QMessageBox.Ok, QMessageBox.Ok)
             return
-        self.callback()
+        #self.callback()
         self.close()
