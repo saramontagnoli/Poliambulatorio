@@ -7,9 +7,9 @@ from Attivita.Paziente import Paziente
 
 class VistaInserisciPazienti(QWidget):
 
-    def __init__(self):
+    def __init__(self, callback):
         super(VistaInserisciPazienti, self).__init__()
-        #self.callback = callback
+        self.callback = callback
         self.v_layout = QVBoxLayout()
         self.qlines = {}
         #self.add_info_text("id", "Id")
@@ -73,5 +73,5 @@ class VistaInserisciPazienti(QWidget):
             QMessageBox.critical(self, 'Errore', 'Controlla bene i dati inseriti',
                                  QMessageBox.Ok, QMessageBox.Ok)
             return
-        #self.callback()
+        self.callback()
         self.close()

@@ -36,6 +36,7 @@ class VistaGestisciPazienti(QWidget):
         self.setWindowTitle("Gestisci Pazienti")
 
     def load_pazienti(self):
+        #print ("Caricamento in corso")
         if os.path.isfile('File/Pazienti.pickle'):
             with open('File/Pazienti.pickle', 'rb') as f:
                 current = dict(pickle.load(f))
@@ -47,7 +48,7 @@ class VistaGestisciPazienti(QWidget):
         listview_model = QStandardItemModel(self.list_view)
         for paziente in self.pazienti:
             item = QStandardItem()
-            nome = f"{paziente.nome} {paziente.cognome} - {type(paziente).__name__} {paziente.codice}"
+            nome = f"{paziente.nome} {paziente.cognome} - {type(paziente).__name__} {paziente.id}"
             item.setText(nome)
             item.setEditable(False)
             font = item.font()
@@ -60,10 +61,10 @@ class VistaGestisciPazienti(QWidget):
         try:
             selected = self.list_view.selectedIndexes()[0].data()
             tipo = selected.split("-")[1].strip().split(" ")[0]
-            codice = int(selected.split("-")[1].strip().split(" ")[1])
+            id = int(selected.split("-")[1].strip().split(" ")[1])
             paziente = None
             if tipo == "Paziente":
-                paziente = Paziente().ricercaUtilizzatoreCodice(codice)
+                paziente = Paziente().ricercaUtilizzatoreId(id)
             self.vista_paziente = VistaPaziente(paziente, elimina_callback=self.update_ui)
             self.vista_paziente.show()
         except IndexError:
