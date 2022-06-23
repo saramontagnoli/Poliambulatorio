@@ -14,8 +14,10 @@ class VistaGestisciPazienti(QWidget):
     def __init__(self, parent=None):
         super(VistaGestisciPazienti, self).__init__(parent)
         h_layout = QHBoxLayout()
+        print("TEST PRE CARICAMENTO")
         self.list_view = QListView()
         self.update_ui()
+        print("DOPO CARICAMENTO")
         h_layout.addWidget(self.list_view)
 
         buttons_layout = QVBoxLayout()
@@ -43,7 +45,7 @@ class VistaGestisciPazienti(QWidget):
         self.pazienti = []
         self.load_pazienti()
         listview_model = QStandardItemModel(self.list_view)
-        for pazidente in self.pazienti:
+        for paziente in self.pazienti:
             item = QStandardItem()
             nome = f"{paziente.nome} {paziente.cognome} - {type(paziente).__name__} {paziente.codice}"
             item.setText(nome)
