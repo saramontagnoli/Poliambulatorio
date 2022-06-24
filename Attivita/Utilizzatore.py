@@ -10,20 +10,28 @@ class Utilizzatore:
     incrementaId.id = 0
 
     def __init__(self):
-        self.id = self.incrementaId()
+         # self.id = self.incrementaId()
+        print("Sto creando l'utilizzatore")
+        self.id = -1
         self.password = ""
         self.cognome = ""
         self.nome = ""
-        self.data_nascita = datetime.date(1970, 1, 1)
+        print("Sto per impostare la data")
+        self.data_nascita = datetime.date(year = 2001,month = 1,day = 1)
+        print("Data impostata")
         self.CF = ""
-        self.telefono = 0
+        print("Imposta telefono?")
+        self.telefono = ""
+        print("Tel impostato")
         self.genere = ""
         self.mail = ""
         self.indirizzo = ""
         self.nota = ""
+        print("Ho creato l'utilizzatore")
 
     def setInfoUtilizzatore(self, password, cognome, nome, data_nascita, CF, telefono, genere, mail, indirizzo,
                             nota):
+        self.id = 1
         self.password = password
         self.cognome = cognome
         self.nome = nome

@@ -3,17 +3,20 @@ import pickle
 
 from Attivita.Utilizzatore import Utilizzatore
 
+
 class Paziente(Utilizzatore):
 
-#Costruttore della classe Paziente
+    # Costruttore della classe Paziente
     def __init__(self):
         super().__init__()
+        print("Sto creando il paziente")
         self.prenotazioni = []
         self.allergia = False
         self.malattia_pregressa = False
 
-#Set delle informazioni del paziente (richiamo la superclasse che è Utilizzatore)
-    def setInfoPaziente(self, nome, cognome, password, data_nascita, CF, telefono, genere, mail, indirizzo, nota, allergia, malattia_pregressa):
+    # Set delle informazioni del paziente (richiamo la superclasse che è Utilizzatore)
+    def setInfoPaziente(self, nome, cognome, password, data_nascita, CF, telefono, genere, mail, indirizzo, nota,
+                        allergia, malattia_pregressa):
         self.setInfoUtilizzatore(nome, cognome, password, data_nascita, CF, telefono, genere, mail, indirizzo, nota)
         self.allergia = allergia
         self.malattia_pregressa = malattia_pregressa
@@ -25,7 +28,7 @@ class Paziente(Utilizzatore):
         with open('File/Pazienti.pickle', 'wb') as f:
             pickle.dump(pazienti, f, pickle.HIGHEST_PROTOCOL)
 
-#Ritorna un dizionario con le informazioni di Paziente
+    # Ritorna un dizionario con le informazioni di Paziente
     def getInfoPaziente(self):
         info = self.getInfoUtilizzatore()
         info["prenotazioni"] = self.prenotazioni
@@ -33,7 +36,7 @@ class Paziente(Utilizzatore):
         info["malattia_pregressa"] = self.malattia_pregressa
         return info
 
-#Ricerca paziente per codice fiscale
+    # Ricerca paziente per codice fiscale
     def ricercaUtilizzatoreCF(self, CF):
         if os.path.isfile('File/Pazienti.pickle'):
             with open('File/Pazienti.pickle', 'rb') as f:
@@ -42,7 +45,7 @@ class Paziente(Utilizzatore):
         else:
             return None
 
-#Ricerca paziente per id
+    # Ricerca paziente per id
     def ricercaUtilizzatoreId(self, id):
         if os.path.isfile('File/Pazienti.pickle'):
             with open('File/Pazienti.pickle', 'rb') as f:
@@ -51,7 +54,7 @@ class Paziente(Utilizzatore):
         else:
             return None
 
-#Rimozione di un paziente mediante il suo id
+    # Rimozione di un paziente mediante il suo id
     def rimuoviPaziente(self):
         if os.path.isfile('File/Pazienti.pickle'):
             with open('File/Pazienti.pickle', 'rb') as f:
@@ -65,14 +68,14 @@ class Paziente(Utilizzatore):
         self.malattia_pregressa = False
         del self
 
-#Metodi getter degli attributi contenuti in Paziente (non ereditati da Utilizzatore)
+    # Metodi getter degli attributi contenuti in Paziente (non ereditati da Utilizzatore)
     def isAllergia(self):
         return self.allergia
 
     def isMalattia_pregressa(self):
         return self.malattia_pregressa
 
-#Metodi setter degli attributi contenuti in Paziente (non ereditati da Utilizzatore)
+    # Metodi setter degli attributi contenuti in Paziente (non ereditati da Utilizzatore)
 
     def setMalattia_pregressa(self, malattia_pregressa):
         self.malattia_pregressa = malattia_pregressa
@@ -80,10 +83,8 @@ class Paziente(Utilizzatore):
     def setAllergia(self, allergia):
         self.allergia = allergia
 
-
-#Modifica di un paziente
+    # Modifica di un paziente
     def modificaPaziente(self, password, telefono, mail, indirizzo, nota, malattia_pregressa, allergia):
         self.modificaUtilizzatore(password, telefono, mail, indirizzo, nota)
         self.malattia_pregressa = malattia_pregressa
         self.allergia = allergia
-

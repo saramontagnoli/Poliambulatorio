@@ -12,7 +12,7 @@ class VistaInserisciPazienti(QWidget):
         self.callback = callback
         self.v_layout = QVBoxLayout()
         self.qlines = {}
-        #self.add_info_text("id", "Id")
+        # self.add_info_text("id", "Id")
         self.add_info_text("password", "Password")
         self.add_info_text("nome", "Nome")
         self.add_info_text("cognome", "Cognome")
@@ -25,7 +25,6 @@ class VistaInserisciPazienti(QWidget):
         self.add_info_text("nota", "Nota")
         self.add_info_text("allergia", "Allergia")
         self.add_info_text("malattia_pregressa", "Malattia pregressa")
-
 
         btn_ok = QPushButton("OK")
         btn_ok.clicked.connect(self.aggiungi_paziente)
@@ -47,28 +46,34 @@ class VistaInserisciPazienti(QWidget):
         except:
             QMessageBox.critical(self, 'Errore', 'L id non sembra un numero valido.', QMessageBox.Ok, QMessageBox.Ok)
             return """
+        print("Inizio di aggiungi paziente?? OK")
         for value in self.qlines.values():
             if isinstance(value, QLineEdit):
                 if value.text() == "":
                     QMessageBox.critical(self, 'Errore', 'Per favore, inserisci tutte le informazioni richieste',
                                          QMessageBox.Ok, QMessageBox.Ok)
                     return
+        print("Sto per creare il paziente? Si ma No")
         paziente = Paziente()
+        print("Paziente inizializzato? NO")
         try:
-            nota = self.qlines["nota"].text()
+            password = self.qlines["password"].text()
             nome = self.qlines["nome"].text()
             cognome = self.qlines["cognome"].text()
-            password = self.qlines["password"].text()
-            CF = self.qlines["CF"].text()
             data_nascita = datetime.strptime(self.qlines["data_nascita"].text(), '%d/%m/%Y')
+            CF = self.qlines["CF"].text()
             mail = self.qlines["mail"].text()
             telefono = self.qlines["telefono"].text()
-            genere =  self.qlines["genere"].text()
+            genere = self.qlines["genere"].text()
             indirizzo = self.qlines["indirizzo"].text()
+            nota = self.qlines["nota"].text()
             allergia = self.qlines["allergia"].text()
             malattia_pregressa = self.qlines["malattia_pregressa"].text()
 
-            paziente.setInfoPaziente(nome, cognome, password, data_nascita, CF, telefono, genere, mail, indirizzo, nota, allergia, malattia_pregressa)
+            print("Dati inseriti?")
+            paziente.setInfoPaziente(self, nome, cognome, password, data_nascita, CF, telefono, genere, mail, indirizzo, nota,
+                                     allergia, malattia_pregressa)
+            print(paziente)
         except:
             QMessageBox.critical(self, 'Errore', 'Controlla bene i dati inseriti',
                                  QMessageBox.Ok, QMessageBox.Ok)

@@ -1,3 +1,4 @@
+import pickle
 import sys
 
 from PyQt5.QtWidgets import QApplication
@@ -9,6 +10,11 @@ from Viste.VistaLogin import VistaLogin
 from Viste.VistaInserisciPazienti import VistaInserisciPazienti
 #main con viste
 if __name__ == '__main__':
+    empty_list = []
+    # Open the pickle file in 'wb' so that you can write and dump the empty variable
+    openfile = open('File/Pazienti.pickle', 'wb')
+    pickle.dump(empty_list, openfile)
+    openfile.close()
     app = QApplication(sys.argv)
     form = VistaLogin()
     form.show()
