@@ -17,7 +17,7 @@ class Utilizzatore:
         self.cognome = ""
         self.nome = ""
         print("Sto per impostare la data")
-        self.data_nascita = datetime.date(year = 2001,month = 1,day = 1)
+        self.data_nascita = ""
         print("Data impostata")
         self.CF = ""
         print("Imposta telefono?")
@@ -31,11 +31,14 @@ class Utilizzatore:
 
     def setInfoUtilizzatore(self, password, cognome, nome, data_nascita, CF, telefono, genere, mail, indirizzo,
                             nota):
+        print("Sto settando Info Util.")
         self.id = 1
+        print("ID è 1")
         self.password = password
         self.cognome = cognome
         self.nome = nome
         self.data_nascita = data_nascita
+        print("Data impostata")
         self.CF = CF
         self.telefono = telefono
         self.genere = genere

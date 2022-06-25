@@ -53,9 +53,8 @@ class VistaInserisciPazienti(QWidget):
                     QMessageBox.critical(self, 'Errore', 'Per favore, inserisci tutte le informazioni richieste',
                                          QMessageBox.Ok, QMessageBox.Ok)
                     return
-        print("Sto per creare il paziente? Si ma No")
         paziente = Paziente()
-        print("Paziente inizializzato? NO")
+        print("Paziente inizializzato (vuoto)")
         try:
             password = self.qlines["password"].text()
             nome = self.qlines["nome"].text()
@@ -70,9 +69,10 @@ class VistaInserisciPazienti(QWidget):
             allergia = self.qlines["allergia"].text()
             malattia_pregressa = self.qlines["malattia_pregressa"].text()
 
-            print("Dati inseriti?")
-            paziente.setInfoPaziente(self, nome, cognome, password, data_nascita, CF, telefono, genere, mail, indirizzo, nota,
+            print("Dati inseriti")
+            paziente.setInfoPaziente(nome, cognome, password, data_nascita, CF, telefono, genere, mail, indirizzo, nota,
                                      allergia, malattia_pregressa)
+            print("setInfoPaziente con successo")
             print(paziente)
         except:
             QMessageBox.critical(self, 'Errore', 'Controlla bene i dati inseriti',

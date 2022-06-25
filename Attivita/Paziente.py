@@ -17,7 +17,9 @@ class Paziente(Utilizzatore):
     # Set delle informazioni del paziente (richiamo la superclasse che è Utilizzatore)
     def setInfoPaziente(self, nome, cognome, password, data_nascita, CF, telefono, genere, mail, indirizzo, nota,
                         allergia, malattia_pregressa):
+        print("Provo a settare utilizzatore")
         self.setInfoUtilizzatore(nome, cognome, password, data_nascita, CF, telefono, genere, mail, indirizzo, nota)
+        print("setInfoUtilizzatore completato con successo")
         self.allergia = allergia
         self.malattia_pregressa = malattia_pregressa
         pazienti = {}
@@ -25,6 +27,7 @@ class Paziente(Utilizzatore):
             with open('File/Pazienti.pickle', 'rb') as f:
                 pazienti = pickle.load(f)
         pazienti[id] = self
+        print("Nuovo in dict")
         with open('File/Pazienti.pickle', 'wb') as f:
             pickle.dump(pazienti, f, pickle.HIGHEST_PROTOCOL)
 
