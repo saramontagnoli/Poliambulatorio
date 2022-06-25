@@ -12,9 +12,10 @@ from Viste.VistaInserisciPazienti import VistaInserisciPazienti
 if __name__ == '__main__':
     empty_list = []
     # Open the pickle file in 'wb' so that you can write and dump the empty variable
-    openfile = open('File/Pazienti.pickle', 'wb')
-    pickle.dump(empty_list, openfile)
-    openfile.close()
+    # openfile = open('File/Pazienti.pickle', 'wb')
+    # pickle.dump(empty_list, openfile)
+    # openfile.close()
+
     app = QApplication(sys.argv)
     form = VistaLogin()
     form.show()
