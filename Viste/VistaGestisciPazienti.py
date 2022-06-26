@@ -8,18 +8,18 @@ from Attivita.Paziente import Paziente
 from Viste.VistaPaziente import VistaPaziente
 from Viste.VistaInserisciPazienti import VistaInserisciPazienti
 
-
+#Interfaccia grafica per la gestione dei Pazienti (da parte dell'admin)
 class VistaGestisciPazienti(QWidget):
 
     def __init__(self, parent=None):
+        #stampa lista dei pazienti
         super(VistaGestisciPazienti, self).__init__(parent)
         h_layout = QHBoxLayout()
-        print("TEST PRE CARICAMENTO")
         self.list_view = QListView()
         self.update_ui()
-        print("DOPO CARICAMENTO")
         h_layout.addWidget(self.list_view)
 
+        #QPushButton per un nuovo Paziente o visualizzazione dati
         buttons_layout = QVBoxLayout()
         open_button = QPushButton('Apri')
         open_button.clicked.connect(self.show_selected_info)
@@ -35,13 +35,14 @@ class VistaGestisciPazienti(QWidget):
         self.resize(600, 300)
         self.setWindowTitle("Gestisci Pazienti")
 
+    #Load file Pazienti nel dizionario
     def load_pazienti(self):
-        #print ("Caricamento in corso")
         if os.path.isfile('File/Pazienti.pickle'):
             with open('File/Pazienti.pickle', 'rb') as f:
                 current = dict(pickle.load(f))
                 self.pazienti.extend(current.values())
 
+    #Stampa della lista aggiornata nella finestra dei pazienti
     def update_ui(self):
         self.pazienti = []
         self.load_pazienti()
@@ -57,6 +58,7 @@ class VistaGestisciPazienti(QWidget):
             listview_model.appendRow(item)
         self.list_view.setModel(listview_model)
 
+    #Permette la visualizzazione delle informazioni di un particolare paziente
     def show_selected_info(self):
         try:
             selected = self.list_view.selectedIndexes()[0].data()
@@ -71,6 +73,7 @@ class VistaGestisciPazienti(QWidget):
             print("INDEX ERROR")
             return
 
+    #Richiama la vista per l'inserimento di un nuovo paziente
     def show_new(self):
         self.inserisci_paziente = VistaInserisciPazienti(callback=self.update_ui)
         self.inserisci_paziente.show()
