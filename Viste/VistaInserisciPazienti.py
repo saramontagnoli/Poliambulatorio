@@ -1,6 +1,7 @@
 from datetime import datetime
 
-from PyQt5.QtWidgets import QWidget, QVBoxLayout, QLabel, QLineEdit, QPushButton, QMessageBox
+from PyQt5 import QtCore
+from PyQt5.QtWidgets import QWidget, QVBoxLayout, QLabel, QLineEdit, QPushButton, QMessageBox, QCheckBox, QRadioButton
 
 from Attivita.Paziente import Paziente
 
@@ -21,11 +22,13 @@ class VistaInserisciPazienti(QWidget):
         self.add_info_text("CF", "Codice Fiscale")
         self.add_info_text("mail", "Email")
         self.add_info_text("telefono", "Telefono")
-        self.add_info_text("genere", "Genere")
+        self.add_info_text("genere", "Genere(M,F,A)")
         self.add_info_text("indirizzo", "Indirizzo")
         self.add_info_text("nota", "Nota")
-        self.add_info_text("allergia", "Allergia")
-        self.add_info_text("malattia_pregressa", "Malattia pregressa")
+        self.add_checkbox("allergia", "Allergia")
+        self.add_checkbox("malattia_pregressa", "Malattia pregressa")
+        #self.add_info_text("allergia", "Allergia")
+        #self.add_info_text("malattia_pregressa", "Malattia pregressa")
 
         btn_ok = QPushButton("OK")
         btn_ok.clicked.connect(self.aggiungi_paziente)
@@ -34,6 +37,19 @@ class VistaInserisciPazienti(QWidget):
 
         self.setLayout(self.v_layout)
         self.setWindowTitle("Nuovo paziente")
+
+    def add_checkbox(self, nome, label):
+        self.checkbox = QCheckBox(label, self)
+        self.checkbox.resize(320,40)
+        self.qlines[nome] = self.checkbox
+        self.v_layout.addWidget(self.checkbox)
+        self.checkbox.stateChanged.connect(self.clickBox)
+
+    def clickBox(self, state):
+        if state == QtCore.Qt.Checked:
+            return True
+        else:
+            return False
 
     #Prelevo le informazioni scritte nelle caselle di testo
     def add_info_text(self, nome, label):
