@@ -12,6 +12,7 @@ class VistaInserisciPazienti(QWidget):
         self.callback = callback
         self.v_layout = QVBoxLayout()
         self.qlines = {}
+        #Caselle di testo per inserimento informazioni del paziente
         self.add_info_text("id", "Id")
         self.add_info_text("password", "Password")
         self.add_info_text("nome", "Nome")
@@ -34,19 +35,22 @@ class VistaInserisciPazienti(QWidget):
         self.setLayout(self.v_layout)
         self.setWindowTitle("Nuovo paziente")
 
+    #Prelevo le informazioni scritte nelle caselle di testo
     def add_info_text(self, nome, label):
         self.v_layout.addWidget(QLabel(label))
         current_text = QLineEdit(self)
         self.qlines[nome] = current_text
         self.v_layout.addWidget(current_text)
 
+    #Aggiunta di un nuovo paziente
     def aggiungi_paziente(self):
+        #controllo ID
         try:
             id = int(self.qlines["id"].text())
         except:
             QMessageBox.critical(self, 'Errore', 'L id non sembra un numero valido.', QMessageBox.Ok, QMessageBox.Ok)
             return
-        print("Inizio di aggiungi paziente?? OK")
+
         for value in self.qlines.values():
             if isinstance(value, QLineEdit):
                 if value.text() == "":
@@ -54,7 +58,8 @@ class VistaInserisciPazienti(QWidget):
                                          QMessageBox.Ok, QMessageBox.Ok)
                     return
         paziente = Paziente()
-        print("Paziente inizializzato (vuoto)")
+
+        #Controllo delle caselle di testo (devono essere tutte riempite)
         try:
             password = self.qlines["password"].text()
             nome = self.qlines["nome"].text()
@@ -69,11 +74,9 @@ class VistaInserisciPazienti(QWidget):
             allergia = self.qlines["allergia"].text()
             malattia_pregressa = self.qlines["malattia_pregressa"].text()
 
-            print("Dati inseriti")
             paziente.setInfoPaziente(id, nome, cognome, password, data_nascita, CF, telefono, genere, mail, indirizzo, nota,
                                      allergia, malattia_pregressa)
-            print("setInfoPaziente con successo")
-            print(paziente)
+
         except:
             QMessageBox.critical(self, 'Errore', 'Controlla bene i dati inseriti',
                                  QMessageBox.Ok, QMessageBox.Ok)

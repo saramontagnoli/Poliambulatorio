@@ -15,27 +15,23 @@ class VistaLogin(QWidget):
         grid_layout.addWidget(self.user_obj, 0, 1)
         label2 = QLabel('<font size="8"> Password </font>')
         self.user_pwd = QLineEdit(self)
-        # impostazioni della visibilita password
+        #impostazioni della visibilita password
         self.user_pwd.setEchoMode(QLineEdit.Password)
         grid_layout.addWidget(label2, 1, 0)
         grid_layout.addWidget(self.user_pwd, 1, 1)
-        # salvataggio in stringa
-        # password = self.user_pwd.text()
-        # print("Password: " + str(password))
         grid_layout.addWidget(self.get_generic_button("Login", self.go_login), 2, 0, 2, 2)
         self.setLayout(grid_layout)
 
-    # Funzionalità del bottone
+    # Funzionalità del pulsante di Login
     def get_generic_button(self, titolo, on_click):
         button = QPushButton(titolo)
         button.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
         button.clicked.connect(on_click)
         return button
 
+    #Rimando al controllo username e pwd per il login
     def go_login(self):
         username = self.user_obj.text()
         password = self.user_pwd.text()
-        print("Username: " + username)
-        print("Password: " + password)
 
         GestoreAccesso.login(self, username, password)
