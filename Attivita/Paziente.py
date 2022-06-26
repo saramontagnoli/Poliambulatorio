@@ -18,7 +18,7 @@ class Paziente(Utilizzatore):
     def setInfoPaziente(self, id, nome, cognome, password, data_nascita, CF, telefono, genere, mail, indirizzo, nota,
                         allergia, malattia_pregressa):
         print("Provo a settare utilizzatore")
-        self.setInfoUtilizzatore(password, cognome, nome, data_nascita, CF, telefono, genere, mail, indirizzo,
+        self.setInfoUtilizzatore(id, password, cognome, nome, data_nascita, CF, telefono, genere, mail, indirizzo,
                             nota)
         print("setInfoUtilizzatore completato con successo")
         self.allergia = allergia
@@ -27,7 +27,7 @@ class Paziente(Utilizzatore):
         if os.path.isfile('File/Pazienti.pickle'):
             with open('File/Pazienti.pickle', 'rb') as f:
                 pazienti = pickle.load(f)
-        pazienti[id] = self
+        pazienti[self.id] = self
         print("Nuovo in dict")
         with open('File/Pazienti.pickle', 'wb') as f:
             pickle.dump(pazienti, f, pickle.HIGHEST_PROTOCOL)
