@@ -2,7 +2,7 @@ from PyQt5.QtWidgets import QWidget, QGridLayout, QPushButton, QSizePolicy
 
 class VistaHomePaziente(QWidget):
 
-    #Vista che rappresenta la home del paziente con i relativi bottoni
+    #Vista che rappresenta la home del paziente con i relativi pulsanti
     def __init__(self, parent = None):
         super(VistaHomePaziente, self).__init__(parent)
         grid_layout = QGridLayout()
@@ -13,7 +13,7 @@ class VistaHomePaziente(QWidget):
         self.resize(400, 300)
         self.setWindowTitle("Paziente")
 
-    #Funzione che crea i bottoni presenti nella home
+    #Funzione che crea i ulsanti presenti nella home
     def get_generic_button(self, titolo, on_click):
         button = QPushButton(titolo)
         button.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
