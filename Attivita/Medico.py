@@ -10,6 +10,7 @@ class Medico(Utilizzatore):
         super().__init__()
         self.abilitazione = ""
 
+
     def setInfoMedico(self, abilitazione, password, cognome, nome, data_nascita, CF, telefono, genere, mail, indirizzo,
                       nota):
         self.setInfoUtilizzatore(password=password, cognome=cognome, nome=nome, data_nascita=data_nascita, CF=CF,
