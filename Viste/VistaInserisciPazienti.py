@@ -12,7 +12,7 @@ class VistaInserisciPazienti(QWidget):
         self.callback = callback
         self.v_layout = QVBoxLayout()
         self.qlines = {}
-        # self.add_info_text("id", "Id")
+        self.add_info_text("id", "Id")
         self.add_info_text("password", "Password")
         self.add_info_text("nome", "Nome")
         self.add_info_text("cognome", "Cognome")
@@ -41,11 +41,11 @@ class VistaInserisciPazienti(QWidget):
         self.v_layout.addWidget(current_text)
 
     def aggiungi_paziente(self):
-        """try:
+        try:
             id = int(self.qlines["id"].text())
         except:
             QMessageBox.critical(self, 'Errore', 'L id non sembra un numero valido.', QMessageBox.Ok, QMessageBox.Ok)
-            return """
+            return
         print("Inizio di aggiungi paziente?? OK")
         for value in self.qlines.values():
             if isinstance(value, QLineEdit):
@@ -70,7 +70,7 @@ class VistaInserisciPazienti(QWidget):
             malattia_pregressa = self.qlines["malattia_pregressa"].text()
 
             print("Dati inseriti")
-            paziente.setInfoPaziente(nome, cognome, password, data_nascita, CF, telefono, genere, mail, indirizzo, nota,
+            paziente.setInfoPaziente(id, nome, cognome, password, data_nascita, CF, telefono, genere, mail, indirizzo, nota,
                                      allergia, malattia_pregressa)
             print("setInfoPaziente con successo")
             print(paziente)

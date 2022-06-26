@@ -3,14 +3,14 @@ from abc import abstractmethod
 
 
 class Utilizzatore:
-    def incrementaId(self):
-        self.incrementaId.id += 1
-        return self.incrementaId.id
+    #def incrementaId(self):
+     #   self.incrementaId.id += 1
+      #  return self.incrementaId.id
 
     incrementaId.id = 0
 
     def __init__(self):
-         # self.id = self.incrementaId()
+        #self.id = self.incrementaId()
         print("Sto creando l'utilizzatore")
         self.id = -1
         self.password = ""

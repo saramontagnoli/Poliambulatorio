@@ -15,10 +15,11 @@ class Paziente(Utilizzatore):
         self.malattia_pregressa = False
 
     # Set delle informazioni del paziente (richiamo la superclasse che è Utilizzatore)
-    def setInfoPaziente(self, nome, cognome, password, data_nascita, CF, telefono, genere, mail, indirizzo, nota,
+    def setInfoPaziente(self, id, nome, cognome, password, data_nascita, CF, telefono, genere, mail, indirizzo, nota,
                         allergia, malattia_pregressa):
         print("Provo a settare utilizzatore")
-        self.setInfoUtilizzatore(nome, cognome, password, data_nascita, CF, telefono, genere, mail, indirizzo, nota)
+        self.setInfoUtilizzatore(password, cognome, nome, data_nascita, CF, telefono, genere, mail, indirizzo,
+                            nota)
         print("setInfoUtilizzatore completato con successo")
         self.allergia = allergia
         self.malattia_pregressa = malattia_pregressa
