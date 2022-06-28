@@ -2,6 +2,7 @@ from PyQt5.QtWidgets import QWidget, QVBoxLayout, QLabel, QSpacerItem, QSizePoli
 
 from Attivita.Medico import Medico
 
+
 class VistaMedico(QWidget):
 
     def __init__(self, medico, elimina_callback):
@@ -13,8 +14,8 @@ class VistaMedico(QWidget):
         info = {}
 
         if isinstance(medico, Medico):
-             nome = f"Medico { medico.id }"
-             info = medico.getInfoMedico()
+            nome = f"Medico {medico.id}"
+            info = medico.getInfoMedico()
 
         label_nome = QLabel(nome)
         font_nome = label_nome.font()
@@ -24,7 +25,7 @@ class VistaMedico(QWidget):
 
         v_layout.addItem(QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding))
 
-        #Si scrivono i vari dati del medico selezionato
+        # Si scrivono i vari dati del medico selezionato
         v_layout.addWidget(QLabel(f"Nome: {info['nome']}"))
         v_layout.addWidget(QLabel(f"Cognome: {info['cognome']}"))
         v_layout.addWidget(QLabel(f"Data nascita: {info['data_nascita'].strftime('%Y-%m-%d')}"))
@@ -35,13 +36,13 @@ class VistaMedico(QWidget):
         v_layout.addWidget(QLabel(f"Indirizzo: {info['indirizzo']}"))
         v_layout.addWidget(QLabel(f"Abilitazione: {info['abilitazione']}"))
 
-        #Se la nota è presente si stampa
+        # Se la nota è presente si stampa
         if "nota" in info:
             v_layout.addWidget(QLabel(f"Nota: {info['nota']}"))
 
         v_layout.addItem(QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding))
 
-        #Creazione del bottone per eliminare il medico che si sta visualizzando
+        # Creazione del bottone per eliminare il medico che si sta visualizzando
         btn_elimina = QPushButton('Elimina')
         btn_elimina.clicked.connect(lambda: self.elimina_medico_click(medico))
         v_layout.addWidget(btn_elimina)
@@ -49,8 +50,7 @@ class VistaMedico(QWidget):
         self.setLayout(v_layout)
         self.setWindowTitle("Medico")
 
-
-    #Funzione per l'eliminazione del medico selezionato quando si preme il bottone
+    # Funzione per l'eliminazione del medico selezionato quando si preme il bottone
     def elimina_medico_click(self, medico):
         if isinstance(medico, Medico):
             messaggio = QMessageBox()
@@ -60,4 +60,3 @@ class VistaMedico(QWidget):
             medico.rimuoviMedico()
         self.elimina_callback()
         self.close()
-
