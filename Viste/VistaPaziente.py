@@ -39,16 +39,16 @@ class VistaPaziente(QWidget):
             v_layout.addWidget(QLabel(f"Nota: {info['nota']}"))
 
         #Se il cliente è allergico o ha una malattia repressa si stampa il rispettivo dato, altrimenti no
-        if bool(info['allergia']) == 1:
+        if bool(info['allergia']):
             v_layout.addWidget(QLabel(f"Allergia: {info['allergia']}"))
 
-        if bool(info['malattia_pregressa']) == 1:
+        if bool(info['malattia_pregressa']):
             v_layout.addWidget(QLabel(f"Malattia_pregressa: {info['malattia_pregressa']}"))
 
         v_layout.addItem(QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding))
 
         #Creazione del bottone per eliminare il paziente che si sta visualizzando
-        btn_elimina = QPushButton(v_layout)
+        btn_elimina = QPushButton('Elimina')
         btn_elimina.clicked.connect(lambda: self.elimina_paziente_click(paziente))
         v_layout.addWidget(btn_elimina)
 
@@ -56,9 +56,15 @@ class VistaPaziente(QWidget):
         self.setWindowTitle("Paziente")
 
         #Funzione per l'eliminazione del paziente selezionato quando si preme il bottone
-        def elimina_paziente_click(self, paziente):
+        """"def elimina_paziente_click(self, paziente):
             if isinstance(paziente, Paziente):
                 paziente.rimuoviPaziente()
             self.elimina_callback()
-            self.close()
+            self.close()"""
+
+    def elimina_paziente_click(self, paziente):
+        if isinstance(paziente, Paziente):
+                paziente.rimuoviPaziente()
+        self.elimina_callback()
+        self.close()
 
