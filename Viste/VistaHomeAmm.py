@@ -1,6 +1,7 @@
 from PyQt5.QtWidgets import QWidget, QGridLayout, QPushButton, QSizePolicy
 
 from Viste.VistaGestisciPazienti import VistaGestisciPazienti
+from Viste.VistaGestisciMedici import VistaGestisciMedici
 
 class VistaHomeAmm(QWidget):
 
@@ -33,7 +34,8 @@ class VistaHomeAmm(QWidget):
         self.vista_gestisci_pazienti.show()
 
     def go_medici(self):
-        pass
+        self.vista_gestisci_medici = VistaGestisciMedici()
+        self.vista_gestisci_medici.show()
 
     def go_statistiche(self):
         pass
