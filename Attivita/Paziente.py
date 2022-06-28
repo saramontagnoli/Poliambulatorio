@@ -28,7 +28,7 @@ class Paziente(Utilizzatore):
         if os.path.isfile('File/Pazienti.pickle'):
             with open('File/Pazienti.pickle', 'rb') as f:
                 pazienti = pickle.load(f)
-        pazienti[self.id] = self
+        pazienti[id] = self
         with open('File/Pazienti.pickle', 'wb') as f:
             pickle.dump(pazienti, f, pickle.HIGHEST_PROTOCOL)
 
