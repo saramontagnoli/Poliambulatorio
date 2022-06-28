@@ -1,4 +1,4 @@
-from PyQt5.QtWidgets import QWidget, QVBoxLayout, QLabel, QSpacerItem, QSizePolicy, QPushButton
+from PyQt5.QtWidgets import QWidget, QVBoxLayout, QLabel, QSpacerItem, QSizePolicy, QPushButton, QMessageBox
 
 from Attivita.Paziente import Paziente
 
@@ -27,7 +27,7 @@ class VistaPaziente(QWidget):
         #Si scrivono i vari dati del paziente selezionato
         v_layout.addWidget(QLabel(f"Nome: {info['nome']}"))
         v_layout.addWidget(QLabel(f"Cognome: {info['cognome']}"))
-        v_layout.addWidget(QLabel(f"Data nascita: {info['data_nascita']}"))
+        v_layout.addWidget(QLabel(f"Data nascita: {info['data_nascita'].strftime('%Y-%m-%d')}"))
         v_layout.addWidget(QLabel(f"CF: {info['CF']}"))
         v_layout.addWidget(QLabel(f"Telefono: {info['telefono']}"))
         v_layout.addWidget(QLabel(f"Genere: {info['genere']}"))
@@ -40,10 +40,10 @@ class VistaPaziente(QWidget):
 
         #Se il cliente è allergico o ha una malattia repressa si stampa il rispettivo dato, altrimenti no
         if bool(info['allergia']):
-            v_layout.addWidget(QLabel(f"Allergia: {info['allergia']}"))
+            v_layout.addWidget(QLabel(f"Allergia: Si"))
 
         if bool(info['malattia_pregressa']):
-            v_layout.addWidget(QLabel(f"Malattia_pregressa: {info['malattia_pregressa']}"))
+            v_layout.addWidget(QLabel(f"Malattia pregressa: Si"))
 
         v_layout.addItem(QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding))
 
@@ -55,16 +55,21 @@ class VistaPaziente(QWidget):
         self.setLayout(v_layout)
         self.setWindowTitle("Paziente")
 
-        #Funzione per l'eliminazione del paziente selezionato quando si preme il bottone
+
         """"def elimina_paziente_click(self, paziente):
             if isinstance(paziente, Paziente):
                 paziente.rimuoviPaziente()
             self.elimina_callback()
             self.close()"""
 
+    #Funzione per l'eliminazione del paziente selezionato quando si preme il bottone
     def elimina_paziente_click(self, paziente):
         if isinstance(paziente, Paziente):
-                paziente.rimuoviPaziente()
+            messaggio = QMessageBox()
+            messaggio.setWindowTitle("Eliminato")
+            messaggio.setText("Il paziente e' stato eliminato con successo. ")
+            messaggio.exec_()
+            paziente.rimuoviPaziente()
         self.elimina_callback()
         self.close()
 

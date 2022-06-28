@@ -71,7 +71,7 @@ class Utilizzatore:
         self.password = ""
         self.cognome = ""
         self.nome = ""
-        self.data_nascita = datetime.date(1970, 1, 1)
+        self.data_nascita = ""
         self.CF = ""
         self.telefono = 0
         self.genere = ""
