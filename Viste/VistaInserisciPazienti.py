@@ -2,6 +2,7 @@ from datetime import datetime
 
 from PyQt5 import QtCore
 from PyQt5.QtWidgets import QWidget, QVBoxLayout, QLabel, QLineEdit, QPushButton, QMessageBox, QCheckBox, QRadioButton
+#from PyQt5.uic.properties import QtWidgets
 
 from Attivita.Paziente import Paziente
 
@@ -87,8 +88,11 @@ class VistaInserisciPazienti(QWidget):
             genere = self.qlines["genere"].text()
             indirizzo = self.qlines["indirizzo"].text()
             nota = self.qlines["nota"].text()
-            allergia = self.qlines["allergia"].text()
-            malattia_pregressa = self.qlines["malattia_pregressa"].text()
+            allergia = self.qlines["allergia"].isChecked()
+            malattia_pregressa = self.qlines["malattia_pregressa"].isChecked()
+
+            #print(allergia)
+            #print(malattia_pregressa)
 
             paziente.setInfoPaziente(id, nome, cognome, password, data_nascita, CF, telefono, genere, mail, indirizzo, nota,
                                      allergia, malattia_pregressa)
