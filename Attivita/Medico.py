@@ -10,18 +10,17 @@ class Medico(Utilizzatore):
         super().__init__()
         self.abilitazione = ""
 
-
-    def setInfoMedico(self, abilitazione, password, cognome, nome, data_nascita, CF, telefono, genere, mail, indirizzo,
-                      nota):
-        self.setInfoUtilizzatore(password=password, cognome=cognome, nome=nome, data_nascita=data_nascita, CF=CF,
-                                 telefono=telefono, genere=genere, mail=mail, indirizzo=indirizzo, nota=nota)
+    def setInfoMedico(self, id, password, cognome, nome, data_nascita, CF, telefono, genere, mail, indirizzo, nota,
+                      abilitazione):
+        self.setInfoUtilizzatore(id, password, cognome, nome, data_nascita, CF,
+                                 telefono, genere, mail, indirizzo, nota)
         self.abilitazione = abilitazione
         medici = {}
-        if os.path.isfile('Dati/Medici.pickle'):
-            with open('Dati/Medici.pickle', 'rb') as f:
+        if os.path.isfile('File/Medici.pickle'):
+            with open('File/Medici.pickle', 'rb') as f:
                 medici = pickle.load(f)
         medici[id] = self
-        with open('Dati/Medici.pickle', 'wb') as f:
+        with open('File/Medici.pickle', 'wb') as f:
             pickle.dump(medici, f, pickle.HIGHEST_PROTOCOL)
 
     def getInfoMedico(self):
@@ -50,8 +49,8 @@ class Medico(Utilizzatore):
         self.abilitazione = abilitazione
 
     def rimuoviMedico(self):
-        if os.path.isfile('Dati/Medici.pickle'):
-            with open('Dati/Medici.pickle', 'wb+') as f:
+        if os.path.isfile('File/Medici.pickle'):
+            with open('File/Medici.pickle', 'wb+') as f:
                 medici = dict(pickle.load(f))
                 del medici[self.id]
                 pickle.dump(medici, f, pickle.HIGHEST_PROTOCOL)
