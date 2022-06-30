@@ -14,10 +14,10 @@ class VistaGestisciPazienti(QWidget):
     def __init__(self, parent=None):
         #stampa lista dei pazienti
         super(VistaGestisciPazienti, self).__init__(parent)
-        h_layout = QHBoxLayout()
+        self.h_layout = QHBoxLayout()
         self.list_view = QListView()
         self.update_ui()
-        h_layout.addWidget(self.list_view)
+        self.h_layout.addWidget(self.list_view)
         self.qlines = {}
 
         #QPushButton per un nuovo Paziente o visualizzazione dati
@@ -30,7 +30,7 @@ class VistaGestisciPazienti(QWidget):
         new_button.clicked.connect(self.show_new)
         buttons_layout.addWidget(new_button)
         buttons_layout.addStretch()
-        h_layout.addLayout(buttons_layout)
+        self.h_layout.addLayout(buttons_layout)
 
 #Casella di testo per la ricerca
         self.add_info_text("ricerca", "ricerca")
@@ -41,13 +41,13 @@ class VistaGestisciPazienti(QWidget):
         ricerca_CF.clicked.connect(self.ricerca_paziente)
         buttons_layout.addWidget(ricerca_CF)
         buttons_layout.addStretch()
-        h_layout.addLayout(buttons_layout)
+        self.h_layout.addLayout(buttons_layout)
 
         ricerca_ID = QPushButton('Ricerca ID')
         ricerca_ID.clicked.connect(self.ricerca_paziente)
         buttons_layout.addWidget(ricerca_ID)
         buttons_layout.addStretch()
-        h_layout.addLayout(buttons_layout)
+        self.h_layout.addLayout(buttons_layout)
 
         self.qlines["ricerca_CF"] = ricerca_CF
         self.h_layout.addWidget(ricerca_CF)
@@ -109,22 +109,4 @@ class VistaGestisciPazienti(QWidget):
         self.h_layout.addWidget(current_text)
 
     def ricerca_paziente(self):
-        paziente = Paziente()
-
-        #Controllo delle caselle di testo (devono essere tutte riempite)
-            password = self.qlines["password"].text()
-            nome = self.qlines["nome"].text()
-            cognome = self.qlines["cognome"].text()
-            data_nascita = datetime.strptime(self.qlines["data_nascita"].text(), '%d/%m/%Y')
-            CF = self.qlines["CF"].text()
-            mail = self.qlines["mail"].text()
-            telefono = self.qlines["telefono"].text()
-            genere = self.qlines["genere"].text()
-            indirizzo = self.qlines["indirizzo"].text()
-            nota = self.qlines["nota"].text()
-            allergia = self.qlines["allergia"].isChecked()
-            malattia_pregressa = self.qlines["malattia_pregressa"].isChecked()
-            return
-
-        self.callback()
-        self.close()
+        print("TEST")
