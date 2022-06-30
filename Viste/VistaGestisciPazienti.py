@@ -31,6 +31,25 @@ class VistaGestisciPazienti(QWidget):
         buttons_layout.addStretch()
         h_layout.addLayout(buttons_layout)
 
+#Casella di testo per la ricerca
+        self.h_layout.addWidget()
+        current_text = QLineEdit(self)
+        self.qlines["ricerca"] = current_text
+        self.h_layout.addWidget(current_text)
+
+#Pulsanti per la ricerca CF o ID
+        ricerca_CF = QPushButton('Ricerca CF')
+        ricerca_CF.clicked.connect(self.show_new)
+        buttons_layout.addWidget(ricerca_CF)
+        buttons_layout.addStretch()
+        h_layout.addLayout(buttons_layout)
+
+        ricerca_ID = QPushButton('Ricerca ID')
+        ricerca_ID.clicked.connect(self.show_new)
+        buttons_layout.addWidget(ricerca_ID)
+        buttons_layout.addStretch()
+        h_layout.addLayout(buttons_layout)
+
         self.setLayout(h_layout)
         self.resize(600, 300)
         self.setWindowTitle("Gestisci Pazienti")
