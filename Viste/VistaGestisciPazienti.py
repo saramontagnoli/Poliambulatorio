@@ -2,7 +2,7 @@ import os.path
 import pickle
 
 from PyQt5.QtGui import QStandardItemModel, QStandardItem
-from PyQt5.QtWidgets import QWidget, QHBoxLayout, QListView, QVBoxLayout, QPushButton, QLineEdit, QLabel
+from PyQt5.QtWidgets import QWidget, QHBoxLayout, QListView, QVBoxLayout, QPushButton, QLineEdit, QLabel, QMessageBox
 
 from Attivita.Paziente import Paziente
 from Viste.VistaPaziente import VistaPaziente
@@ -38,13 +38,13 @@ class VistaGestisciPazienti(QWidget):
 
 #Pulsanti per la ricerca CF o ID
         ricerca_CF = QPushButton('Ricerca CF')
-        ricerca_CF.clicked.connect(self.ricerca_paziente)
+        ricerca_CF.clicked.connect(self.ricerca_paziente_CF)
         buttons_layout.addWidget(ricerca_CF)
         buttons_layout.addStretch()
         self.h_layout.addLayout(buttons_layout)
 
         ricerca_ID = QPushButton('Ricerca ID')
-        ricerca_ID.clicked.connect(self.ricerca_paziente)
+        ricerca_ID.clicked.connect(self.ricerca_paziente_ID)
         buttons_layout.addWidget(ricerca_ID)
         buttons_layout.addStretch()
         self.h_layout.addLayout(buttons_layout)
@@ -108,5 +108,22 @@ class VistaGestisciPazienti(QWidget):
         self.qlines[nome] = current_text
         self.h_layout.addWidget(current_text)
 
-    def ricerca_paziente(self):
-        print("TEST")
+    def ricerca_paziente_CF(self):
+        f = 0
+        CF = self.qlines["ricerca"].text()
+        for paziente in pazienti.values():
+            if paziente.CF == CF:
+                f = 1
+                self.vista_paziente = VistaPaziente(paziente, elimina_callback=self.update_ui)
+                self.vista_paziente.show()
+
+        if f == 0 :
+            messaggio = QMessageBox()
+            messaggio.setWindowTitle("Non trovato")
+            messaggio.setText("Non è stato trovato nessun paziente con questo codice fiscale. ")
+            messaggio.exec_()
+
+
+
+    def ricerca_paziente_ID(self):
+        pass
