@@ -27,7 +27,8 @@ class VistaHomeAmm(QWidget):
 
     #Metodi onclick
     def go_prenotazioni(self):
-        pass
+        self.vista_gestisci_prenotazioni = VistaGestisciPrenotazioni()
+        self.vista_gestisci_prenotazioni.show()
 
     def go_pazienti(self):
         self.vista_gestisci_pazienti = VistaGestisciPazienti()
