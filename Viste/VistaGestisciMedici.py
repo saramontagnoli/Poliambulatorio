@@ -129,6 +129,7 @@ class VistaGestisciMedici(QWidget):
     #Ricerca di un particolare paziente mediante l'ID
     def ricerca_medico_ID(self):
         f = 0
+        #Controllo sull'ID (deve contenere solo numeri)
         try:
             ID = int(self.qlines["ricerca"].text())
         except:
