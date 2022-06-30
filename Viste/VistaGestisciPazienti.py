@@ -20,7 +20,7 @@ class VistaGestisciPazienti(QWidget):
         self.h_layout.addWidget(self.list_view)
         self.qlines = {}
 
-        #QPushButton per un nuovo Paziente o visualizzazione dati
+        #QPushButton per un nuovo Paziente o Visualizzazione dati
         buttons_layout = QVBoxLayout()
         open_button = QPushButton('Apri')
         open_button.clicked.connect(self.show_selected_info)
@@ -34,7 +34,6 @@ class VistaGestisciPazienti(QWidget):
 
 #Casella di testo per la ricerca
         self.add_info_text("ricerca", "ricerca")
-
 
 #Pulsanti per la ricerca CF o ID
         ricerca_CF = QPushButton('Ricerca CF')
@@ -102,21 +101,26 @@ class VistaGestisciPazienti(QWidget):
         self.inserisci_paziente = VistaInserisciPazienti(callback=self.update_ui)
         self.inserisci_paziente.show()
 
+    #Dati contenuti dentro la casella di testo della ricerca
     def add_info_text(self, nome, label):
         self.h_layout.addWidget(QLabel(label))
         current_text = QLineEdit(self)
         self.qlines[nome] = current_text
         self.h_layout.addWidget(current_text)
 
+    #Ricerca di un particolare paziente mediante il codice fiscale
     def ricerca_paziente_CF(self):
         f = 0
         CF = self.qlines["ricerca"].text()
+
+        #controllo il codice fiscale dei pazienti inseriti
         for paziente in self.pazienti:
             if paziente.CF == CF:
                 f = 1
                 self.vista_paziente = VistaPaziente(paziente, elimina_callback=self.update_ui)
                 self.vista_paziente.show()
 
+        #Se non trovo nessun paziente con quel CF stampo un pop-up di errore
         if f == 0 :
             messaggio = QMessageBox()
             messaggio.setWindowTitle("Non trovato")
@@ -124,16 +128,19 @@ class VistaGestisciPazienti(QWidget):
             messaggio.exec_()
 
 
-
+    #Ricerca di un particolare paziente mediante l'ID
     def ricerca_paziente_ID(self):
         f = 0
         ID = int(self.qlines["ricerca"].text())
+
+        #controllo l'ID dei pazienti inseriti
         for paziente in self.pazienti:
             if paziente.id == ID:
                 f = 1
                 self.vista_paziente = VistaPaziente(paziente, elimina_callback=self.update_ui)
                 self.vista_paziente.show()
 
+        #Se non trovo nessun paziente con quell'ID stampo un pop-up di errore
         if f == 0 :
             messaggio = QMessageBox()
             messaggio.setWindowTitle("Non trovato")

@@ -2,7 +2,7 @@ import os.path
 import pickle
 
 from PyQt5.QtGui import QStandardItemModel, QStandardItem
-from PyQt5.QtWidgets import QWidget, QHBoxLayout, QListView, QVBoxLayout, QPushButton
+from PyQt5.QtWidgets import QWidget, QHBoxLayout, QListView, QVBoxLayout, QPushButton, QLineEdit, QLabel, QMessageBox
 
 from Attivita.Medico import Medico
 from Viste.VistaMedico import VistaMedico
@@ -18,6 +18,7 @@ class VistaGestisciMedici(QWidget):
         self.list_view = QListView()
         self.update_ui()
         h_layout.addWidget(self.list_view)
+        self.qlines = {}
 
         #QPushButton per un nuovo Medico o visualizzazione dati
         buttons_layout = QVBoxLayout()
@@ -30,6 +31,27 @@ class VistaGestisciMedici(QWidget):
         buttons_layout.addWidget(new_button)
         buttons_layout.addStretch()
         h_layout.addLayout(buttons_layout)
+
+        #Casella di testo per la ricerca
+        self.add_info_text("ricerca", "ricerca")
+
+        #Pulsanti per la ricerca CF o ID
+        ricerca_CF = QPushButton('Ricerca CF')
+        ricerca_CF.clicked.connect(self.ricerca_medico_CF)
+        buttons_layout.addWidget(ricerca_CF)
+        buttons_layout.addStretch()
+        self.h_layout.addLayout(buttons_layout)
+
+        ricerca_ID = QPushButton('Ricerca ID')
+        ricerca_ID.clicked.connect(self.ricerca_medico_ID)
+        buttons_layout.addWidget(ricerca_ID)
+        buttons_layout.addStretch()
+        self.h_layout.addLayout(buttons_layout)
+
+        self.qlines["ricerca_CF"] = ricerca_CF
+        self.h_layout.addWidget(ricerca_CF)
+        self.qlines["ricerca_ID"] = ricerca_ID
+        self.h_layout.addWidget(ricerca_ID)
 
         self.setLayout(h_layout)
         self.resize(600, 300)
@@ -77,3 +99,48 @@ class VistaGestisciMedici(QWidget):
     def show_new(self):
         self.inserisci_medico = VistaInserisciMedici(callback=self.update_ui)
         self.inserisci_medico.show()
+
+    #Dati contenuti dentro la casella di testo della ricerca
+    def add_info_text(self, nome, label):
+        self.h_layout.addWidget(QLabel(label))
+        current_text = QLineEdit(self)
+        self.qlines[nome] = current_text
+        self.h_layout.addWidget(current_text)
+
+    #Ricerca di un particolare medico mediante il codice fiscale
+    def ricerca_medico_CF(self):
+        f = 0
+        CF = self.qlines["ricerca"].text()
+
+        #controllo il codice fiscale dei medici inseriti
+        for medico in self.medici:
+            if medico.CF == CF:
+                f = 1
+                self.vista_medico = VistaMedico(medico, elimina_callback=self.update_ui)
+                self.vista_medico.show()
+
+        #Se non trovo nessun medico con quel CF stampo un pop-up di errore
+        if f == 0 :
+            messaggio = QMessageBox()
+            messaggio.setWindowTitle("Non trovato")
+            messaggio.setText("Non è stato trovato nessun medico con questo codice fiscale. ")
+            messaggio.exec_()
+
+    #Ricerca di un particolare paziente mediante l'ID
+    def ricerca_medico_ID(self):
+        f = 0
+        ID = int(self.qlines["ricerca"].text())
+
+        #controllo l'ID dei medici inseriti
+        for medico in self.medici:
+            if medico.id == ID:
+                f = 1
+                self.vista_medico = VistaMedico(medico, elimina_callback=self.update_ui)
+                self.vista_medico.show()
+
+        #Se non trovo nessun medico con quell'ID stampo un pop-up di errore
+        if f == 0 :
+            messaggio = QMessageBox()
+            messaggio.setWindowTitle("Non trovato")
+            messaggio.setText("Non è stato trovato nessun medico con questo ID. ")
+            messaggio.exec_()
