@@ -130,9 +130,13 @@ class VistaGestisciPazienti(QWidget):
 
     #Ricerca di un particolare paziente mediante l'ID
     def ricerca_paziente_ID(self):
-        f = 0
-        ID = int(self.qlines["ricerca"].text())
+        try:
+            ID = int(self.qlines["ricerca"].text())
+        except:
+            QMessageBox.critical(self, 'Errore', 'L id non sembra un numero valido.', QMessageBox.Ok, QMessageBox.Ok)
+            return
 
+        f = 0
         #controllo l'ID dei pazienti inseriti
         for paziente in self.pazienti:
             if paziente.id == ID:

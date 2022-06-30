@@ -14,10 +14,10 @@ class VistaGestisciMedici(QWidget):
     def __init__(self, parent=None):
         #stampa lista dei medici
         super(VistaGestisciMedici, self).__init__(parent)
-        h_layout = QHBoxLayout()
+        self.h_layout = QHBoxLayout()
         self.list_view = QListView()
         self.update_ui()
-        h_layout.addWidget(self.list_view)
+        self.h_layout.addWidget(self.list_view)
         self.qlines = {}
 
         #QPushButton per un nuovo Medico o visualizzazione dati
@@ -30,7 +30,7 @@ class VistaGestisciMedici(QWidget):
         new_button.clicked.connect(self.show_new)
         buttons_layout.addWidget(new_button)
         buttons_layout.addStretch()
-        h_layout.addLayout(buttons_layout)
+        self.h_layout.addLayout(buttons_layout)
 
         #Casella di testo per la ricerca
         self.add_info_text("ricerca", "ricerca")
@@ -53,7 +53,7 @@ class VistaGestisciMedici(QWidget):
         self.qlines["ricerca_ID"] = ricerca_ID
         self.h_layout.addWidget(ricerca_ID)
 
-        self.setLayout(h_layout)
+        self.setLayout(self.h_layout)
         self.resize(600, 300)
         self.setWindowTitle("Gestisci Medici")
 
@@ -129,7 +129,11 @@ class VistaGestisciMedici(QWidget):
     #Ricerca di un particolare paziente mediante l'ID
     def ricerca_medico_ID(self):
         f = 0
-        ID = int(self.qlines["ricerca"].text())
+        try:
+            ID = int(self.qlines["ricerca"].text())
+        except:
+            QMessageBox.critical(self, 'Errore', 'L id non sembra un numero valido.', QMessageBox.Ok, QMessageBox.Ok)
+            return
 
         #controllo l'ID dei medici inseriti
         for medico in self.medici:
