@@ -143,7 +143,7 @@ class VistaGestisciMedici(QWidget):
                 self.vista_medico = VistaMedico(medico, elimina_callback=self.update_ui)
                 self.vista_medico.show()
 
-        #Se non trovo nessun medico con quell'ID stampo un pop-up di errore
+        #Se non trovo nessun medico con quell'ID stampo un pop-up errore
         if f == 0 :
             messaggio = QMessageBox()
             messaggio.setWindowTitle("Non trovato")
