@@ -2,7 +2,7 @@ import os.path
 import pickle
 
 from PyQt5.QtGui import QStandardItemModel, QStandardItem
-from PyQt5.QtWidgets import QWidget, QHBoxLayout, QListView, QVBoxLayout, QPushButton
+from PyQt5.QtWidgets import QWidget, QHBoxLayout, QListView, QVBoxLayout, QPushButton, QLineEdit, QLabel
 
 from Attivita.Paziente import Paziente
 from Viste.VistaPaziente import VistaPaziente
@@ -18,6 +18,7 @@ class VistaGestisciPazienti(QWidget):
         self.list_view = QListView()
         self.update_ui()
         h_layout.addWidget(self.list_view)
+        self.qlines = {}
 
         #QPushButton per un nuovo Paziente o visualizzazione dati
         buttons_layout = QVBoxLayout()
@@ -32,23 +33,27 @@ class VistaGestisciPazienti(QWidget):
         h_layout.addLayout(buttons_layout)
 
 #Casella di testo per la ricerca
-        self.h_layout.addWidget()
-        current_text = QLineEdit(self)
-        self.qlines["ricerca"] = current_text
-        self.h_layout.addWidget(current_text)
+        self.add_info_text("ricerca", "ricerca")
+
 
 #Pulsanti per la ricerca CF o ID
         ricerca_CF = QPushButton('Ricerca CF')
-        ricerca_CF.clicked.connect(self.show_new)
+        ricerca_CF.clicked.connect(self.ricerca_paziente)
         buttons_layout.addWidget(ricerca_CF)
         buttons_layout.addStretch()
         h_layout.addLayout(buttons_layout)
 
         ricerca_ID = QPushButton('Ricerca ID')
-        ricerca_ID.clicked.connect(self.show_new)
+        ricerca_ID.clicked.connect(self.ricerca_paziente)
         buttons_layout.addWidget(ricerca_ID)
         buttons_layout.addStretch()
         h_layout.addLayout(buttons_layout)
+
+        self.qlines["ricerca_CF"] = ricerca_CF
+        self.h_layout.addWidget(ricerca_CF)
+        self.qlines["ricerca_ID"] = ricerca_ID
+        self.h_layout.addWidget(ricerca_ID)
+
 
         self.setLayout(h_layout)
         self.resize(600, 300)
@@ -96,3 +101,30 @@ class VistaGestisciPazienti(QWidget):
     def show_new(self):
         self.inserisci_paziente = VistaInserisciPazienti(callback=self.update_ui)
         self.inserisci_paziente.show()
+
+    def add_info_text(self, nome, label):
+        self.h_layout.addWidget(QLabel(label))
+        current_text = QLineEdit(self)
+        self.qlines[nome] = current_text
+        self.h_layout.addWidget(current_text)
+
+    def ricerca_paziente(self):
+        paziente = Paziente()
+
+        #Controllo delle caselle di testo (devono essere tutte riempite)
+            password = self.qlines["password"].text()
+            nome = self.qlines["nome"].text()
+            cognome = self.qlines["cognome"].text()
+            data_nascita = datetime.strptime(self.qlines["data_nascita"].text(), '%d/%m/%Y')
+            CF = self.qlines["CF"].text()
+            mail = self.qlines["mail"].text()
+            telefono = self.qlines["telefono"].text()
+            genere = self.qlines["genere"].text()
+            indirizzo = self.qlines["indirizzo"].text()
+            nota = self.qlines["nota"].text()
+            allergia = self.qlines["allergia"].isChecked()
+            malattia_pregressa = self.qlines["malattia_pregressa"].isChecked()
+            return
+
+        self.callback()
+        self.close()
