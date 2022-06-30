@@ -111,7 +111,7 @@ class VistaGestisciPazienti(QWidget):
     def ricerca_paziente_CF(self):
         f = 0
         CF = self.qlines["ricerca"].text()
-        for paziente in pazienti.values():
+        for paziente in pazienti:
             if paziente.CF == CF:
                 f = 1
                 self.vista_paziente = VistaPaziente(paziente, elimina_callback=self.update_ui)
@@ -126,4 +126,16 @@ class VistaGestisciPazienti(QWidget):
 
 
     def ricerca_paziente_ID(self):
-        pass
+        f = 0
+        ID = int(self.qlines["ricerca"].text())
+        for paziente in pazienti:
+            if paziente.id == ID:
+                f = 1
+                self.vista_paziente = VistaPaziente(paziente, elimina_callback=self.update_ui)
+                self.vista_paziente.show()
+
+        if f == 0 :
+            messaggio = QMessageBox()
+            messaggio.setWindowTitle("Non trovato")
+            messaggio.setText("Non è stato trovato nessun paziente con questo ID. ")
+            messaggio.exec_()
