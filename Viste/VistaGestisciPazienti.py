@@ -55,7 +55,7 @@ class VistaGestisciPazienti(QWidget):
         self.h_layout.addWidget(ricerca_ID)
 
 
-        self.setLayout(h_layout)
+        self.setLayout(self.h_layout)
         self.resize(600, 300)
         self.setWindowTitle("Gestisci Pazienti")
 
