@@ -63,7 +63,7 @@ class VistaGestisciPrenotazioni(QWidget):
         listview_model = QStandardItemModel(self.list_view)
         for prenotazione in self.prenotazioni:
             item = QStandardItem()
-            nome = f"{type(prenotazione).__name__} {prenotazione.id}"
+            nome = f"T T - {type(prenotazione).__name__} {prenotazione.id}"
             item.setText(nome)
             item.setEditable(False)
             font = item.font()
@@ -76,8 +76,14 @@ class VistaGestisciPrenotazioni(QWidget):
     def show_selected_info(self):
         try:
             selected = self.list_view.selectedIndexes()[0].data()
+            print(selected)
             tipo = selected.split("-")[1].strip().split(" ")[0]
-            id = int(selected.split("-")[1].strip().split(" ")[1])
+            print("Tipo: " + tipo)
+            print(selected)
+            id = (selected.split("-")[1].strip().split(" ")[1])
+            # stampa SOLO se id non riceve casting int
+            print("Id: " + id)
+            # crash qui?
             prenotazione = None
             if tipo == "Prenotazione":
                 prenotazione = Prenotazione().ricerca(id)

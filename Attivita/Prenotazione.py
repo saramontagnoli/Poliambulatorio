@@ -42,7 +42,7 @@ class Prenotazione:
         if os.path.isfile('File/Prenotazioni.pickle'):
             with open('File/Prenotazioni.pickle', 'rb') as f:
                 prenotazioni = dict(pickle.load(f))
-                return prenotazioni.get(id, None)
+            return prenotazioni.get(id, None)
         else:
             return None
 

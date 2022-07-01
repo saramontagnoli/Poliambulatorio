@@ -1,6 +1,6 @@
 from PyQt5.QtWidgets import QWidget, QVBoxLayout, QLabel, QSpacerItem, QSizePolicy, QPushButton, QMessageBox
 
-from Attivita.Paziente import Paziente
+
 from Attivita.Prenotazione import Prenotazione
 
 
