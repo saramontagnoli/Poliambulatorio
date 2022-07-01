@@ -37,6 +37,14 @@ class Prenotazione:
         with open('File/Prenotazioni.pickle', 'wb') as handle:
             pickle.dump(prenotazioni, handle, pickle.HIGHEST_PROTOCOL)
 
+        # Ricerca paziente per id
+    def ricerca(self, id):
+        if os.path.isfile('File/Prenotazioni.pickle'):
+            with open('File/Prenotazioni.pickle', 'rb') as f:
+                pazienti = dict(pickle.load(f))
+                return pazienti.get(id, None)
+        else:
+                return None
 
     #Definizione di tutti i metodi getter degli attributi di prenotazione
     def getId(self):
@@ -69,3 +77,5 @@ class Prenotazione:
 
     def setConclusa(self, conclusa):
         self.conclusa = conclusa
+
+

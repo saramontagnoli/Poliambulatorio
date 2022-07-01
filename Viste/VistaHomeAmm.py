@@ -2,10 +2,12 @@ from PyQt5.QtWidgets import QWidget, QGridLayout, QPushButton, QSizePolicy
 
 from Viste.VistaGestisciPazienti import VistaGestisciPazienti
 from Viste.VistaGestisciMedici import VistaGestisciMedici
+from Viste.VistaGestisciPrenotazioni import VistaGestisciPrenotazioni
+
 
 class VistaHomeAmm(QWidget):
 
-    #Pulsante con nome e relativo ONLICK, visualizzazione della finestra home del paziente
+    # Pulsante con nome e relativo ONLICK, visualizzazione della finestra home del paziente
     def __init__(self, parent=None):
         super(VistaHomeAmm, self).__init__(parent)
         grid_layout = QGridLayout()
@@ -18,14 +20,14 @@ class VistaHomeAmm(QWidget):
         self.resize(400, 300)
         self.setWindowTitle("ADMIN")
 
-    #Funzionalità del QPushButton
+    # Funzionalità del QPushButton
     def get_generic_button(self, titolo, on_click):
         button = QPushButton(titolo)
         button.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
         button.clicked.connect(on_click)
         return button
 
-    #Metodi onclick
+    # Metodi onclick
     def go_prenotazioni(self):
         self.vista_gestisci_prenotazioni = VistaGestisciPrenotazioni()
         self.vista_gestisci_prenotazioni.show()
