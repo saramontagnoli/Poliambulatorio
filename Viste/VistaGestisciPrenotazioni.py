@@ -63,7 +63,7 @@ class VistaGestisciPrenotazioni(QWidget):
         listview_model = QStandardItemModel(self.list_view)
         for prenotazione in self.prenotazioni:
             item = QStandardItem()
-            nome = f"{prenotazione.nome} {prenotazione.cognome} - {type(prenotazione).__name__} {prenotazione.id}"
+            nome = f"{type(prenotazione).__name__} {prenotazione.id}"
             item.setText(nome)
             item.setEditable(False)
             font = item.font()

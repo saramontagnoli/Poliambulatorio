@@ -16,30 +16,33 @@ class Prenotazione:
 
     def aggiungiPrenotazione(self, id, data, ora):
         self.id = id
+        print(id)
         self.data = data
+        print(data)
         self.ora = ora
-
+        print(ora)
         prenotazioni = {}
         # Apertura e scrittura su file della prenotazione
         if os.path.isfile('File/Prenotazioni.pickle'):
+            print("File aperto")
             with open('File/Prenotazioni.pickle', 'rb') as f:
                 prenotazioni = pickle.load(f)
         prenotazioni[id] = self
         with open('File/Prenotazioni.pickle', 'wb') as handle:
             pickle.dump(prenotazioni, handle, pickle.HIGHEST_PROTOCOL)
 
-        # Ritorna un dizionario con le informazioni di Prenotazione
-
+    # Ritorna un dizionario con le informazioni di Prenotazione
     def getInfoPrenotazione(self):
-        info = {"id": self.id, "data": self.data, "ora": self.ora, "scaduta": self.scaduta, "disdetta":self.disdetta, "conclusa":self.conclusa}
+        info = {"id": self.id, "data": self.data, "ora": self.ora, "scaduta": self.scaduta, "disdetta": self.disdetta,
+                "conclusa": self.conclusa}
         return info
 
     # Ricerca prenotazione per id
     def ricerca(self, id):
         if os.path.isfile('File/Prenotazioni.pickle'):
             with open('File/Prenotazioni.pickle', 'rb') as f:
-                pazienti = dict(pickle.load(f))
-                return pazienti.get(id, None)
+                prenotazioni = dict(pickle.load(f))
+                return prenotazioni.get(id, None)
         else:
             return None
 
