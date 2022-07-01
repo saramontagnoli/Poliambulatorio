@@ -28,8 +28,13 @@ class Prenotazione:
         with open('File/Prenotazioni.pickle', 'wb') as handle:
             pickle.dump(prenotazioni, handle, pickle.HIGHEST_PROTOCOL)
 
-        # Ricerca paziente per id
+        # Ritorna un dizionario con le informazioni di Prenotazione
 
+    def getInfoPrenotazione(self):
+        info = {"id": self.id, "data": self.data, "ora": self.ora, "scaduta": self.scaduta, "disdetta":self.disdetta, "conclusa":self.conclusa}
+        return info
+
+    # Ricerca prenotazione per id
     def ricerca(self, id):
         if os.path.isfile('File/Prenotazioni.pickle'):
             with open('File/Prenotazioni.pickle', 'rb') as f:
