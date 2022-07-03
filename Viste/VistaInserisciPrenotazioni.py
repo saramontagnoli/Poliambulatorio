@@ -55,10 +55,10 @@ class VistaInserisciPrenotazioni(QWidget):
         # Controllo delle caselle di testo (devono essere tutte riempite)
         try:
             data = datetime.strptime(self.qlines["data"].text(), '%d/%m/%Y')
-            # ora = datetime.strptime(self.qlines["ora"].text(), '%H:%M')
+            ora = datetime.strptime(self.qlines["ora"].text(), '%H:%M:%S')
             # ora = time.strftime(self.qlines["ora"].text(), '%H:%M')
             # print("Data: "+data)
-            prenotazione.aggiungiPrenotazione(id, data, 12)
+            prenotazione.aggiungiPrenotazione(id, data, ora)
             print("Prenotazione aggiunta")
         except:
             QMessageBox.critical(self, 'Errore', 'Controlla bene i dati inseriti',

@@ -55,6 +55,7 @@ class Paziente(Utilizzatore):
             with open('File/Pazienti.pickle', 'rb') as f:
                 pazienti = dict(pickle.load(f))
                 return pazienti.get(id, None)
+
         else:
             return None
 
