@@ -48,7 +48,7 @@ class Prenotazione:
     # Ricerca prenotazione per id
     def ricerca(self, id):
 
-        print("Sono in ricerca di Id. " + id)
+        print("Sono in ricerca di Id. [" + id+"]")
         if os.path.isfile('File/Prenotazioni.pickle'):
             with open('File/Prenotazioni.pickle', 'rb') as f:
                 print("File aperto")
