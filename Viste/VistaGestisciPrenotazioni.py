@@ -76,23 +76,14 @@ class VistaGestisciPrenotazioni(QWidget):
     def show_selected_info(self):
         try:
             selected = self.list_view.selectedIndexes()[0].data()
-            # print(selected)
             tipo = selected.split("-")[1].strip().split(" ")[0]
-            # tipo = "Prenotazione"
-            print("Tipo: " + tipo)
-            # print(selected)
-            id = (selected.split("-")[1].strip().split(" ")[1])
-
-            # stampa SOLO se id non riceve casting int
-            print("Id: [" + id+"]")
+            # print("Tipo: " + tipo)
+            id = int(selected.split("-")[1].strip().split(" ")[1])
+            # print("Id: [" + id.str+"]")
             prenotazione = None
-            # print(prenotazione)
 
             if tipo == "Prenotazione":
-                print("TIPO = PRENOTAZIONE. Avvio Ricerca")
-                # crash qui
                 prenotazione = Prenotazione().ricerca(id)
-                # print("getId restituisce "+prenotazione.getId())
             self.vista_prenotazione = VistaPrenotazione(prenotazione, elimina_callback=self.update_ui)
             self.vista_prenotazione.show()
         except IndexError:
