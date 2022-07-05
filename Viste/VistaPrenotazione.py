@@ -1,6 +1,6 @@
 from PyQt5.QtWidgets import QWidget, QVBoxLayout, QLabel, QSpacerItem, QSizePolicy, QPushButton, QMessageBox
 
-from Attivita.Paziente import Paziente
+
 from Attivita.Prenotazione import Prenotazione
 
 
@@ -55,9 +55,12 @@ class VistaPrenotazione(QWidget):
     def disdetta_prenotazione_click(self, prenotazione):
         if isinstance(prenotazione, Prenotazione):
             messaggio = QMessageBox()
-            messaggio.setWindowTitle("Eliminata")
-            messaggio.setText("La prenotazione e' stato eliminata con successo. ")
+            messaggio.setWindowTitle("Disdetta")
+            messaggio.setText("La prenotazione e' stato disdetta con successo. ")
             messaggio.exec_()
+            print(prenotazione.disdetta)
+            # TODO modificare per "sovrascrivere" su file lo stato della disdetta
             prenotazione.setDisdetta(True)
+            print(prenotazione.disdetta)
         self.elimina_callback()
         self.close()

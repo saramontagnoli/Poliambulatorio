@@ -1,4 +1,3 @@
-import datetime
 import os
 import pickle
 
@@ -8,11 +7,13 @@ class Prenotazione:
     # costruttore di Prenotazione
     def __init__(self):
         self.id = 0
-        self.data = datetime.date(1970, 1, 1)
-        self.ora = datetime.time(0, 0)
+        self.data = ""
+        self.ora = ""
         self.scaduta = False
         self.disdetta = False
         self.conclusa = False
+        self.st1 = "AB"
+        self.st2 = "BC"
 
     def aggiungiPrenotazione(self, id, data, ora):
         self.id = id
@@ -28,21 +29,26 @@ class Prenotazione:
             with open('File/Prenotazioni.pickle', 'rb') as f:
                 prenotazioni = pickle.load(f)
         prenotazioni[id] = self
-        with open('File/Prenotazioni.pickle', 'wb') as handle:
-            pickle.dump(prenotazioni, handle, pickle.HIGHEST_PROTOCOL)
+        with open('File/Prenotazioni.pickle', 'wb') as f:
+            pickle.dump(prenotazioni, f, pickle.HIGHEST_PROTOCOL)
 
     # Ritorna un dizionario con le informazioni di Prenotazione
     def getInfoPrenotazione(self):
-        info = {"id": self.id, "data": self.data, "ora": self.ora, "scaduta": self.scaduta, "disdetta": self.disdetta,
-                "conclusa": self.conclusa}
-        return info
+        return {
+            "id": self.id,
+            "data": self.data,
+            "ora": self.ora,
+            "scaduta": self.scaduta,
+            "disdetta": self.disdetta,
+            "conclusa": self.conclusa
+        }
 
     # Ricerca prenotazione per id
     def ricerca(self, id):
         if os.path.isfile('File/Prenotazioni.pickle'):
             with open('File/Prenotazioni.pickle', 'rb') as f:
                 prenotazioni = dict(pickle.load(f))
-                return prenotazioni.get(id, None)
+                return prenotazioni[id]
         else:
             return None
 
