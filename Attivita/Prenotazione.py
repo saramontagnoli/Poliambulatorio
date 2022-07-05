@@ -1,7 +1,5 @@
-import datetime
 import os
 import pickle
-import pprint
 
 
 class Prenotazione:
