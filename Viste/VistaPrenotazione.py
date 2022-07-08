@@ -58,9 +58,9 @@ class VistaPrenotazione(QWidget):
             messaggio.setWindowTitle("Disdetta")
             messaggio.setText("La prenotazione e' stato disdetta con successo. ")
             messaggio.exec_()
-            print(prenotazione.disdetta)
+            #print(prenotazione.disdetta)
             # TODO modificare per "sovrascrivere" su file lo stato della disdetta
-            prenotazione.setDisdetta(True)
+            prenotazione.disdiciPrenotazione()
             print(prenotazione.disdetta)
         self.elimina_callback()
         self.close()
