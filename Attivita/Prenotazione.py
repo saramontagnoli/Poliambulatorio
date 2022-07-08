@@ -91,13 +91,17 @@ class Prenotazione:
         print(data)
         self.ora = ora
         print(ora) """
-        self.disdetta = True
-        prenotazioni = {}
+        if(self.disdetta == False):
+            self.disdetta = True
+            prenotazioni = {}
         # Apertura e scrittura su file della prenotazione
-        if os.path.isfile('File/Prenotazioni.pickle'):
-            print("File aperto")
-            with open('File/Prenotazioni.pickle', 'rb') as f:
-                prenotazioni = pickle.load(f)
-        prenotazioni[self.id] = self
-        with open('File/Prenotazioni.pickle', 'wb') as f:
-            pickle.dump(prenotazioni, f, pickle.HIGHEST_PROTOCOL)
+            if os.path.isfile('File/Prenotazioni.pickle'):
+                print("File aperto")
+                with open('File/Prenotazioni.pickle', 'rb') as f:
+                    prenotazioni = pickle.load(f)
+            prenotazioni[self.id] = self
+            with open('File/Prenotazioni.pickle', 'wb') as f:
+                pickle.dump(prenotazioni, f, pickle.HIGHEST_PROTOCOL)
+            return True
+        else:
+            return False
