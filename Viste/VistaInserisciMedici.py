@@ -92,7 +92,7 @@ class VistaInserisciMedici(QWidget):
             #print(allergia)
             #print(malattia_pregressa)
 
-            medico.setInfoMedico(id, nome, cognome, password, data_nascita, CF, telefono, genere, mail, indirizzo, nota, abilitazione)
+            medico.setInfoMedico(id, password, cognome, nome, data_nascita, CF, telefono, genere, mail, indirizzo, nota, abilitazione)
 
         except:
             QMessageBox.critical(self, 'Errore', 'Controlla bene i dati inseriti',

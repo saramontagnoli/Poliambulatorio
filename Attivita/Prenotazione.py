@@ -1,5 +1,6 @@
 import os
 import pickle
+import datetime
 
 
 class Prenotazione:
@@ -83,3 +84,44 @@ class Prenotazione:
 
     def setConclusa(self, conclusa):
         self.conclusa = conclusa
+
+    def disdiciPrenotazione(self):
+        """self.id = id
+        print(id)
+        self.data = data
+        print(data)
+        self.ora = ora
+        print(ora) """
+        if(self.disdetta == False):
+            self.disdetta = True
+            prenotazioni = {}
+        # Apertura e scrittura su file della prenotazione
+            if os.path.isfile('File/Prenotazioni.pickle'):
+                print("File aperto")
+                with open('File/Prenotazioni.pickle', 'rb') as f:
+                    prenotazioni = pickle.load(f)
+            prenotazioni[self.id] = self
+            with open('File/Prenotazioni.pickle', 'wb') as f:
+                pickle.dump(prenotazioni, f, pickle.HIGHEST_PROTOCOL)
+            return True
+        else:
+            return False
+
+    """ def scadenzaPrenotazione(self):
+        if(self.scaduta == False):
+            if(self.data <= datetime.today()):
+                # and self.conclusa == False and self.disdetta == False
+                self.scaduta = True
+                print(self.scaduta)
+                prenotazioni = {}
+        # Apertura e scrittura su file della prenotazione
+                if os.path.isfile('File/Prenotazioni.pickle'):
+                    print("File aperto")
+                    with open('File/Prenotazioni.pickle', 'rb') as f:
+                        prenotazioni = pickle.load(f)
+                prenotazioni[self.id] = self
+                with open('File/Prenotazioni.pickle', 'wb') as f:
+                    pickle.dump(prenotazioni, f, pickle.HIGHEST_PROTOCOL)
+                    return True
+        else:
+            return False """
