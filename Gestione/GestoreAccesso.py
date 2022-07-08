@@ -39,7 +39,8 @@ class GestoreAccesso:
                 trovato = 1
                 #print(paziente.CF)
                 if(paziente.CF == username and paziente.password == password):
-                    self.vista_home = VistaHomePaziente()
+                    self.vista_home = VistaHomePaziente(paziente)
+                    VistaHomePaziente.paziente = paziente
                     self.vista_home.show()
 
 
