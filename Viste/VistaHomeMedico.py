@@ -2,7 +2,8 @@ from PyQt5.QtWidgets import QWidget, QGridLayout, QPushButton, QSizePolicy
 
 class VistaHomeMedico(QWidget):
 
-    def __init__(self, parent=None):
+    def __init__(self, medico, parent=None):
+        self.medico = medico
         super(VistaHomeMedico, self).__init__(parent)
         grid_layout = QGridLayout()
         grid_layout.addWidget(self.get_generic_button("Vedi Prenotazioni", self.go_prenotazioni), 0, 0)
@@ -12,7 +13,7 @@ class VistaHomeMedico(QWidget):
         self.setLayout(grid_layout)
         self.resize(400, 300)
         # vedere come mettere il nome del medico che ha fatto l'accesso
-        self.setWindowTitle("Nome_Medico")
+        self.setWindowTitle(f"{self.medico.nome} {self.medico.cognome} - {self.medico.id}")
 
     def get_generic_button(self, titolo, on_click):
         button = QPushButton(titolo)

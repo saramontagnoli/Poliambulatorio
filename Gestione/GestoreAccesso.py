@@ -27,7 +27,7 @@ class GestoreAccesso:
             for medico in self.medici:
                 if(medico.CF == username and medico.password == password):
                     trovato = 1
-                    self.vista_home = VistaHomeMedico()
+                    self.vista_home = VistaHomeMedico(medico)
                     self.vista_home.show()
         if trovato == 0:
             self.pazienti = []
