@@ -62,7 +62,7 @@ class VistaGestisciPrenotazioni(QWidget):
         self.load_prenotazioni()
         listview_model = QStandardItemModel(self.list_view)
         for prenotazione in self.prenotazioni:
-            #prenotazione.scadenzaPrenotazione()
+            prenotazione.scadenzaPrenotazione()
             item = QStandardItem()
             nome = f"{type(prenotazione).__name__} {prenotazione.id}"
             item.setText(nome)
@@ -71,7 +71,6 @@ class VistaGestisciPrenotazioni(QWidget):
             font.setPointSize(18)
             item.setFont(font)
             listview_model.appendRow(item)
-            #prenotazione.scadenzaPrenotazione()
         self.list_view.setModel(listview_model)
 
     # Permette la visualizzazione delle informazioni di una particolare prenotazione

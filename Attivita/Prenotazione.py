@@ -109,9 +109,11 @@ class Prenotazione:
         else:
             return False
 
-    """ def scadenzaPrenotazione(self):
+     def scadenzaPrenotazione(self):
         if(self.scaduta == False):
-            if(self.data <= datetime.today()):
+
+            data1 = datetime.strptime(self.data, '%d/%m/%y')
+            if(data1 <= datetime.today()):
                 # and self.conclusa == False and self.disdetta == False
                 self.scaduta = True
                 print(self.scaduta)
@@ -126,4 +128,4 @@ class Prenotazione:
                     pickle.dump(prenotazioni, f, pickle.HIGHEST_PROTOCOL)
                     return True
         else:
-            return False """
+            return False
