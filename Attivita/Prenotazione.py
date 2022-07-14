@@ -8,9 +8,8 @@ class Prenotazione:
     # costruttore di Prenotazione
     def __init__(self):
         self.id = 0
-        # self.data = datetime.datetime(1970, 1, 1)
-        self.data = ""
-        self.ora = ""
+        self.data = datetime.datetime(1970, 1, 1)
+        self.ora = datetime.time(0, 0, 0)
         self.id_paziente = ""
         self.id_medico = ""
         self.id_visita = ""
@@ -85,18 +84,11 @@ class Prenotazione:
         self.conclusa = conclusa
 
     def disdiciPrenotazione(self):
-        """self.id = id
-        print(id)
-        self.data = data
-        print(data)
-        self.ora = ora
-        print(ora) """
         if not self.disdetta:
             self.disdetta = True
             prenotazioni = {}
             # Apertura e scrittura su file della prenotazione
             if os.path.isfile('File/Prenotazioni.pickle'):
-                print("File aperto")
                 with open('File/Prenotazioni.pickle', 'rb') as f:
                     prenotazioni = pickle.load(f)
             prenotazioni[self.id] = self
@@ -108,19 +100,12 @@ class Prenotazione:
 
     def scadenzaPrenotazione(self):
         if not self.scaduta:
-            print("PROVA PRE FUNZIONE")
-            # data1 = datetime.strptime(self.data, '%d/%m/%y')
-            print("PROVA")
-            print(self.data)
-            print(datetime.datetime.today())
             if self.data <= datetime.datetime.today():
                 # and self.conclusa == False and self.disdetta == False
                 self.scaduta = True
-                print(self.scaduta)
                 prenotazioni = {}
                 # Apertura e scrittura su file della prenotazione
                 if os.path.isfile('File/Prenotazioni.pickle'):
-                    print("File aperto")
                     with open('File/Prenotazioni.pickle', 'rb') as f:
                         prenotazioni = pickle.load(f)
                 prenotazioni[self.id] = self
