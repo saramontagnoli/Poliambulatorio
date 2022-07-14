@@ -9,7 +9,6 @@ class Paziente(Utilizzatore):
     # Costruttore della classe Paziente
     def __init__(self):
         super().__init__()
-        print("Sto creando il paziente")
         self.prenotazioni = []
         self.allergia = False
         self.malattia_pregressa = False
