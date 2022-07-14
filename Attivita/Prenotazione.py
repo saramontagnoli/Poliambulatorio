@@ -10,11 +10,13 @@ class Prenotazione:
         self.id = 0
         self.data = ""
         self.ora = ""
+        self.id_paziente = ""
+        self.id_medico = ""
+        self.id_visita = ""
         self.scaduta = False
         self.disdetta = False
         self.conclusa = False
-        self.st1 = "AB"
-        self.st2 = "BC"
+        #aggiungere il referto, mora e ricevuta
 
     def aggiungiPrenotazione(self, id, data, ora):
         self.id = id

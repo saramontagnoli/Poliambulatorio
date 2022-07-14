@@ -64,7 +64,7 @@ class VistaGestisciPrenotazioni(QWidget):
         for prenotazione in self.prenotazioni:
             #prenotazione.scadenzaPrenotazione()
             item = QStandardItem()
-            nome = f"{prenotazione.st1} {prenotazione.st2} - {type(prenotazione).__name__} {prenotazione.id}"
+            nome = f"{type(prenotazione).__name__} {prenotazione.id}"
             item.setText(nome)
             item.setEditable(False)
             font = item.font()
@@ -78,9 +78,9 @@ class VistaGestisciPrenotazioni(QWidget):
     def show_selected_info(self):
         try:
             selected = self.list_view.selectedIndexes()[0].data()
-            tipo = selected.split("-")[1].strip().split(" ")[0]
+            tipo = selected.split(" ")[0].strip()
             # print("Tipo: " + tipo)
-            id = int(selected.split("-")[1].strip().split(" ")[1])
+            id = int(selected.split(" ")[1].strip())
             # print("Id: [" + id.str+"]")
             prenotazione = None
 
