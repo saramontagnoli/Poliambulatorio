@@ -48,7 +48,7 @@ class Medico(Utilizzatore):
         self.modificaUtilizzatore(password, telefono, mail, indirizzo, nota)
         self.abilitazione = abilitazione
 
-    #Rimozione di un medico mediante il suo id
+    # Rimozione di un medico mediante il suo id
     def rimuoviMedico(self):
         if os.path.isfile('File/Medici.pickle'):
             with open('File/Medici.pickle', 'rb') as f:
@@ -58,8 +58,8 @@ class Medico(Utilizzatore):
                 pickle.dump(medici, f, pickle.HIGHEST_PROTOCOL)
         self.rimuoviUtilizzatore()
         self.abilitazione = ""
-        #self.allergia = False
-        #self.malattia_pregressa = False
+        # self.allergia = False
+        # self.malattia_pregressa = False
         del self
 
     def getAbilitazione(self):

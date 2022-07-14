@@ -62,25 +62,24 @@ class VistaGestisciPrenotazioni(QWidget):
         self.load_prenotazioni()
         listview_model = QStandardItemModel(self.list_view)
         for prenotazione in self.prenotazioni:
-            #prenotazione.scadenzaPrenotazione()
+            prenotazione.scadenzaPrenotazione()
             item = QStandardItem()
-            nome = f"{prenotazione.st1} {prenotazione.st2} - {type(prenotazione).__name__} {prenotazione.id}"
+            nome = f"{type(prenotazione).__name__} {prenotazione.id}"
             item.setText(nome)
             item.setEditable(False)
             font = item.font()
             font.setPointSize(18)
             item.setFont(font)
             listview_model.appendRow(item)
-            #prenotazione.scadenzaPrenotazione()
         self.list_view.setModel(listview_model)
 
     # Permette la visualizzazione delle informazioni di una particolare prenotazione
     def show_selected_info(self):
         try:
             selected = self.list_view.selectedIndexes()[0].data()
-            tipo = selected.split("-")[1].strip().split(" ")[0]
+            tipo = selected.split(" ")[0].strip()
             # print("Tipo: " + tipo)
-            id = int(selected.split("-")[1].strip().split(" ")[1])
+            id = int(selected.split(" ")[1].strip())
             # print("Id: [" + id.str+"]")
             prenotazione = None
 
