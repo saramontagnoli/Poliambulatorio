@@ -29,7 +29,7 @@ class VistaPrenotazione(QWidget):
         # Si scrivono i vari dati della prenotazione selezionato
         v_layout.addWidget(QLabel(f"Id: {info['id']}"))
         v_layout.addWidget(QLabel(f"Data: {info['data'].strftime('%Y-%m-%d')}"))
-        v_layout.addWidget(QLabel(f"Ora: {info['ora'].strftime('%H-%M-%S')}"))
+        v_layout.addWidget(QLabel(f"Ora: {info['ora'].strftime('%H:%M')}"))
 
         # Eventuali stampe degli stati della prenotazione
         if bool(info['scaduta']):

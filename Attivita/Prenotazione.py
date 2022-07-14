@@ -8,6 +8,7 @@ class Prenotazione:
     # costruttore di Prenotazione
     def __init__(self):
         self.id = 0
+        # self.data = datetime.datetime(1970, 1, 1)
         self.data = ""
         self.ora = ""
         self.id_paziente = ""
@@ -16,19 +17,15 @@ class Prenotazione:
         self.scaduta = False
         self.disdetta = False
         self.conclusa = False
-        #aggiungere il referto, mora e ricevuta
+        # aggiungere il referto, mora e ricevuta
 
     def aggiungiPrenotazione(self, id, data, ora):
         self.id = id
-        print(id)
         self.data = data
-        print(data)
         self.ora = ora
-        print(ora)
         prenotazioni = {}
         # Apertura e scrittura su file della prenotazione
         if os.path.isfile('File/Prenotazioni.pickle'):
-            print("File aperto")
             with open('File/Prenotazioni.pickle', 'rb') as f:
                 prenotazioni = pickle.load(f)
         prenotazioni[id] = self
@@ -94,10 +91,10 @@ class Prenotazione:
         print(data)
         self.ora = ora
         print(ora) """
-        if(self.disdetta == False):
+        if not self.disdetta:
             self.disdetta = True
             prenotazioni = {}
-        # Apertura e scrittura su file della prenotazione
+            # Apertura e scrittura su file della prenotazione
             if os.path.isfile('File/Prenotazioni.pickle'):
                 print("File aperto")
                 with open('File/Prenotazioni.pickle', 'rb') as f:
@@ -109,16 +106,19 @@ class Prenotazione:
         else:
             return False
 
-     def scadenzaPrenotazione(self):
-        if(self.scaduta == False):
-
-            data1 = datetime.strptime(self.data, '%d/%m/%y')
-            if(data1 <= datetime.today()):
+    def scadenzaPrenotazione(self):
+        if not self.scaduta:
+            print("PROVA PRE FUNZIONE")
+            # data1 = datetime.strptime(self.data, '%d/%m/%y')
+            print("PROVA")
+            print(self.data)
+            print(datetime.datetime.today())
+            if self.data <= datetime.datetime.today():
                 # and self.conclusa == False and self.disdetta == False
                 self.scaduta = True
                 print(self.scaduta)
                 prenotazioni = {}
-        # Apertura e scrittura su file della prenotazione
+                # Apertura e scrittura su file della prenotazione
                 if os.path.isfile('File/Prenotazioni.pickle'):
                     print("File aperto")
                     with open('File/Prenotazioni.pickle', 'rb') as f:
