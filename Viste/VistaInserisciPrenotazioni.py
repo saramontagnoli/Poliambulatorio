@@ -16,9 +16,21 @@ class VistaInserisciPrenotazioni(QWidget):
         self.add_info_text("data", "Data")
         self.add_info_text("ora", "Ora")
 
+        visite = {}
+        # Apertura file visite per inserimento in combobox
+        if os.path.isfile('File/Visite.pickle'):
+            with open('File/Visite.pickle', 'rb') as f:
+                visite = pickle.load(f)
+
+
         self.combo_visita = QComboBox()
-        self.combo_visita.addItem("cardiologia")
-        self.combo_visita.addItem("radiologia")
+
+        for visita in visite:
+            self.combo_visita.addItem(visita.nome)
+
+        #self.combo_visita.addItem("cardiologia")
+        #self.combo_visita.addItem("radiologia")
+
         self.combo_visita.currentIndexChanged.connect(self.selectionchange)
         v_layout.addWidget(self.combo_visita)
         self.setLayout(v_layout)
