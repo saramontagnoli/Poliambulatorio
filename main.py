@@ -12,6 +12,8 @@ from Attivita.Reparto import Reparto
 from Attivita.Visita import Visita
 # main con vista login degli utenti
 if __name__ == '__main__':
+
+    """
     c1 = Reparto(1, "cardiologia", "cuore")
     c2 = Reparto(2, "radiologia", "ossa")
     c3 = Reparto(3, "pneumologia", "polmoni")
@@ -27,6 +29,8 @@ if __name__ == '__main__':
     v7 = Visita (7, "visita base pneumologia", "controllo torace", 3)
     v8 = Visita (8, "visita base otorino", "controllo naso", 5)
     empty_list = []
+    
+    """
 
     # interfaccia grafica per il login
     app = QApplication(sys.argv)
