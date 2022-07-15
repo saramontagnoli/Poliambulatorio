@@ -1,7 +1,6 @@
 import os
 import pickle
 import datetime
-import Referto
 
 
 class Prenotazione:
