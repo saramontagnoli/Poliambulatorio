@@ -33,16 +33,16 @@ class VistaInserisciPrenotazioni(QWidget):
             self.combo_visita.addItem(visita.nome)
 
         self.combo_visita.currentIndexChanged.connect(self.selectionchange)
-        v_layout.addWidget(self.combo_visita)
-        self.setLayout(v_layout)
+        self.v_layout.addWidget(self.combo_visita)
+        self.setLayout(self.v_layout)
 
-    btn_ok = QPushButton("OK")
-    btn_ok.clicked.connect(self.aggiungi_prenotazione)
-    self.qlines["btn_ok"] = btn_ok
-    self.v_layout.addWidget(btn_ok)
+        btn_ok = QPushButton("OK")
+        btn_ok.clicked.connect(self.aggiungi_prenotazione)
+        self.qlines["btn_ok"] = btn_ok
+        self.v_layout.addWidget(btn_ok)
 
-    self.setLayout(self.v_layout)
-    self.setWindowTitle("Nuova prenotazione")
+        self.setLayout(self.v_layout)
+        self.setWindowTitle("Nuova prenotazione")
 
     def selectionchange(self,i):
         print ("Items in the list are :")
