@@ -1,6 +1,7 @@
 import os
 import pickle
 import datetime
+import Referto
 
 
 class Prenotazione:
@@ -10,9 +11,12 @@ class Prenotazione:
         self.id = 0
         self.data = datetime.datetime(1970, 1, 1)
         self.ora = datetime.time(0, 0, 0)
-        self.id_paziente = ""
-        self.id_medico = ""
-        self.id_visita = ""
+        self.id_paziente = 0
+        self.id_medico = 0
+        self.id_visita = 0
+        self.id_referto = 0
+        self.id_ricevuta = 0
+        self.id_mora = 0
         self.scaduta = False
         self.disdetta = False
         self.conclusa = False
