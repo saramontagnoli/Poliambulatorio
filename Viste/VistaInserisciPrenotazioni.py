@@ -32,8 +32,8 @@ class VistaInserisciPrenotazioni(QWidget):
         for visita in self.visite:
             self.combo_visita.addItem(visita.nome)
 
-        self.qlines["visita"] = self.combo_visita
         self.combo_visita.currentIndexChanged.connect(self.selectionchange)
+        self.qlines["visita"] = self.combo_visita
         self.v_layout.addWidget(self.combo_visita)
         self.setLayout(self.v_layout)
 
@@ -78,6 +78,7 @@ class VistaInserisciPrenotazioni(QWidget):
             # print(data)
             ora = datetime.strptime(self.qlines["ora"].text(), '%H:%M')
             # ora = time.strftime(self.qlines["ora"].text(), '%H:%M')
+            id_visita = (self.qlines["visita"].currentText())
             prenotazione.aggiungiPrenotazione(id, data, ora)
         except:
             QMessageBox.critical(self, 'Errore', 'Controlla bene i dati inseriti',
