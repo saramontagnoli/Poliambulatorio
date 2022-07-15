@@ -16,6 +16,20 @@ class VistaInserisciPrenotazioni(QWidget):
         self.add_info_text("data", "Data")
         self.add_info_text("ora", "Ora")
 
+
+        self.combo_visita = QComboBox(self)
+
+        visite = {}
+        if os.path.isfile('File/Visite.pickle'):
+            with open('File/Visite.pickle', 'rb') as f:
+                visite = dict(pickle.load(f))
+
+        for visita in visite:
+            combo_visita.addItem(visita.nome)
+
+        self.v_layout.addWidget(QLabel("visita"))
+        self.combo_visita.activated[str].connect(self.onChanged)
+
         btn_ok = QPushButton("OK")
         btn_ok.clicked.connect(self.aggiungi_prenotazione)
         self.qlines["btn_ok"] = btn_ok
@@ -23,6 +37,11 @@ class VistaInserisciPrenotazioni(QWidget):
 
         self.setLayout(self.v_layout)
         self.setWindowTitle("Nuova prenotazione")
+
+
+    def onChanged(self, text):
+        self.qlabel.setText(text)
+        self.qlabel.adjustSize()
 
     # Prelevo le informazioni scritte nelle caselle di testo
     def add_info_text(self, nome, label):
