@@ -16,32 +16,25 @@ class VistaInserisciPrenotazioni(QWidget):
         self.add_info_text("data", "Data")
         self.add_info_text("ora", "Ora")
 
+        self.combo_visita = QComboBox()
+        self.combo_visita.addItem("cardiologia")
+        self.combo_visita.addItem("radiologia")
+        self.combo_visita.currentIndexChanged.connect(self.selectionchange)
+        v_layout.addWidget(self.combo_visita)
+        self.setLayout(v_layout)
 
-        self.combo_visita = QComboBox(self)
+    def selectionchange(self,i):
+        print ("Items in the list are :")
+        print ("Current index",i,"selection changed ",self.cb.currentText())
 
-        visite = {}
-        if os.path.isfile('File/Visite.pickle'):
-            with open('File/Visite.pickle', 'rb') as f:
-                visite = dict(pickle.load(f))
+    btn_ok = QPushButton("OK")
+    btn_ok.clicked.connect(self.aggiungi_prenotazione)
+    self.qlines["btn_ok"] = btn_ok
+    self.v_layout.addWidget(btn_ok)
 
-        for visita in visite:
-            combo_visita.addItem(visita.nome)
+    self.setLayout(self.v_layout)
+    self.setWindowTitle("Nuova prenotazione")
 
-        self.v_layout.addWidget(QLabel("visita"))
-        self.combo_visita.activated[str].connect(self.onChanged)
-
-        btn_ok = QPushButton("OK")
-        btn_ok.clicked.connect(self.aggiungi_prenotazione)
-        self.qlines["btn_ok"] = btn_ok
-        self.v_layout.addWidget(btn_ok)
-
-        self.setLayout(self.v_layout)
-        self.setWindowTitle("Nuova prenotazione")
-
-
-    def onChanged(self, text):
-        self.qlabel.setText(text)
-        self.qlabel.adjustSize()
 
     # Prelevo le informazioni scritte nelle caselle di testo
     def add_info_text(self, nome, label):
