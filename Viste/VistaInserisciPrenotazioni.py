@@ -23,10 +23,6 @@ class VistaInserisciPrenotazioni(QWidget):
         v_layout.addWidget(self.combo_visita)
         self.setLayout(v_layout)
 
-    def selectionchange(self,i):
-        print ("Items in the list are :")
-        print ("Current index",i,"selection changed ",self.cb.currentText())
-
     btn_ok = QPushButton("OK")
     btn_ok.clicked.connect(self.aggiungi_prenotazione)
     self.qlines["btn_ok"] = btn_ok
@@ -35,6 +31,11 @@ class VistaInserisciPrenotazioni(QWidget):
     self.setLayout(self.v_layout)
     self.setWindowTitle("Nuova prenotazione")
 
+    def selectionchange(self,i):
+        print ("Items in the list are :")
+        for count in range(self.combo_visita.count()):
+            print (self.combo_visita.itemText(count))
+        print ("Current index",i,"selection changed ",self.combo_visita.currentText())
 
     # Prelevo le informazioni scritte nelle caselle di testo
     def add_info_text(self, nome, label):
