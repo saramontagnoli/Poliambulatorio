@@ -1,7 +1,10 @@
+import os
+import pickle
 from datetime import datetime
-from PyQt5.QtWidgets import QWidget, QVBoxLayout, QLabel, QLineEdit, QPushButton, QMessageBox
+from PyQt5.QtWidgets import QWidget, QVBoxLayout, QLabel, QLineEdit, QPushButton, QMessageBox, QComboBox
 
 from Attivita.Prenotazione import Prenotazione
+from Attivita.Visita import Visita
 
 
 class VistaInserisciPrenotazioni(QWidget):
@@ -16,6 +19,23 @@ class VistaInserisciPrenotazioni(QWidget):
         self.add_info_text("data", "Data")
         self.add_info_text("ora", "Ora")
 
+        self.visite = []
+
+        # Apertura file visite per inserimento in combobox
+        if os.path.isfile('File/Visite.pickle'):
+            with open('File/Visite.pickle', 'rb') as f:
+                current = dict(pickle.load(f))
+                self.visite.extend(current.values())
+
+        self.combo_visita = QComboBox()
+
+        for visita in self.visite:
+            self.combo_visita.addItem(visita.nome)
+
+        self.combo_visita.currentIndexChanged.connect(self.selectionchange)
+        self.v_layout.addWidget(self.combo_visita)
+        self.setLayout(self.v_layout)
+
         btn_ok = QPushButton("OK")
         btn_ok.clicked.connect(self.aggiungi_prenotazione)
         self.qlines["btn_ok"] = btn_ok
@@ -23,6 +43,12 @@ class VistaInserisciPrenotazioni(QWidget):
 
         self.setLayout(self.v_layout)
         self.setWindowTitle("Nuova prenotazione")
+
+    def selectionchange(self,i):
+        print ("Items in the list are :")
+        for count in range(self.combo_visita.count()):
+            print (self.combo_visita.itemText(count))
+        print ("Current index",i,"selection changed ",self.combo_visita.currentText())
 
     # Prelevo le informazioni scritte nelle caselle di testo
     def add_info_text(self, nome, label):

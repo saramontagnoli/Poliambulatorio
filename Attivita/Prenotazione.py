@@ -19,14 +19,15 @@ class Prenotazione:
         self.scaduta = False
         self.disdetta = False
         self.conclusa = False
-        # aggiungere il referto, mora e ricevuta
 
+#Inserimnento di una nuova prenotazione nel file Prenotazioni.pickle
     def aggiungiPrenotazione(self, id, data, ora):
         self.id = id
         self.data = data
         self.ora = ora
         prenotazioni = {}
-        # Apertura e scrittura su file della prenotazione
+
+        # Apertura e scrittura su file delle prenotazioni
         if os.path.isfile('File/Prenotazioni.pickle'):
             with open('File/Prenotazioni.pickle', 'rb') as f:
                 prenotazioni = pickle.load(f)
@@ -86,6 +87,7 @@ class Prenotazione:
     def setConclusa(self, conclusa):
         self.conclusa = conclusa
 
+#Disdetta di una prenotazione effettuata in precedenza
     def disdiciPrenotazione(self):
         if not self.disdetta:
             self.disdetta = True
@@ -101,12 +103,15 @@ class Prenotazione:
         else:
             return False
 
+#Funzione per la gestione delle scadenze delle prenotazioni secondo la data
     def scadenzaPrenotazione(self):
         if not self.scaduta:
-            if self.data < datetime.datetime.today():
+            scadenza = datetime.datetime.today()
+            scadenza = scadenza.replace(day=scadenza.day - 1)
+            if self.data < scadenza:
                 self.scaduta = True
                 prenotazioni = {}
-                # Apertura e scrittura su file della prenotazione
+                # Apertura e scrittura su file delle prenotazioni
                 if os.path.isfile('File/Prenotazioni.pickle'):
                     with open('File/Prenotazioni.pickle', 'rb') as f:
                         prenotazioni = pickle.load(f)
