@@ -10,9 +10,12 @@ class Prenotazione:
         self.id = 0
         self.data = datetime.datetime(1970, 1, 1)
         self.ora = datetime.time(0, 0, 0)
-        self.id_paziente = ""
-        self.id_medico = ""
-        self.id_visita = ""
+        self.id_paziente = 0
+        self.id_medico = 0
+        self.id_visita = 0
+        self.id_referto = 0
+        self.id_ricevuta = 0
+        self.id_mora = 0
         self.scaduta = False
         self.disdetta = False
         self.conclusa = False
@@ -100,8 +103,7 @@ class Prenotazione:
 
     def scadenzaPrenotazione(self):
         if not self.scaduta:
-            if self.data <= datetime.datetime.today():
-                # and self.conclusa == False and self.disdetta == False
+            if self.data < datetime.datetime.today():
                 self.scaduta = True
                 prenotazioni = {}
                 # Apertura e scrittura su file della prenotazione
