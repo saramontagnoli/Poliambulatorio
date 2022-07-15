@@ -99,8 +99,10 @@ class Prenotazione:
             return False
 
     def scadenzaPrenotazione(self):
+        data_ora = self.data + self.ora
+        print (data_ora)
         if not self.scaduta:
-            if self.data <= datetime.datetime.today():
+            if data_ora <= datetime.datetime.today():
                 # and self.conclusa == False and self.disdetta == False
                 self.scaduta = True
                 prenotazioni = {}
