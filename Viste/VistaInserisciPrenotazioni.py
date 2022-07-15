@@ -1,7 +1,10 @@
+import os
+import pickle
 from datetime import datetime
-from PyQt5.QtWidgets import QWidget, QVBoxLayout, QLabel, QLineEdit, QPushButton, QMessageBox
+from PyQt5.QtWidgets import QWidget, QVBoxLayout, QLabel, QLineEdit, QPushButton, QMessageBox, QComboBox
 
 from Attivita.Prenotazione import Prenotazione
+from Attivita.Visita import Visita
 
 
 class VistaInserisciPrenotazioni(QWidget):
@@ -16,20 +19,18 @@ class VistaInserisciPrenotazioni(QWidget):
         self.add_info_text("data", "Data")
         self.add_info_text("ora", "Ora")
 
-        visite = {}
+        self.visite = []
+
         # Apertura file visite per inserimento in combobox
         if os.path.isfile('File/Visite.pickle'):
             with open('File/Visite.pickle', 'rb') as f:
-                visite = pickle.load(f)
-
+                current = dict(pickle.load(f))
+                self.visite.extend(current.values())
 
         self.combo_visita = QComboBox()
 
-        for visita in visite:
+        for visita in self.visite:
             self.combo_visita.addItem(visita.nome)
-
-        #self.combo_visita.addItem("cardiologia")
-        #self.combo_visita.addItem("radiologia")
 
         self.combo_visita.currentIndexChanged.connect(self.selectionchange)
         v_layout.addWidget(self.combo_visita)
