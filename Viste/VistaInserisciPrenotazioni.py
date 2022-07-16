@@ -18,23 +18,45 @@ class VistaInserisciPrenotazioni(QWidget):
         self.add_info_text("id", "Id")
         self.add_info_text("data", "Data")
         self.add_info_text("ora", "Ora")
+        self.add_info_text("cf_paziente", "CF Paziente")
 
+
+# Combo box lista visite
         self.visite = []
 
-        # Apertura file visite per inserimento in combobox
         if os.path.isfile('File/Visite.pickle'):
             with open('File/Visite.pickle', 'rb') as f:
                 current = dict(pickle.load(f))
                 self.visite.extend(current.values())
 
+        # Creazione e riepimento con le visite della combobox
         self.combo_visita = QComboBox()
 
         for visita in self.visite:
-            self.combo_visita.addItem(visita.nome)
+            self.combo_visita.addItem(visita.id_reparto + " " + visita.nome)
 
         self.combo_visita.currentIndexChanged.connect(self.selectionchange)
         self.qlines["visita"] = self.combo_visita
         self.v_layout.addWidget(self.combo_visita)
+        self.setLayout(self.v_layout)
+
+# Combo box per lista medici
+        self.medici = []
+
+        if os.path.isfile('File/Medici.pickle'):
+            with open('File/Medici.pickle', 'rb') as f:
+                current = dict(pickle.load(f))
+                self.medici.extend(current.values())
+
+        # Creazione e riepimento con cognomi dei medici della combobox
+        self.combo_medico = QComboBox()
+
+        for medico in self.medici:
+            self.combo_medico.addItem(medico.cognome)
+
+        self.combo_medico.currentIndexChanged.connect(self.selectionchange2)
+        self.qlines["medico"] = self.combo_medico
+        self.v_layout.addWidget(self.combo_medico)
         self.setLayout(self.v_layout)
 
         btn_ok = QPushButton("OK")
@@ -47,6 +69,9 @@ class VistaInserisciPrenotazioni(QWidget):
 
     def selectionchange(self,i):
         return self.combo_visita.currentText()
+
+    def selectionchange2(self,i):
+        return self.combo_medico.currentText()
 
     # Prelevo le informazioni scritte nelle caselle di testo
     def add_info_text(self, nome, label):
@@ -82,7 +107,10 @@ class VistaInserisciPrenotazioni(QWidget):
 
 
             id_visita = int(self.qlines["visita"].currentIndex()) + 1
+            cognome_medico = (self.qlines["visita"].currentText())
+
             print (id_visita)
+            print(cognome_medico)
             prenotazione.aggiungiPrenotazione(id, data, ora)
         except:
             QMessageBox.critical(self, 'Errore', 'Controlla bene i dati inseriti',
