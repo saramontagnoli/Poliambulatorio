@@ -55,19 +55,6 @@ class VistaInserisciMedici(QWidget):
         self.setLayout(self.v_layout)
         self.setWindowTitle("Nuovo medico")
 
-    """def add_checkbox(self, nome, label):
-        self.checkbox = QCheckBox(label, self)
-        self.checkbox.resize(320,40)
-        self.qlines[nome] = self.checkbox
-        self.v_layout.addWidget(self.checkbox)
-        self.checkbox.stateChanged.connect(self.clickBox)
-
-    def clickBox(self, state):
-        if state == QtCore.Qt.Checked:
-            return True
-        else:
-            return False """
-
     def selectionchange(self, i):
         return self.combo_reparti.currentText()
 
