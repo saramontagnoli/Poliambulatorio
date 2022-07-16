@@ -63,7 +63,10 @@ class Prenotazione:
             "ora": self.ora,
             "scaduta": self.scaduta,
             "disdetta": self.disdetta,
-            "conclusa": self.conclusa
+            "conclusa": self.conclusa,
+            "id_medico": self.id_medico,
+            "id_visita": self.id_visita,
+            "cf_paziente": self.cf_paziente
         }
 
     # Ricerca prenotazione per id
