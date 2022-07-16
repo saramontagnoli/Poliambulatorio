@@ -14,8 +14,7 @@ class VistaInserisciPrenotazioni(QWidget):
         self.qlines = {}
         # Caselle di testo per inserimento informazioni del paziente
         self.add_info_text("id", "Id")
-        #self.add_info_text("data", "Data")
-        #self.add_info_text("ora", "Ora")
+        self.add_info_text("data", "Data")
         self.add_info_text("cf_paziente", "CF Paziente")
 
 # Combo box lista orari dell'ambulatorio
@@ -31,10 +30,6 @@ class VistaInserisciPrenotazioni(QWidget):
         self.qlines["ora"] = self.combo_ora
         self.v_layout.addWidget(self.combo_ora)
         self.setLayout(self.v_layout)
-
-        self.calendario = QCalendarWidget(self)
-        self.calendario.setCursor(Qt.PointingHandCursor)
-        self.calendar.setDateEditEnabled(True)
 
 # Combo box lista visite
         self.visite = []
@@ -136,6 +131,11 @@ class VistaInserisciPrenotazioni(QWidget):
 
             if prova == -1:
                 QMessageBox.critical(self, 'Errore', 'Il reparto del medico e della visita non corrispondono',
+                                 QMessageBox.Ok, QMessageBox.Ok)
+                return
+
+            if prova == -2:
+                QMessageBox.critical(self, 'Errore', 'Il medico è già impegnato in un''altra visita',
                                  QMessageBox.Ok, QMessageBox.Ok)
                 return
         except:

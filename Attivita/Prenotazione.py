@@ -70,12 +70,28 @@ class Prenotazione:
                     id_reparto_medico = medico.id_reparto
 
             if id_reparto_visita == id_reparto_medico:
+                prenotazioni = []
+
+            if os.path.isfile('File/Prenotazioni.pickle'):
+                with open('File/Prenotazioni.pickle', 'rb') as f:
+                    current = dict(pickle.load(f))
+                    self.prenotazioni.extend(current.values())
+
+                f=0
+                for medico in medici:
+                    if self.id_medico == medico.id:
+                        for prenotazione in prenotazioni:
+                            if prenotazione.id_medico == self.id_medico:
+                                f=1 #il medico che cerchiamo ha altre prenotazioni
+                                if prenotazione.data == self.data and prenotazione.ora == self.ora:
+                                    return -2
                 prenotazioni = {}
 
                 # Apertura e scrittura su file delle prenotazioni
                 if os.path.isfile('File/Prenotazioni.pickle'):
                     with open('File/Prenotazioni.pickle', 'rb') as f:
                         prenotazioni = pickle.load(f)
+
                 prenotazioni[id] = self
                 with open('File/Prenotazioni.pickle', 'wb') as f:
                     pickle.dump(prenotazioni, f, pickle.HIGHEST_PROTOCOL)
