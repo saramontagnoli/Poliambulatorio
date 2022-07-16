@@ -5,7 +5,11 @@ from PyQt5.QtWidgets import QWidget, QVBoxLayout, QLabel, QLineEdit, QPushButton
 #from PyQt5.uic.properties import QtWidgets
 
 from Attivita.Medico import Medico
-
+import os
+import pickle
+from datetime import datetime
+from PyQt5.QtWidgets import QWidget, QVBoxLayout, QLabel, QLineEdit, QPushButton, QMessageBox, QComboBox
+from Attivita.Medico import Medico
 
 class VistaInserisciMedici(QWidget):
 
@@ -70,6 +74,9 @@ class VistaInserisciMedici(QWidget):
         else:
             return False """
 
+    def selectionchange(self, i):
+        return self.combo_reparti.currentText()
+
     #Prelevo le informazioni scritte nelle caselle di testo
     def add_info_text(self, nome, label):
         self.v_layout.addWidget(QLabel(label))
@@ -107,7 +114,7 @@ class VistaInserisciMedici(QWidget):
             indirizzo = self.qlines["indirizzo"].text()
             nota = self.qlines["nota"].text()
             abilitazione = self.qlines["abilitazione"].text()
-            id_reparto = int(self.qlines["id_reparto"].currentText().split(" ")[0].strip())
+            id_reparto = int(self.qlines["reparto"].currentText().split(" ")[0].strip())
 
 
             medico.setInfoMedico(id, password, cognome, nome, data_nascita, CF, telefono, genere, mail, indirizzo, nota, abilitazione, id_reparto)

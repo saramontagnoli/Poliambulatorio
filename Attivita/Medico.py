@@ -29,7 +29,7 @@ class Medico(Utilizzatore):
     def getInfoMedico(self):
         info = self.getInfoUtilizzatore()
         info["abilitazione"] = self.abilitazione
-        info["id_reparto"] = self.id_reparto
+        info["reparto"] = self.id_reparto
         return info
 
     def ricercaUtilizzatoreCF(self, CF):
