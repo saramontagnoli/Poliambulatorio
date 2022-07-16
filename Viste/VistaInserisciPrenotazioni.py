@@ -15,9 +15,21 @@ class VistaInserisciPrenotazioni(QWidget):
         # Caselle di testo per inserimento informazioni del paziente
         self.add_info_text("id", "Id")
         self.add_info_text("data", "Data")
-        self.add_info_text("ora", "Ora")
         self.add_info_text("cf_paziente", "CF Paziente")
 
+# Combo box lista orari dell'ambulatorio
+        # Creazione e riepimento con le visite della combobox
+        self.combo_ora = QComboBox()
+
+        options = ["8:00","8:30","9:00","9:30", "10:00", "10:30", "11:00", "11:30", "14:00", "14:30", "15:00", "15:30", "16:00", "16:30", "17:00", "17:30"]
+
+        for option in options:
+            self.combo_ora.addItem(option)
+
+        self.combo_ora.currentIndexChanged.connect(self.selectionchange)
+        self.qlines["ora"] = self.combo_ora
+        self.v_layout.addWidget(self.combo_ora)
+        self.setLayout(self.v_layout)
 
 # Combo box lista visite
         self.visite = []
@@ -98,9 +110,11 @@ class VistaInserisciPrenotazioni(QWidget):
         try:
             data = datetime.strptime(self.qlines["data"].text(), '%d/%m/%Y')
             # print(data)
-            ora = datetime.strptime(self.qlines["ora"].text(), '%H:%M')
+            #ora = datetime.strptime(self.qlines["ora"].text(), '%H:%M')
             # ora = time.strftime(self.qlines["ora"].text(), '%H:%M')
             # id_visita = (self.qlines["visita"].currentText())
+
+            ora = datetime.strptime(self.qlines["ora"].currentText(), '%H:%M')
 
             cf_paziente = self.qlines["cf_paziente"].text()
 
@@ -117,6 +131,11 @@ class VistaInserisciPrenotazioni(QWidget):
 
             if prova == -1:
                 QMessageBox.critical(self, 'Errore', 'Il reparto del medico e della visita non corrispondono',
+                                 QMessageBox.Ok, QMessageBox.Ok)
+                return
+
+            if prova == -2:
+                QMessageBox.critical(self, 'Errore', 'Il medico è già impegnato in un''altra visita',
                                  QMessageBox.Ok, QMessageBox.Ok)
                 return
         except:

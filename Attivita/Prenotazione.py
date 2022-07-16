@@ -21,8 +21,6 @@ class Prenotazione:
         self.id_ricevuta = 0
         self.id_mora = 0
 
-
-    # Inserimnento di una nuova prenotazione nel file Prenotazioni.pickle
     def aggiungiPrenotazione(self, id, data, ora, id_medico, id_visita, cf_paziente):
         self.id = id
         self.data = data
@@ -70,12 +68,31 @@ class Prenotazione:
                     id_reparto_medico = medico.id_reparto
 
             if id_reparto_visita == id_reparto_medico:
+                print("Reparto visita e medico coincide")
+                for medico in medici:
+                    if self.id_medico == medico.id:
+                        print("Id medico coincide con un medico")
+                        prenotazioni = []
+
+                        if os.path.isfile('File/Prenotazioni.pickle'):
+                            with open('File/Prenotazioni.pickle', 'rb') as f:
+                                print("File (caricamento dict) aperto")
+                                current = dict(pickle.load(f))
+                                prenotazioni.extend(current.values())
+
+                        for prenotazione in prenotazioni:
+                            if prenotazione.id_medico == self.id_medico and not prenotazione.disdetta:
+                                print("id medico coincide con id medico in prenotazione")
+                                if prenotazione.data == self.data and prenotazione.ora == self.ora:
+                                    print("L'ora è già occupata")
+                                    return -2
                 prenotazioni = {}
 
                 # Apertura e scrittura su file delle prenotazioni
                 if os.path.isfile('File/Prenotazioni.pickle'):
                     with open('File/Prenotazioni.pickle', 'rb') as f:
                         prenotazioni = pickle.load(f)
+
                 prenotazioni[id] = self
                 with open('File/Prenotazioni.pickle', 'wb') as f:
                     pickle.dump(prenotazioni, f, pickle.HIGHEST_PROTOCOL)
@@ -139,7 +156,7 @@ class Prenotazione:
     def setConclusa(self, conclusa):
         self.conclusa = conclusa
 
-#Disdetta di una prenotazione effettuata in precedenza
+    # Disdetta di una prenotazione effettuata in precedenza
     def disdiciPrenotazione(self):
         if not self.disdetta:
             self.disdetta = True
@@ -155,7 +172,7 @@ class Prenotazione:
         else:
             return False
 
-#Funzione per la gestione delle scadenze delle prenotazioni secondo la data
+    # Funzione per la gestione delle scadenze delle prenotazioni secondo la data
     def scadenzaPrenotazione(self):
         if not self.scaduta:
             scadenza = datetime.datetime.today()
