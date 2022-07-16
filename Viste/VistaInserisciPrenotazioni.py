@@ -78,7 +78,11 @@ class VistaInserisciPrenotazioni(QWidget):
             # print(data)
             ora = datetime.strptime(self.qlines["ora"].text(), '%H:%M')
             # ora = time.strftime(self.qlines["ora"].text(), '%H:%M')
-            id_visita = (self.qlines["visita"].currentText())
+            # id_visita = (self.qlines["visita"].currentText())
+
+
+            id_visita = int(self.qlines["visita"].currentIndex()) + 1
+            print (id_visita)
             prenotazione.aggiungiPrenotazione(id, data, ora)
         except:
             QMessageBox.critical(self, 'Errore', 'Controlla bene i dati inseriti',
