@@ -30,12 +30,13 @@ class Prenotazione:
         self.id_medico = id_medico
         self.id_visita = id_visita
 
-        #controllo CF paziente
+        # controllo CF paziente
         pazienti = []
         # Apertura e scrittura su file delle prenotazioni
         if os.path.isfile('File/Pazienti.pickle'):
             with open('File/Pazienti.pickle', 'rb') as f:
-                pazienti = pickle.load(f)
+                current = dict(pickle.load(f))
+                pazienti.extend(current.values())
 
         for paziente in pazienti:
             if paziente.CF == cf_paziente:

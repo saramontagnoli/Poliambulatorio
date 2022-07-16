@@ -108,7 +108,11 @@ class VistaInserisciPrenotazioni(QWidget):
 
             id_medico = int(self.qlines["medico"].currentText().split(" ")[0].strip())
 
-            prenotazione.aggiungiPrenotazione(id, data, ora, id_medico, id_visita, cf_paziente)
+            prova = prenotazione.aggiungiPrenotazione(id, data, ora, id_medico, id_visita, cf_paziente)
+
+            if prova == False:
+                QMessageBox.critical(self, 'Errore', 'Codice fiscale non valido',
+                                 QMessageBox.Ok, QMessageBox.Ok)
         except:
             QMessageBox.critical(self, 'Errore', 'Controlla bene i dati inseriti',
                                  QMessageBox.Ok, QMessageBox.Ok)
