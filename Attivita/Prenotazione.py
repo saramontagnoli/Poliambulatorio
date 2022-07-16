@@ -21,7 +21,6 @@ class Prenotazione:
         self.id_ricevuta = 0
         self.id_mora = 0
 
-
     def aggiungiPrenotazione(self, id, data, ora, id_medico, id_visita, cf_paziente):
         self.id = id
         self.data = data
@@ -70,7 +69,6 @@ class Prenotazione:
 
             if id_reparto_visita == id_reparto_medico:
                 print("Reparto visita e medico coincide")
-                f = 0
                 for medico in medici:
                     if self.id_medico == medico.id:
                         print("Id medico coincide con un medico")
@@ -83,9 +81,8 @@ class Prenotazione:
                                 prenotazioni.extend(current.values())
 
                         for prenotazione in prenotazioni:
-                            if prenotazione.id_medico == self.id_medico:
+                            if prenotazione.id_medico == self.id_medico and not prenotazione.disdetta:
                                 print("id medico coincide con id medico in prenotazione")
-                                f = 1  # il medico che cerchiamo ha altre prenotazioni
                                 if prenotazione.data == self.data and prenotazione.ora == self.ora:
                                     print("L'ora è già occupata")
                                     return -2
@@ -159,7 +156,7 @@ class Prenotazione:
     def setConclusa(self, conclusa):
         self.conclusa = conclusa
 
-#Disdetta di una prenotazione effettuata in precedenza
+    # Disdetta di una prenotazione effettuata in precedenza
     def disdiciPrenotazione(self):
         if not self.disdetta:
             self.disdetta = True
@@ -175,7 +172,7 @@ class Prenotazione:
         else:
             return False
 
-#Funzione per la gestione delle scadenze delle prenotazioni secondo la data
+    # Funzione per la gestione delle scadenze delle prenotazioni secondo la data
     def scadenzaPrenotazione(self):
         if not self.scaduta:
             scadenza = datetime.datetime.today()
