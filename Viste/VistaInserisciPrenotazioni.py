@@ -113,6 +113,7 @@ class VistaInserisciPrenotazioni(QWidget):
             if prova == False:
                 QMessageBox.critical(self, 'Errore', 'Codice fiscale non valido',
                                  QMessageBox.Ok, QMessageBox.Ok)
+                return
         except:
             QMessageBox.critical(self, 'Errore', 'Controlla bene i dati inseriti',
                                  QMessageBox.Ok, QMessageBox.Ok)
