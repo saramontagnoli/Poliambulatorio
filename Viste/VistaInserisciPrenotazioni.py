@@ -2,9 +2,7 @@ import os
 import pickle
 from datetime import datetime
 from PyQt5.QtWidgets import QWidget, QVBoxLayout, QLabel, QLineEdit, QPushButton, QMessageBox, QComboBox
-
 from Attivita.Prenotazione import Prenotazione
-from Attivita.Visita import Visita
 
 
 class VistaInserisciPrenotazioni(QWidget):
@@ -52,7 +50,9 @@ class VistaInserisciPrenotazioni(QWidget):
         self.combo_medico = QComboBox()
 
         for medico in self.medici:
-            self.combo_medico.addItem(medico.cognome)
+            id_cognome = f"{medico.id} {medico.cognome}"
+            #id_cognome = medico.id + medico.cognome
+            self.combo_medico.addItem(id_cognome)
 
         self.combo_medico.currentIndexChanged.connect(self.selectionchange)
         self.qlines["medico"] = self.combo_medico
