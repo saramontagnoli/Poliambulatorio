@@ -1,11 +1,9 @@
-from datetime import datetime
-
-from PyQt5 import QtCore
-from PyQt5.QtWidgets import QWidget, QVBoxLayout, QLabel, QLineEdit, QPushButton, QMessageBox, QCheckBox, QRadioButton
-#from PyQt5.uic.properties import QtWidgets
-
 from Attivita.Medico import Medico
-
+import os
+import pickle
+from datetime import datetime
+from PyQt5.QtWidgets import QWidget, QVBoxLayout, QLabel, QLineEdit, QPushButton, QMessageBox, QComboBox
+from Attivita.Medico import Medico
 
 class VistaInserisciMedici(QWidget):
 
@@ -30,6 +28,25 @@ class VistaInserisciMedici(QWidget):
         #self.add_info_text("allergia", "Allergia")
         #self.add_info_text("malattia_pregressa", "Malattia pregressa")
 
+        self.reparti = []
+
+        if os.path.isfile('File/Reparti.pickle'):
+            with open('File/Reparti.pickle', 'rb') as f:
+                current = dict(pickle.load(f))
+                self.reparti.extend(current.values())
+
+        # Creazione e riepimento con le visite della combobox
+        self.combo_reparti = QComboBox()
+
+        for reparto in self.reparti:
+            id_reparto_nome = f"{reparto.id} {reparto.nome}"
+            self.combo_reparti.addItem(id_reparto_nome)
+
+        self.combo_reparti.currentIndexChanged.connect(self.selectionchange)
+        self.qlines["reparto"] = self.combo_reparti
+        self.v_layout.addWidget(self.combo_reparti)
+        self.setLayout(self.v_layout)
+
         btn_ok = QPushButton("OK")
         btn_ok.clicked.connect(self.aggiungi_medico)
         self.qlines["btn_ok"] = btn_ok
@@ -38,18 +55,8 @@ class VistaInserisciMedici(QWidget):
         self.setLayout(self.v_layout)
         self.setWindowTitle("Nuovo medico")
 
-    """def add_checkbox(self, nome, label):
-        self.checkbox = QCheckBox(label, self)
-        self.checkbox.resize(320,40)
-        self.qlines[nome] = self.checkbox
-        self.v_layout.addWidget(self.checkbox)
-        self.checkbox.stateChanged.connect(self.clickBox)
-
-    def clickBox(self, state):
-        if state == QtCore.Qt.Checked:
-            return True
-        else:
-            return False """
+    def selectionchange(self, i):
+        return self.combo_reparti.currentText()
 
     #Prelevo le informazioni scritte nelle caselle di testo
     def add_info_text(self, nome, label):
@@ -88,11 +95,10 @@ class VistaInserisciMedici(QWidget):
             indirizzo = self.qlines["indirizzo"].text()
             nota = self.qlines["nota"].text()
             abilitazione = self.qlines["abilitazione"].text()
+            id_reparto = int(self.qlines["reparto"].currentText().split(" ")[0].strip())
 
-            #print(allergia)
-            #print(malattia_pregressa)
 
-            medico.setInfoMedico(id, password, cognome, nome, data_nascita, CF, telefono, genere, mail, indirizzo, nota, abilitazione)
+            medico.setInfoMedico(id, password, cognome, nome, data_nascita, CF, telefono, genere, mail, indirizzo, nota, abilitazione, id_reparto)
 
         except:
             QMessageBox.critical(self, 'Errore', 'Controlla bene i dati inseriti',
