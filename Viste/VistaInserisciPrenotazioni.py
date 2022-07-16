@@ -32,10 +32,9 @@ class VistaInserisciPrenotazioni(QWidget):
         self.v_layout.addWidget(self.combo_ora)
         self.setLayout(self.v_layout)
 
-        self.calendario = QtWidgets.QDateEdit(calendarPopup=True)
-        self.menuBar().setCornerWidget(self.calendario, QtCore.Qt.TopLeftCorner)
-        self.calendario.setDateTime(QtCore.QDateTime.currentDateTime())
-        self.calendario.setMinimumDate(datetime.today())
+        self.calendario = QCalendarWidget(self)
+        self.calendario.setCursor(Qt.PointingHandCursor)
+        self.calendar.setDateEditEnabled(True)
 
 # Combo box lista visite
         self.visite = []
