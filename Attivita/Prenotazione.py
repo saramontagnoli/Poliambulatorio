@@ -22,7 +22,6 @@ class Prenotazione:
         self.id_mora = 0
 
 
-    # Inserimnento di una nuova prenotazione nel file Prenotazioni.pickle
     def aggiungiPrenotazione(self, id, data, ora, id_medico, id_visita, cf_paziente):
         self.id = id
         self.data = data
@@ -70,20 +69,25 @@ class Prenotazione:
                     id_reparto_medico = medico.id_reparto
 
             if id_reparto_visita == id_reparto_medico:
-                prenotazioni = []
-
-            if os.path.isfile('File/Prenotazioni.pickle'):
-                with open('File/Prenotazioni.pickle', 'rb') as f:
-                    current = dict(pickle.load(f))
-                    self.prenotazioni.extend(current.values())
-
-                f=0
+                print("Reparto visita e medico coincide")
+                f = 0
                 for medico in medici:
                     if self.id_medico == medico.id:
+                        print("Id medico coincide con un medico")
+                        prenotazioni = []
+
+                        if os.path.isfile('File/Prenotazioni.pickle'):
+                            with open('File/Prenotazioni.pickle', 'rb') as f:
+                                print("File (caricamento dict) aperto")
+                                current = dict(pickle.load(f))
+                                prenotazioni.extend(current.values())
+
                         for prenotazione in prenotazioni:
                             if prenotazione.id_medico == self.id_medico:
-                                f=1 #il medico che cerchiamo ha altre prenotazioni
+                                print("id medico coincide con id medico in prenotazione")
+                                f = 1  # il medico che cerchiamo ha altre prenotazioni
                                 if prenotazione.data == self.data and prenotazione.ora == self.ora:
+                                    print("L'ora è già occupata")
                                     return -2
                 prenotazioni = {}
 
