@@ -35,6 +35,7 @@ class VistaMedico(QWidget):
         v_layout.addWidget(QLabel(f"Email: {info['mail']}"))
         v_layout.addWidget(QLabel(f"Indirizzo: {info['indirizzo']}"))
         v_layout.addWidget(QLabel(f"Abilitazione: {info['abilitazione']}"))
+        v_layout.addWidget(QLabel(f"Reparto: {info['reparto']}"))
 
         # Se la nota è presente si stampa
         if "nota" in info:

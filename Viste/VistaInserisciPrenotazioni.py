@@ -110,8 +110,13 @@ class VistaInserisciPrenotazioni(QWidget):
 
             prova = prenotazione.aggiungiPrenotazione(id, data, ora, id_medico, id_visita, cf_paziente)
 
-            if prova == False:
+            if prova == 0:
                 QMessageBox.critical(self, 'Errore', 'Codice fiscale non valido',
+                                 QMessageBox.Ok, QMessageBox.Ok)
+                return
+
+            if prova == -1:
+                QMessageBox.critical(self, 'Errore', 'Il reparto del medico e della visita non corrispondono',
                                  QMessageBox.Ok, QMessageBox.Ok)
                 return
         except:
