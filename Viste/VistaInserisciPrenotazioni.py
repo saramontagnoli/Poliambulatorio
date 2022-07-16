@@ -54,9 +54,9 @@ class VistaInserisciPrenotazioni(QWidget):
         for medico in self.medici:
             self.combo_medico.addItem(medico.cognome)
 
-        self.combo_visita.currentIndexChanged.connect(self.selectionchange)
-        self.qlines["visita"] = self.combo_visita
-        self.v_layout.addWidget(self.combo_visita)
+        self.combo_medico.currentIndexChanged.connect(self.selectionchange)
+        self.qlines["medico"] = self.combo_medico
+        self.v_layout.addWidget(self.combo_medico)
         self.setLayout(self.v_layout)
 
         btn_ok = QPushButton("OK")
