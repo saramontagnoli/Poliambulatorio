@@ -2,9 +2,7 @@ import os
 import pickle
 from datetime import datetime
 from PyQt5.QtWidgets import QWidget, QVBoxLayout, QLabel, QLineEdit, QPushButton, QMessageBox, QComboBox
-
 from Attivita.Prenotazione import Prenotazione
-from Attivita.Visita import Visita
 
 
 class VistaInserisciPrenotazioni(QWidget):
@@ -18,15 +16,18 @@ class VistaInserisciPrenotazioni(QWidget):
         self.add_info_text("id", "Id")
         self.add_info_text("data", "Data")
         self.add_info_text("ora", "Ora")
+        self.add_info_text("cf_paziente", "CF Paziente")
 
+
+# Combo box lista visite
         self.visite = []
 
-        # Apertura file visite per inserimento in combobox
         if os.path.isfile('File/Visite.pickle'):
             with open('File/Visite.pickle', 'rb') as f:
                 current = dict(pickle.load(f))
                 self.visite.extend(current.values())
 
+        # Creazione e riepimento con le visite della combobox
         self.combo_visita = QComboBox()
 
         for visita in self.visite:
@@ -35,6 +36,27 @@ class VistaInserisciPrenotazioni(QWidget):
         self.combo_visita.currentIndexChanged.connect(self.selectionchange)
         self.qlines["visita"] = self.combo_visita
         self.v_layout.addWidget(self.combo_visita)
+        self.setLayout(self.v_layout)
+
+# Combo box per lista medici
+        self.medici = []
+
+        if os.path.isfile('File/Medici.pickle'):
+            with open('File/Medici.pickle', 'rb') as f:
+                current = dict(pickle.load(f))
+                self.medici.extend(current.values())
+
+        # Creazione e riepimento con cognomi dei medici della combobox
+        self.combo_medico = QComboBox()
+
+        for medico in self.medici:
+            id_cognome = f"{medico.id} {medico.cognome}"
+            #id_cognome = medico.id + medico.cognome
+            self.combo_medico.addItem(id_cognome)
+
+        self.combo_medico.currentIndexChanged.connect(self.selectionchange)
+        self.qlines["medico"] = self.combo_medico
+        self.v_layout.addWidget(self.combo_medico)
         self.setLayout(self.v_layout)
 
         btn_ok = QPushButton("OK")
@@ -78,8 +100,20 @@ class VistaInserisciPrenotazioni(QWidget):
             # print(data)
             ora = datetime.strptime(self.qlines["ora"].text(), '%H:%M')
             # ora = time.strftime(self.qlines["ora"].text(), '%H:%M')
-            id_visita = (self.qlines["visita"].currentText())
-            prenotazione.aggiungiPrenotazione(id, data, ora)
+            # id_visita = (self.qlines["visita"].currentText())
+
+            cf_paziente = self.qlines["cf_paziente"].text()
+
+            id_visita = int(self.qlines["visita"].currentIndex()) + 1
+
+            id_medico = int(self.qlines["medico"].currentText().split(" ")[0].strip())
+
+            prova = prenotazione.aggiungiPrenotazione(id, data, ora, id_medico, id_visita, cf_paziente)
+
+            if prova == False:
+                QMessageBox.critical(self, 'Errore', 'Codice fiscale non valido',
+                                 QMessageBox.Ok, QMessageBox.Ok)
+                return
         except:
             QMessageBox.critical(self, 'Errore', 'Controlla bene i dati inseriti',
                                  QMessageBox.Ok, QMessageBox.Ok)

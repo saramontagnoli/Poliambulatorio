@@ -10,30 +10,50 @@ class Prenotazione:
         self.id = 0
         self.data = datetime.datetime(1970, 1, 1)
         self.ora = datetime.time(0, 0, 0)
-        self.id_paziente = 0
+        self.cf_paziente = ""
         self.id_medico = 0
         self.id_visita = 0
-        self.id_referto = 0
-        self.id_ricevuta = 0
-        self.id_mora = 0
         self.scaduta = False
         self.disdetta = False
         self.conclusa = False
 
+        self.id_referto = 0
+        self.id_ricevuta = 0
+        self.id_mora = 0
+
+
 #Inserimnento di una nuova prenotazione nel file Prenotazioni.pickle
-    def aggiungiPrenotazione(self, id, data, ora):
+    def aggiungiPrenotazione(self, id, data, ora, id_medico, id_visita, cf_paziente):
         self.id = id
         self.data = data
         self.ora = ora
-        prenotazioni = {}
+        self.id_medico = id_medico
+        self.id_visita = id_visita
 
+        # controllo CF paziente
+        pazienti = []
         # Apertura e scrittura su file delle prenotazioni
-        if os.path.isfile('File/Prenotazioni.pickle'):
-            with open('File/Prenotazioni.pickle', 'rb') as f:
-                prenotazioni = pickle.load(f)
-        prenotazioni[id] = self
-        with open('File/Prenotazioni.pickle', 'wb') as f:
-            pickle.dump(prenotazioni, f, pickle.HIGHEST_PROTOCOL)
+        if os.path.isfile('File/Pazienti.pickle'):
+            with open('File/Pazienti.pickle', 'rb') as f:
+                current = dict(pickle.load(f))
+                pazienti.extend(current.values())
+
+        for paziente in pazienti:
+            if paziente.CF == cf_paziente:
+                self.cf_paziente = cf_paziente
+
+        if self.cf_paziente != "":
+            prenotazioni = {}
+
+            # Apertura e scrittura su file delle prenotazioni
+            if os.path.isfile('File/Prenotazioni.pickle'):
+                with open('File/Prenotazioni.pickle', 'rb') as f:
+                    prenotazioni = pickle.load(f)
+            prenotazioni[id] = self
+            with open('File/Prenotazioni.pickle', 'wb') as f:
+                pickle.dump(prenotazioni, f, pickle.HIGHEST_PROTOCOL)
+        else:
+            return False
 
     # Ritorna un dizionario con le informazioni di Prenotazione
     def getInfoPrenotazione(self):
