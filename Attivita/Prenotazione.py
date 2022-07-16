@@ -43,6 +43,19 @@ class Prenotazione:
                 self.cf_paziente = cf_paziente
 
         if self.cf_paziente != "":
+            visite = []
+            # Apertura e scrittura su file delle prenotazioni
+            if os.path.isfile('File/Visite.pickle'):
+                with open('File/Visite.pickle', 'rb') as f:
+                    current = dict(pickle.load(f))
+                    visite.extend(current.values())
+
+            #salvo l'id del reparto relativo alla visita
+            for visita in visite:
+                if visita.id == self.id_visita:
+                    id_reparto_visita = visita.id_reparto
+
+
             prenotazioni = {}
 
             # Apertura e scrittura su file delle prenotazioni
@@ -52,6 +65,8 @@ class Prenotazione:
             prenotazioni[id] = self
             with open('File/Prenotazioni.pickle', 'wb') as f:
                 pickle.dump(prenotazioni, f, pickle.HIGHEST_PROTOCOL)
+
+
         else:
             return False
 

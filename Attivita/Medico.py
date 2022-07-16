@@ -9,12 +9,15 @@ class Medico(Utilizzatore):
     def __init__(self):
         super().__init__()
         self.abilitazione = ""
+        self.id_reparto = 0
 
     def setInfoMedico(self, id, password, cognome, nome, data_nascita, CF, telefono, genere, mail, indirizzo, nota,
-                      abilitazione):
+                      abilitazione, id_reparto):
         self.setInfoUtilizzatore(id, password, cognome, nome, data_nascita, CF,
                                  telefono, genere, mail, indirizzo, nota)
         self.abilitazione = abilitazione
+        self.id_reparto = id_reparto
+
         medici = {}
         if os.path.isfile('File/Medici.pickle'):
             with open('File/Medici.pickle', 'rb') as f:
@@ -26,6 +29,7 @@ class Medico(Utilizzatore):
     def getInfoMedico(self):
         info = self.getInfoUtilizzatore()
         info["abilitazione"] = self.abilitazione
+        info["id_reparto"] = self.id_reparto
         return info
 
     def ricercaUtilizzatoreCF(self, CF):

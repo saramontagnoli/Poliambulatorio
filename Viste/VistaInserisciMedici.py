@@ -30,6 +30,25 @@ class VistaInserisciMedici(QWidget):
         #self.add_info_text("allergia", "Allergia")
         #self.add_info_text("malattia_pregressa", "Malattia pregressa")
 
+        self.reparti = []
+
+        if os.path.isfile('File/Reparti.pickle'):
+            with open('File/Reparti.pickle', 'rb') as f:
+                current = dict(pickle.load(f))
+                self.reparti.extend(current.values())
+
+        # Creazione e riepimento con le visite della combobox
+        self.combo_reparti = QComboBox()
+
+        for reparto in self.reparti:
+            id_reparto_nome = f"{reparto.id} {reparto.nome}"
+            self.combo_reparti.addItem(id_reparto_nome)
+
+        self.combo_reparti.currentIndexChanged.connect(self.selectionchange)
+        self.qlines["reparto"] = self.combo_reparti
+        self.v_layout.addWidget(self.combo_reparti)
+        self.setLayout(self.v_layout)
+
         btn_ok = QPushButton("OK")
         btn_ok.clicked.connect(self.aggiungi_medico)
         self.qlines["btn_ok"] = btn_ok
@@ -88,11 +107,10 @@ class VistaInserisciMedici(QWidget):
             indirizzo = self.qlines["indirizzo"].text()
             nota = self.qlines["nota"].text()
             abilitazione = self.qlines["abilitazione"].text()
+            id_reparto = int(self.qlines["id_reparto"].currentText().split(" ")[0].strip())
 
-            #print(allergia)
-            #print(malattia_pregressa)
 
-            medico.setInfoMedico(id, password, cognome, nome, data_nascita, CF, telefono, genere, mail, indirizzo, nota, abilitazione)
+            medico.setInfoMedico(id, password, cognome, nome, data_nascita, CF, telefono, genere, mail, indirizzo, nota, abilitazione, id_reparto)
 
         except:
             QMessageBox.critical(self, 'Errore', 'Controlla bene i dati inseriti',
