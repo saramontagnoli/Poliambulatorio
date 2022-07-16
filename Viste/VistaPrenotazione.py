@@ -30,6 +30,9 @@ class VistaPrenotazione(QWidget):
         v_layout.addWidget(QLabel(f"Id: {info['id']}"))
         v_layout.addWidget(QLabel(f"Data: {info['data'].strftime('%Y-%m-%d')}"))
         v_layout.addWidget(QLabel(f"Ora: {info['ora'].strftime('%H:%M')}"))
+        v_layout.addWidget(QLabel(f"CF Paziente: {info['cf_paziente']}"))
+        v_layout.addWidget(QLabel(f"Id medico: {info['id_medico']}"))
+        v_layout.addWidget(QLabel(f"Id visita: {info['id_visita']}"))
 
         # Eventuali stampe degli stati della prenotazione
         if bool(info['scaduta']):
