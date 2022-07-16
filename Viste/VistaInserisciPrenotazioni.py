@@ -105,10 +105,10 @@ class VistaInserisciPrenotazioni(QWidget):
             cf_paziente = self.qlines["cf_paziente"].text()
 
             id_visita = int(self.qlines["visita"].currentIndex()) + 1
-            print (id_visita)
-            cognome_medico = (self.qlines["medico"].currentText())
-            print (cognome_medico)
-            prenotazione.aggiungiPrenotazione(id, data, ora)
+
+            id_medico = int(self.qlines["medico"].currentText().split(" ")[0].strip())
+
+            prenotazione.aggiungiPrenotazione(id, data, ora, id_medico, id_visita, cf_paziente)
         except:
             QMessageBox.critical(self, 'Errore', 'Controlla bene i dati inseriti',
                                  QMessageBox.Ok, QMessageBox.Ok)
