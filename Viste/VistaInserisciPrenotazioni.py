@@ -14,7 +14,7 @@ class VistaInserisciPrenotazioni(QWidget):
         self.qlines = {}
         # Caselle di testo per inserimento informazioni del paziente
         self.add_info_text("id", "Id")
-        self.add_info_text("data", "Data")
+        #self.add_info_text("data", "Data")
         #self.add_info_text("ora", "Ora")
         self.add_info_text("cf_paziente", "CF Paziente")
 
@@ -32,7 +32,10 @@ class VistaInserisciPrenotazioni(QWidget):
         self.v_layout.addWidget(self.combo_ora)
         self.setLayout(self.v_layout)
 
-
+        self.calendario = QtWidgets.QDateEdit(calendarPopup=True)
+        self.menuBar().setCornerWidget(self.calendario, QtCore.Qt.TopLeftCorner)
+        self.calendario.setDateTime(QtCore.QDateTime.currentDateTime())
+        self.calendario.setMinimumDate(datetime.today())
 
 # Combo box lista visite
         self.visite = []
