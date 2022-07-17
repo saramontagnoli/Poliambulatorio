@@ -1,3 +1,6 @@
+import os
+import pickle
+
 from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QWidget, QVBoxLayout, QLabel, QSpacerItem, QSizePolicy, QPushButton, QMessageBox
 
@@ -49,11 +52,16 @@ class VistaPrenotazione(QWidget):
         v_layout.addItem(QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding))
 
         # Creazione del bottone per disdire la prenotazione che si sta visualizzando
-        btn_ricevuta = QPushButton('Crea ricevuta')
-        btn_ricevuta.clicked.connect(lambda: self.crea_ricevuta_click(prenotazione))
+        if not prenotazione.conclusa and not prenotazione.disdetta and not prenotazione.scaduta:
+            btn_crea_ricevuta = QPushButton('Crea ricevuta')
+            btn_crea_ricevuta.clicked.connect(lambda: self.crea_ricevuta_click(prenotazione))
+            v_layout.addWidget(btn_crea_ricevuta)
+        elif prenotazione.conclusa:
+            btn_visualizza_ricevuta = QPushButton('Visualizza ricevuta')
+            btn_visualizza_ricevuta.clicked.connect(lambda: self.visualizza_ricevuta_click(prenotazione))
+            v_layout.addWidget(btn_visualizza_ricevuta)
         btn_disdici = QPushButton('Disdici')
         btn_disdici.clicked.connect(lambda: self.disdetta_prenotazione_click(prenotazione))
-        v_layout.addWidget(btn_ricevuta)
         v_layout.addWidget(btn_disdici)
 
         self.setLayout(v_layout)
@@ -88,3 +96,19 @@ class VistaPrenotazione(QWidget):
         self.elimina_callback()
         self.close()
 
+    def visualizza_ricevuta_click(self, prenotazione):
+        if isinstance(prenotazione,Prenotazione):
+            ricevute = []
+            # Apertura e scrittura su file delle visite
+            if os.path.isfile('File/Ricevute.pickle'):
+                with open('File/Ricevute.pickle', 'rb') as f:
+                    current = dict(pickle.load(f))
+                    ricevute.extend(current.values())
+
+            for ricevuta in ricevute:
+                if ricevuta.id == prenotazione.id:
+                    messaggio = QMessageBox()
+                    messaggio.setWindowIcon(QIcon('CroceVerde.png'))
+                    messaggio.setWindowTitle("Ricevuta")
+                    messaggio.setText(f"Id: {ricevuta.id} \nImporto: {ricevuta.importo}€ \nData e ora: {ricevuta.data_ora.strftime('%Y-%m-%d %H:%M')}" )
+                    messaggio.exec_()
