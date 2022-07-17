@@ -62,7 +62,7 @@ class VistaPrenotazione(QWidget):
             v_layout.addWidget(btn_visualizza_ricevuta)
 
         more = []
-        # Apertura e scrittura su file delle visite
+        # Apertura e scrittura su file delle more
         if os.path.isfile('File/More.pickle'):
             with open('File/More.pickle', 'rb') as f:
                 current = dict(pickle.load(f))
@@ -97,6 +97,7 @@ class VistaPrenotazione(QWidget):
         self.elimina_callback()
         self.close()
 
+    # Funzione per la creazione della ricevuta quando si preme il bottone
     def crea_ricevuta_click(self, prenotazione):
         if isinstance(prenotazione,Prenotazione):
             messaggio = QMessageBox()
@@ -111,10 +112,11 @@ class VistaPrenotazione(QWidget):
         self.elimina_callback()
         self.close()
 
+    # Funzione per la visualizzazione della ricevuta quando si preme il bottone
     def visualizza_ricevuta_click(self, prenotazione):
         if isinstance(prenotazione,Prenotazione):
             ricevute = []
-            # Apertura e scrittura su file delle visite
+            # Apertura e scrittura su file delle ricevute
             if os.path.isfile('File/Ricevute.pickle'):
                 with open('File/Ricevute.pickle', 'rb') as f:
                     current = dict(pickle.load(f))
@@ -128,6 +130,7 @@ class VistaPrenotazione(QWidget):
                     messaggio.setText(f"Id: {ricevuta.id} \nImporto: {ricevuta.importo}€ \nData e ora: {ricevuta.data_ora.strftime('%Y-%m-%d %H:%M')}" )
                     messaggio.exec_()
 
+    # Funzione per la visualizzazione della mora quando si preme il bottone
     def visualizza_mora_click(self, mora):
         if isinstance(mora, Mora):
             messaggio = QMessageBox()
