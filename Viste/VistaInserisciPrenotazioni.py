@@ -147,6 +147,11 @@ class VistaInserisciPrenotazioni(QWidget):
                 QMessageBox.critical(self, 'Errore', 'Il sabato e la domenica l''ambulatorio è chiuso',
                                  QMessageBox.Ok, QMessageBox.Ok)
                 return
+
+            if prova == -4:
+                QMessageBox.critical(self, 'Errore', 'Il paziente ha già prenotato per un''altra visita in questa data e ora',
+                                 QMessageBox.Ok, QMessageBox.Ok)
+                return
         except:
             QMessageBox.critical(self, 'Errore', 'Controlla bene i dati inseriti',
                                  QMessageBox.Ok, QMessageBox.Ok)

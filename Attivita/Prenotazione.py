@@ -84,6 +84,14 @@ class Prenotazione:
                                 current = dict(pickle.load(f))
                                 prenotazioni.extend(current.values())
 
+                        for paziente in pazienti:
+                            if paziente.CF == self.cf_paziente:
+                                for prenotazione in prenotazioni:
+                                    if prenotazione.cf_paziente == self.cf_paziente:
+                                        if prenotazione.ora == self.ora and prenotazione.data == self.data and not prenotazione.disdetta:
+                                            print ("Il paziente ha già prenotato un'altra visita")
+                                            return -4
+
                         for prenotazione in prenotazioni:
                             if prenotazione.id_medico == self.id_medico and not prenotazione.disdetta:
                                 print("id medico coincide con id medico in prenotazione")
