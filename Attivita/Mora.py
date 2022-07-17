@@ -4,11 +4,19 @@ import pickle
 
 class Mora:
 
-    def __init__(self):
-        self.id = 0
-        self.importo = 0.0
-        self.nota = ''
-        self.data_emissione = datetime(1970, 0, 0, 0)
+    def __init__(self, id, importo, nota, data_emissione):
+        self.id = id
+        self.importo = importo / 3.0
+        self.nota = nota
+        self.data_emissione = data_emissione
+
+        more ={}
+        if os.path.isfile('File/More.pickle'):
+            with open('File/More.pickle', 'rb') as f:
+                more = pickle.load(f)
+        more[self.id] = self
+        with open('File/More.pickle', 'wb') as f:
+            pickle.dump(more, f, pickle.HIGHEST_PROTOCOL)
 
     #metodi get e set dei vari attributi
     def getId(self):
