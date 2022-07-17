@@ -74,9 +74,10 @@ class VistaPrenotazione(QWidget):
                 btn_visualizza_mora.clicked.connect(lambda: self.visualizza_mora_click(mora))
                 v_layout.addWidget(btn_visualizza_mora)
 
-        btn_disdici = QPushButton('Disdici')
-        btn_disdici.clicked.connect(lambda: self.disdetta_prenotazione_click(prenotazione))
-        v_layout.addWidget(btn_disdici)
+        if not prenotazione.conclusa and not prenotazione.scaduta and not prenotazione.disdetta:
+            btn_disdici = QPushButton('Disdici')
+            btn_disdici.clicked.connect(lambda: self.disdetta_prenotazione_click(prenotazione))
+            v_layout.addWidget(btn_disdici)
 
         self.setLayout(v_layout)
         self.setWindowTitle("Prenotazione")

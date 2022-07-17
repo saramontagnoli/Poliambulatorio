@@ -172,7 +172,7 @@ class Prenotazione:
 
     # Disdetta di una prenotazione effettuata in precedenza
     def disdiciPrenotazione(self):
-        if not self.disdetta:
+        if not self.disdetta and not self.conclusa:
             sottrazione_data = datetime.datetime.today() - self.data
             if sottrazione_data.days < 5:
                 visite = []
