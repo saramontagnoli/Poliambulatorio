@@ -84,10 +84,16 @@ class Prenotazione:
                                 current = dict(pickle.load(f))
                                 prenotazioni.extend(current.values())
 
+                        c=0
                         for paziente in pazienti:
                             if paziente.CF == self.cf_paziente:
                                 for prenotazione in prenotazioni:
                                     if prenotazione.cf_paziente == self.cf_paziente:
+                                        if not prenotazione.disdetta and not prenotazione.scaduta and not prenotazione.conclusa:
+                                            c+=1
+                                        if c>=5:
+                                            print ("Il paziente ha troppe prenotazioni")
+                                            return -5
                                         if prenotazione.ora == self.ora and prenotazione.data == self.data and not prenotazione.disdetta:
                                             print ("Il paziente ha già prenotato un'altra visita")
                                             return -4

@@ -152,6 +152,11 @@ class VistaInserisciPrenotazioni(QWidget):
                 QMessageBox.critical(self, 'Errore', 'Il paziente ha già prenotato per un''altra visita in questa data e ora',
                                  QMessageBox.Ok, QMessageBox.Ok)
                 return
+
+            if prova == -5:
+                QMessageBox.critical(self, 'Errore', 'Il paziente ha troppe prenotazioni attive al momento',
+                                 QMessageBox.Ok, QMessageBox.Ok)
+                return
         except:
             QMessageBox.critical(self, 'Errore', 'Controlla bene i dati inseriti',
                                  QMessageBox.Ok, QMessageBox.Ok)
