@@ -1,3 +1,4 @@
+from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import (QApplication, QWidget, QPushButton, QLabel, QLineEdit, QGridLayout, QSizePolicy)
 
 from Viste.VistaHomeAmm import VistaHomeAmm
@@ -7,6 +8,7 @@ class VistaLogin(QWidget):
     def __init__(self):
         super().__init__()
         self.setWindowTitle('Login')
+        self.setWindowIcon(QIcon('CroceVerde.png'))
         self.resize(350, 200)
         grid_layout = QGridLayout()
         label1 = QLabel('<font size="8"> UserId </font>')

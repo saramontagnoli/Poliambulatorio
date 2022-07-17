@@ -1,7 +1,7 @@
 import os.path
 import pickle
 
-from PyQt5.QtGui import QStandardItemModel, QStandardItem
+from PyQt5.QtGui import QStandardItemModel, QStandardItem, QIcon
 from PyQt5.QtWidgets import QWidget, QHBoxLayout, QListView, QVBoxLayout, QPushButton, QLineEdit, QLabel, QMessageBox
 
 from Attivita.Medico import Medico
@@ -14,6 +14,7 @@ class VistaGestisciMedici(QWidget):
     def __init__(self, parent=None):
         #stampa lista dei medici
         super(VistaGestisciMedici, self).__init__(parent)
+        self.setWindowIcon(QIcon('CroceVerde.png'))
         self.h_layout = QHBoxLayout()
         self.list_view = QListView()
         self.update_ui()

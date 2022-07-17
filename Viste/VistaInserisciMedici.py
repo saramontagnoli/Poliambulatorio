@@ -1,3 +1,5 @@
+from PyQt5.QtGui import QIcon
+
 from Attivita.Medico import Medico
 import os
 import pickle
@@ -9,6 +11,7 @@ class VistaInserisciMedici(QWidget):
 
     def __init__(self, callback):
         super(VistaInserisciMedici, self).__init__()
+        self.setWindowIcon(QIcon('CroceVerde.png'))
         self.callback = callback
         self.v_layout = QVBoxLayout()
         self.qlines = {}

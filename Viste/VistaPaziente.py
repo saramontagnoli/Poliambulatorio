@@ -1,3 +1,4 @@
+from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QWidget, QVBoxLayout, QLabel, QSpacerItem, QSizePolicy, QPushButton, QMessageBox
 
 from Attivita.Paziente import Paziente
@@ -7,6 +8,7 @@ class VistaPaziente(QWidget):
 
     def __init__(self, paziente, elimina_callback):
         super(VistaPaziente, self).__init__()
+        self.setWindowIcon(QIcon('CroceVerde.png'))
         self.elimina_callback = elimina_callback
 
         v_layout = QVBoxLayout()

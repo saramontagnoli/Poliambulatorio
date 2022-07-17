@@ -1,3 +1,4 @@
+from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QWidget, QGridLayout, QPushButton, QSizePolicy
 
 from Viste.VistaGestisciPazienti import VistaGestisciPazienti
@@ -10,6 +11,7 @@ class VistaHomeAmm(QWidget):
     # Pulsante con nome e relativo ONLICK, visualizzazione della finestra home del paziente
     def __init__(self, parent=None):
         super(VistaHomeAmm, self).__init__(parent)
+        self.setWindowIcon(QIcon('CroceVerde.png'))
         grid_layout = QGridLayout()
         grid_layout.addWidget(self.get_generic_button("Gestisci Prenotazioni", self.go_prenotazioni), 0, 0)
         grid_layout.addWidget(self.get_generic_button("Gestisci Pazienti", self.go_pazienti), 0, 1)

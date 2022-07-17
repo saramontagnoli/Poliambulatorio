@@ -1,6 +1,7 @@
 from datetime import datetime
 
 from PyQt5 import QtCore
+from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QWidget, QVBoxLayout, QLabel, QLineEdit, QPushButton, QMessageBox, QCheckBox, QRadioButton
 # from PyQt5.uic.properties import QtWidgets
 
@@ -11,6 +12,7 @@ class VistaInserisciPazienti(QWidget):
 
     def __init__(self, callback):
         super(VistaInserisciPazienti, self).__init__()
+        self.setWindowIcon(QIcon('CroceVerde.png'))
         self.callback = callback
         self.v_layout = QVBoxLayout()
         self.qlines = {}
