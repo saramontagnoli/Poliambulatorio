@@ -124,18 +124,27 @@ class VistaInserisciPrenotazioni(QWidget):
 
             prova = prenotazione.aggiungiPrenotazione(id, data, ora, id_medico, id_visita, cf_paziente)
 
+            #errore cf paziente non esistente
             if prova == 0:
                 QMessageBox.critical(self, 'Errore', 'Codice fiscale non valido',
                                  QMessageBox.Ok, QMessageBox.Ok)
                 return
 
+            #sto scegliendo una visita e un medico di reparti diversi
             if prova == -1:
                 QMessageBox.critical(self, 'Errore', 'Il reparto del medico e della visita non corrispondono',
                                  QMessageBox.Ok, QMessageBox.Ok)
                 return
 
+            #il medico ha già un'altra visita
             if prova == -2:
                 QMessageBox.critical(self, 'Errore', 'Il medico è già impegnato in un''altra visita',
+                                 QMessageBox.Ok, QMessageBox.Ok)
+                return
+
+            #sto prenotando di sabato o domenica
+            if prova == -3:
+                QMessageBox.critical(self, 'Errore', 'Il sabato e la domenica l''ambulatorio è chiuso',
                                  QMessageBox.Ok, QMessageBox.Ok)
                 return
         except:

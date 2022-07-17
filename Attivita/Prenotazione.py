@@ -23,10 +23,14 @@ class Prenotazione:
 
     def aggiungiPrenotazione(self, id, data, ora, id_medico, id_visita, cf_paziente):
         self.id = id
-        self.data = data
         self.ora = ora
         self.id_medico = id_medico
         self.id_visita = id_visita
+
+        if data.isoweekday() > 5:
+            return -3
+
+        self.data = data
 
         # controllo CF paziente
         pazienti = []
