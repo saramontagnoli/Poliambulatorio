@@ -124,24 +124,13 @@ class VistaInserisciPrenotazioni(QWidget):
 
             prova = prenotazione.aggiungiPrenotazione(id, data, ora, id_medico, id_visita, cf_paziente)
 
-            match prova:
-                case 0:
-                    QMessageBox.critical(self, 'Errore', 'Codice fiscale non valido', QMessageBox.Ok, QMessageBox.Ok)
-                    return
-                case -1:
-                    QMessageBox.critical(self, 'Errore', 'Il reparto del medico e della visita non corrispondono', QMessageBox.Ok, QMessageBox.Ok)
-                    return
-                case -2:
-                    QMessageBox.critical(self, 'Errore', 'Il medico è già impegnato in un''altra visita',QMessageBox.Ok, QMessageBox.Ok)
-                    return
-                case -3:
-                    QMessageBox.critical(self, 'Errore', 'Il sabato e la domenica l''ambulatorio è chiuso',QMessageBox.Ok, QMessageBox.Ok)
-                    return
-                case -4:
-                    QMessageBox.critical(self, 'Errore', 'Il paziente ha già prenotato per un''altra visita in questa data e ora',QMessageBox.Ok, QMessageBox.Ok)
-                    return
+            #errore cf paziente non esistente
+            if prova == 0:
+                QMessageBox.critical(self, 'Errore', 'Codice fiscale non valido',
+                                 QMessageBox.Ok, QMessageBox.Ok)
+                return
 
-            """#sto scegliendo una visita e un medico di reparti diversi
+            #sto scegliendo una visita e un medico di reparti diversi
             if prova == -1:
                 QMessageBox.critical(self, 'Errore', 'Il reparto del medico e della visita non corrispondono',
                                  QMessageBox.Ok, QMessageBox.Ok)
@@ -163,7 +152,6 @@ class VistaInserisciPrenotazioni(QWidget):
                 QMessageBox.critical(self, 'Errore', 'Il paziente ha già prenotato per un''altra visita in questa data e ora',
                                  QMessageBox.Ok, QMessageBox.Ok)
                 return
-            """
         except:
             QMessageBox.critical(self, 'Errore', 'Controlla bene i dati inseriti',
                                  QMessageBox.Ok, QMessageBox.Ok)
