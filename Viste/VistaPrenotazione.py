@@ -49,8 +49,11 @@ class VistaPrenotazione(QWidget):
         v_layout.addItem(QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding))
 
         # Creazione del bottone per disdire la prenotazione che si sta visualizzando
+        btn_ricevuta = QPushButton('Crea ricevuta')
+        btn_ricevuta.clicked.connect(lambda: self.crea_ricevuta_click(prenotazione))
         btn_disdici = QPushButton('Disdici')
         btn_disdici.clicked.connect(lambda: self.disdetta_prenotazione_click(prenotazione))
+        v_layout.addWidget(btn_ricevuta)
         v_layout.addWidget(btn_disdici)
 
         self.setLayout(v_layout)
@@ -70,3 +73,18 @@ class VistaPrenotazione(QWidget):
                 messaggio.exec_()
         self.elimina_callback()
         self.close()
+
+    def crea_ricevuta_click(self, prenotazione):
+        if isinstance(prenotazione,Prenotazione):
+            messaggio = QMessageBox()
+            if(prenotazione.crea_ricevuta()):
+                messaggio.setWindowTitle("Ricevuta")
+                messaggio.setText("La Ricevuta della prenotazione e' stata creata con successo. ")
+                messaggio.exec_()
+            else:
+                messaggio.setWindowTitle("Errore")
+                messaggio.setText("Impossibile creare la ricevuta. ")
+                messaggio.exec_()
+        self.elimina_callback()
+        self.close()
+

@@ -1,6 +1,8 @@
+import datetime
 import os
 import pickle
-import datetime
+
+from Attivita.Ricevuta import Ricevuta
 
 
 class Prenotazione:
@@ -199,5 +201,34 @@ class Prenotazione:
                 with open('File/Prenotazioni.pickle', 'wb') as f:
                     pickle.dump(prenotazioni, f, pickle.HIGHEST_PROTOCOL)
                     return True
+        else:
+            return False
+
+    def crea_ricevuta(self):
+        costo = 0
+        if not self.disdetta and not self.scaduta and not self.conclusa:
+            visite = []
+            # Apertura e scrittura su file delle visite
+            if os.path.isfile('File/Visite.pickle'):
+                with open('File/Visite.pickle', 'rb') as f:
+                    current = dict(pickle.load(f))
+                    visite.extend(current.values())
+
+            for visita in visite:
+                if self.id_visita == visita.id:
+                    costo = visita.costo
+
+            ricevuta = Ricevuta(self.id, costo, datetime.datetime.today())
+            self.conclusa = True
+
+            prenotazioni = {}
+            # Apertura e scrittura su file della prenotazione
+            if os.path.isfile('File/Prenotazioni.pickle'):
+                with open('File/Prenotazioni.pickle', 'rb') as f:
+                    prenotazioni = pickle.load(f)
+            prenotazioni[self.id] = self
+            with open('File/Prenotazioni.pickle', 'wb') as f:
+                pickle.dump(prenotazioni, f, pickle.HIGHEST_PROTOCOL)
+                return True
         else:
             return False
