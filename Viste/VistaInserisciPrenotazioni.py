@@ -1,6 +1,8 @@
 import os
 import pickle
 from datetime import datetime
+
+from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QWidget, QVBoxLayout, QLabel, QLineEdit, QPushButton, QMessageBox, QComboBox
 from Attivita.Prenotazione import Prenotazione
 
@@ -9,6 +11,7 @@ class VistaInserisciPrenotazioni(QWidget):
 
     def __init__(self, callback):
         super(VistaInserisciPrenotazioni, self).__init__()
+        self.setWindowIcon(QIcon('CroceVerde.png'))
         self.callback = callback
         self.v_layout = QVBoxLayout()
         self.qlines = {}
