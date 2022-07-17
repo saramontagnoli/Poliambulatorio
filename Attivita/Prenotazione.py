@@ -3,6 +3,7 @@ import os
 import pickle
 
 from Attivita.Ricevuta import Ricevuta
+from Attivita.Mora import Mora
 
 
 class Prenotazione:
@@ -172,6 +173,21 @@ class Prenotazione:
     # Disdetta di una prenotazione effettuata in precedenza
     def disdiciPrenotazione(self):
         if not self.disdetta:
+            sottrazione_data = datetime.datetime.today() - self.data
+            if sottrazione_data.days < 5:
+                visite = []
+            # Apertura e scrittura su file delle visite
+                if os.path.isfile('File/Visite.pickle'):
+                    with open('File/Visite.pickle', 'rb') as f:
+                        current = dict(pickle.load(f))
+                        visite.extend(current.values())
+
+                for visita in visite:
+                    if self.id_visita == visita.id:
+                        costo = visita.costo
+
+                mora = Mora(self.id, costo, "Non disdetta in tempo. ", datetime.datetime.today())
+                #print (mora.id)
             self.disdetta = True
             prenotazioni = {}
             # Apertura e scrittura su file della prenotazione

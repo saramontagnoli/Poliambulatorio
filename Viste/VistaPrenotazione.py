@@ -4,7 +4,7 @@ import pickle
 from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QWidget, QVBoxLayout, QLabel, QSpacerItem, QSizePolicy, QPushButton, QMessageBox
 
-
+from Attivita.Mora import Mora
 from Attivita.Prenotazione import Prenotazione
 
 
@@ -60,6 +60,20 @@ class VistaPrenotazione(QWidget):
             btn_visualizza_ricevuta = QPushButton('Visualizza ricevuta')
             btn_visualizza_ricevuta.clicked.connect(lambda: self.visualizza_ricevuta_click(prenotazione))
             v_layout.addWidget(btn_visualizza_ricevuta)
+
+        more = []
+        # Apertura e scrittura su file delle visite
+        if os.path.isfile('File/More.pickle'):
+            with open('File/More.pickle', 'rb') as f:
+                current = dict(pickle.load(f))
+                more.extend(current.values())
+
+        for mora in more:
+            if mora.id == prenotazione.id:
+                btn_visualizza_mora = QPushButton('Visualizza mora')
+                btn_visualizza_mora.clicked.connect(lambda: self.visualizza_mora_click(mora))
+                v_layout.addWidget(btn_visualizza_mora)
+
         btn_disdici = QPushButton('Disdici')
         btn_disdici.clicked.connect(lambda: self.disdetta_prenotazione_click(prenotazione))
         v_layout.addWidget(btn_disdici)
@@ -112,3 +126,12 @@ class VistaPrenotazione(QWidget):
                     messaggio.setWindowTitle("Ricevuta")
                     messaggio.setText(f"Id: {ricevuta.id} \nImporto: {ricevuta.importo}€ \nData e ora: {ricevuta.data_ora.strftime('%Y-%m-%d %H:%M')}" )
                     messaggio.exec_()
+
+    def visualizza_mora_click(self, mora):
+        if isinstance(mora, Mora):
+            messaggio = QMessageBox()
+            messaggio.setWindowIcon(QIcon('CroceVerde.png'))
+            messaggio.setWindowTitle("Mora")
+            messaggio.setText(f"Id: {mora.id} \nImporto: {round(mora.importo, 2)}€ \nNota: {mora.nota} \nData e ora: {mora.data_emissione.strftime('%Y-%m-%d %H:%M')}" )
+            messaggio.exec_()
+
