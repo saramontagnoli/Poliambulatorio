@@ -94,7 +94,7 @@ class VistaGestisciPazienti(QWidget):
             self.vista_paziente = VistaPaziente(paziente, elimina_callback=self.update_ui)
             self.vista_paziente.show()
         except IndexError:
-            print("INDEX ERROR")
+            QMessageBox.critical(self, 'Errore', 'Nessun elemento selezionato', QMessageBox.Ok, QMessageBox.Ok)
             return
 
     # Richiama la vista per l'inserimento di un nuovo paziente

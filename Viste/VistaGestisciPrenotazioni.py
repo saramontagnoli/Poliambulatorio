@@ -79,18 +79,15 @@ class VistaGestisciPrenotazioni(QWidget):
         try:
             selected = self.list_view.selectedIndexes()[0].data()
             tipo = selected.split(" ")[0].strip()
-            # print("Tipo: " + tipo)
             id = int(selected.split(" ")[1].strip())
-            # print("Id: [" + id.str+"]")
             prenotazione = None
 
             if tipo == "Prenotazione":
                 prenotazione = Prenotazione().ricerca(id)
-                #prenotazione.scadenzaPrenotazione()
             self.vista_prenotazione = VistaPrenotazione(prenotazione, elimina_callback=self.update_ui)
             self.vista_prenotazione.show()
         except IndexError:
-            print("INDEX ERROR")
+            QMessageBox.critical(self, 'Errore', 'Nessun elemento selezionato', QMessageBox.Ok, QMessageBox.Ok)
             return
 
     # Richiama la vista per l'inserimento di una nuova prenotazione
