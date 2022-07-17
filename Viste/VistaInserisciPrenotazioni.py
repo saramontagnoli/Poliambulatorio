@@ -66,7 +66,6 @@ class VistaInserisciPrenotazioni(QWidget):
 
         for medico in self.medici:
             id_cognome = f"{medico.id} {medico.cognome}"
-            #id_cognome = medico.id + medico.cognome
             self.combo_medico.addItem(id_cognome)
 
         self.combo_medico.currentIndexChanged.connect(self.selectionchange)
@@ -112,10 +111,6 @@ class VistaInserisciPrenotazioni(QWidget):
         # Controllo delle caselle di testo (devono essere tutte riempite)
         try:
             data = datetime.strptime(self.qlines["data"].text(), '%d/%m/%Y')
-            # print(data)
-            #ora = datetime.strptime(self.qlines["ora"].text(), '%H:%M')
-            # ora = time.strftime(self.qlines["ora"].text(), '%H:%M')
-            # id_visita = (self.qlines["visita"].currentText())
 
             ora = datetime.strptime(self.qlines["ora"].currentText(), '%H:%M')
 

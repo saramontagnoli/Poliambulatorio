@@ -93,7 +93,7 @@ class VistaGestisciMedici(QWidget):
             self.vista_medico = VistaMedico(medico, elimina_callback=self.update_ui)
             self.vista_medico.show()
         except IndexError:
-            print("INDEX ERROR")
+            QMessageBox.critical(self, 'Errore', 'Nessun elemento selezionato', QMessageBox.Ok, QMessageBox.Ok)
             return
 
     #Richiama la vista per l'inserimento di un nuovo medico

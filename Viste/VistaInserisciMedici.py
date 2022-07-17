@@ -28,8 +28,6 @@ class VistaInserisciMedici(QWidget):
         self.add_info_text("indirizzo", "Indirizzo")
         self.add_info_text("nota", "Nota")
         self.add_info_text("abilitazione", "Abilitazione")
-        #self.add_info_text("allergia", "Allergia")
-        #self.add_info_text("malattia_pregressa", "Malattia pregressa")
 
         self.reparti = []
 

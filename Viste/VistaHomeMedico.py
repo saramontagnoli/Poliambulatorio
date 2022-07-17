@@ -14,7 +14,6 @@ class VistaHomeMedico(QWidget):
         grid_layout.addWidget(self.get_generic_button("Logout", self.go_logout), 1, 1)
         self.setLayout(grid_layout)
         self.resize(400, 300)
-        # vedere come mettere il nome del medico che ha fatto l'accesso
         self.setWindowTitle(f"Dot. {self.medico.nome} {self.medico.cognome} - {self.medico.id}")
 
     def get_generic_button(self, titolo, on_click):

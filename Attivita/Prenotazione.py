@@ -72,15 +72,12 @@ class Prenotazione:
                     id_reparto_medico = medico.id_reparto
 
             if id_reparto_visita == id_reparto_medico:
-                print("Reparto visita e medico coincide")
                 for medico in medici:
                     if self.id_medico == medico.id:
-                        print("Id medico coincide con un medico")
                         prenotazioni = []
 
                         if os.path.isfile('File/Prenotazioni.pickle'):
                             with open('File/Prenotazioni.pickle', 'rb') as f:
-                                print("File (caricamento dict) aperto")
                                 current = dict(pickle.load(f))
                                 prenotazioni.extend(current.values())
 
@@ -92,17 +89,13 @@ class Prenotazione:
                                         if not prenotazione.disdetta and not prenotazione.scaduta and not prenotazione.conclusa:
                                             c+=1
                                         if c>=5:
-                                            print ("Il paziente ha troppe prenotazioni")
                                             return -5
                                         if prenotazione.ora == self.ora and prenotazione.data == self.data and not prenotazione.disdetta:
-                                            print ("Il paziente ha già prenotato un'altra visita")
                                             return -4
 
                         for prenotazione in prenotazioni:
                             if prenotazione.id_medico == self.id_medico and not prenotazione.disdetta:
-                                print("id medico coincide con id medico in prenotazione")
                                 if prenotazione.data == self.data and prenotazione.ora == self.ora:
-                                    print("L'ora è già occupata")
                                     return -2
                 prenotazioni = {}
 
