@@ -203,11 +203,25 @@ class Prenotazione:
 
     # Funzione per la gestione delle scadenze delle prenotazioni secondo la data
     def scadenzaPrenotazione(self):
-        if not self.scaduta:
+        if not self.scaduta and not self.conclusa:
             scadenza = datetime.datetime.today()
             scadenza = scadenza.replace(day=scadenza.day - 1)
             if self.data < scadenza:
                 self.scaduta = True
+
+                visite = []
+            # Apertura e scrittura su file delle visite
+                if os.path.isfile('File/Visite.pickle'):
+                    with open('File/Visite.pickle', 'rb') as f:
+                        current = dict(pickle.load(f))
+                        visite.extend(current.values())
+
+                for visita in visite:
+                    if self.id_visita == visita.id:
+                        costo = visita.costo
+
+                mora = Mora(self.id, costo, "Prenotazione scaduta. ", datetime.datetime.today())
+
                 prenotazioni = {}
                 # Apertura e scrittura su file delle prenotazioni
                 if os.path.isfile('File/Prenotazioni.pickle'):
