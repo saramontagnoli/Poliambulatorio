@@ -23,10 +23,14 @@ class Prenotazione:
 
     def aggiungiPrenotazione(self, id, data, ora, id_medico, id_visita, cf_paziente):
         self.id = id
-        self.data = data
         self.ora = ora
         self.id_medico = id_medico
         self.id_visita = id_visita
+
+        if data.isoweekday() > 5:
+            return -3
+
+        self.data = data
 
         # controllo CF paziente
         pazienti = []
@@ -79,6 +83,20 @@ class Prenotazione:
                                 print("File (caricamento dict) aperto")
                                 current = dict(pickle.load(f))
                                 prenotazioni.extend(current.values())
+
+                        c=0
+                        for paziente in pazienti:
+                            if paziente.CF == self.cf_paziente:
+                                for prenotazione in prenotazioni:
+                                    if prenotazione.cf_paziente == self.cf_paziente:
+                                        if not prenotazione.disdetta and not prenotazione.scaduta and not prenotazione.conclusa:
+                                            c+=1
+                                        if c>=5:
+                                            print ("Il paziente ha troppe prenotazioni")
+                                            return -5
+                                        if prenotazione.ora == self.ora and prenotazione.data == self.data and not prenotazione.disdetta:
+                                            print ("Il paziente ha già prenotato un'altra visita")
+                                            return -4
 
                         for prenotazione in prenotazioni:
                             if prenotazione.id_medico == self.id_medico and not prenotazione.disdetta:
