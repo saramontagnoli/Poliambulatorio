@@ -52,6 +52,9 @@ class VistaBackUp(QWidget):
         self.qlines[nome] = current_text
         self.v_layout.addWidget(current_text)
 
+    def selectionchange(self):
+        return self.combo_frequenza.currentText()
+
     def modifica_click(self):
         gb = GestoreBackUp()
         try:
@@ -72,6 +75,3 @@ class VistaBackUp(QWidget):
 
     def backup_click(self):
         return
-
-    def selectionchange(self):
-        return self.combo_frequenza.currentText()
