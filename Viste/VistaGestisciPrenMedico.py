@@ -111,8 +111,8 @@ class VistaGestisciPrenMedico(QWidget):
             if prenotazione.id == ID:
                 if prenotazione.id_medico == self.medico.id:
                     f = 1
-                    self.vista_prenotazione = VistaPrenotazione(prenotazione, elimina_callback=self.update_ui)
-                    self.vista_prenotazione.show()
+                    self.vista_prenotazione_medico = VistaPrenotazioneMedico(prenotazione, elimina_callback=self.update_ui)
+                    self.vista_prenotazione_medico.show()
 
         # Se non trovo nessuna prenotazione con quell'ID stampo un pop-up di errore
         if f == 0:
