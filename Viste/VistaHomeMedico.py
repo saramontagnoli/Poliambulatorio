@@ -1,11 +1,12 @@
 from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QWidget, QGridLayout, QPushButton, QSizePolicy
+from Viste.VistaGestisciPrenMedico import VistaGestisciPrenMedico
 
 class VistaHomeMedico(QWidget):
 
     def __init__(self, medico, parent=None):
-        self.medico = medico
         super(VistaHomeMedico, self).__init__(parent)
+        self.medico = medico
         self.setWindowIcon(QIcon('CroceVerde.png'))
         grid_layout = QGridLayout()
         grid_layout.addWidget(self.get_generic_button("Vedi Prenotazioni", self.go_prenotazioni), 0, 0)

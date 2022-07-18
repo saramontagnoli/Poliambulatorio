@@ -8,11 +8,12 @@ from Attivita.Prenotazione import Prenotazione
 from Viste.VistaPrenotazione import VistaPrenotazione
 from Viste.VistaInserisciPrenotazioni import VistaInserisciPrenotazioni
 
-class VistaGestisciPrenMedico:
-    def __init__(self, medico, parent=None,):
-        self.medico = medico
+class VistaGestisciPrenMedico(QWidget):
+
+    def __init__(self, medico, parent=None):
         # stampa lista delle prenotazioni
         super(VistaGestisciPrenMedico, self).__init__(parent)
+        self.medico = medico
         self.setWindowIcon(QIcon('CroceVerde.png'))
         self.h_layout = QHBoxLayout()
         self.list_view = QListView()
@@ -49,25 +50,22 @@ class VistaGestisciPrenMedico:
                 current = dict(pickle.load(f))
                 self.prenotazioni.extend(current.values())
 
-        for prenotazione in prenotazioni:
-            if prenotazione.id_medico != self.medico.id:
-                del prenotazioni[prenotazione.id]
-
     # Stampa della lista aggiornata nella finestra dei prenotazioni
     def update_ui(self):
         self.prenotazioni = []
         self.load_prenotazioni()
         listview_model = QStandardItemModel(self.list_view)
         for prenotazione in self.prenotazioni:
-            prenotazione.scadenzaPrenotazione()
-            item = QStandardItem()
-            nome = f"{type(prenotazione).__name__} {prenotazione.id}"
-            item.setText(nome)
-            item.setEditable(False)
-            font = item.font()
-            font.setPointSize(18)
-            item.setFont(font)
-            listview_model.appendRow(item)
+            if prenotazione.id_medico == self.medico.id:
+                prenotazione.scadenzaPrenotazione()
+                item = QStandardItem()
+                nome = f"{type(prenotazione).__name__} {prenotazione.id}"
+                item.setText(nome)
+                item.setEditable(False)
+                font = item.font()
+                font.setPointSize(18)
+                item.setFont(font)
+                listview_model.appendRow(item)
         self.list_view.setModel(listview_model)
 
     # Permette la visualizzazione delle informazioni di una particolare prenotazione
@@ -111,9 +109,10 @@ class VistaGestisciPrenMedico:
         # controllo l'ID delle prenotazioni inserite
         for prenotazione in self.prenotazioni:
             if prenotazione.id == ID:
-                f = 1
-                self.vista_prenotazione = VistaPrenotazione(prenotazione, elimina_callback=self.update_ui)
-                self.vista_prenotazione.show()
+                if prenotazione.id_medico == self.medico.id:
+                    f = 1
+                    self.vista_prenotazione = VistaPrenotazione(prenotazione, elimina_callback=self.update_ui)
+                    self.vista_prenotazione.show()
 
         # Se non trovo nessuna prenotazione con quell'ID stampo un pop-up di errore
         if f == 0:
