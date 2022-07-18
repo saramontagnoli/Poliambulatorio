@@ -79,7 +79,7 @@ class VistaGestisciPrenMedico(QWidget):
 
             if tipo == "Prenotazione":
                 prenotazione = Prenotazione().ricerca(id)
-            self.vista_prenotazione_medico = VistaPrenotazioneMedico(prenotazione)
+            self.vista_prenotazione_medico = VistaPrenotazioneMedico(prenotazione, elimina_callback=self.update_ui)
             self.vista_prenotazione_medico.show()
         except IndexError:
             QMessageBox.critical(self, 'Errore', 'Nessun elemento selezionato', QMessageBox.Ok, QMessageBox.Ok)
