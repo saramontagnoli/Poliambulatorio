@@ -1,12 +1,21 @@
 import datetime
+import os
+import pickle
 
 
 class GestoreBackUp:
 
     # Impostazioni standard di Back-up
     def __init__(self):
-        self.ora = datetime.time(21, 0, 0)
-        self.frequenza = 1
+        impostazioni = []
+        # Caricamento delle impostazioni di back-up salvate in precedenza
+        if os.path.isfile('File/Backup.pickle'):
+            with open('File/Backup.pickle', 'rb') as f:
+                current = dict(pickle.load(f))
+                impostazioni.extend(current.values())
+
+            self.ora = impostazioni[0].ora
+            self.frequenza = impostazioni[0].frequenza
 
     def copiaDatiMora(self):
         # boolean
@@ -39,12 +48,15 @@ class GestoreBackUp:
 
     # frequenza intesa come intervallo giornaliero (ogni n giorni)
     def modificaBackUp(self, ora, frequenza):
-        print("In modifica (classe)")
-        print(self.ora)
-        print(self.frequenza)
-
         self.ora = ora
         self.frequenza = frequenza
-        print(self.ora)
-        print(self.frequenza)
+
+        impostazioni = {}
+        if os.path.isfile('File/Backup.pickle'):
+            with open('File/Backup.pickle', 'rb') as f:
+                impostazioni = pickle.load(f)
+        impostazioni[0] = self
+        with open('File/Backup.pickle', 'wb') as f:
+            pickle.dump(impostazioni, f, pickle.HIGHEST_PROTOCOL)
+
         return
