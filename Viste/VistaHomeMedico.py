@@ -23,7 +23,8 @@ class VistaHomeMedico(QWidget):
         return button
 
     def go_prenotazioni(self):
-        pass
+        self.vista_gestisci_pren_medico = VistaGestisciPrenMedico(self.medico)
+        self.vista_gestisci_pren_medico.show()
 
     def go_turni(self):
         pass
