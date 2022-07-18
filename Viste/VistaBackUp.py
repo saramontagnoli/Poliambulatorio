@@ -6,6 +6,17 @@ from PyQt5.QtWidgets import QWidget, QVBoxLayout, QPushButton, QMessageBox, QLab
 from Gestione.GestoreBackUp import GestoreBackUp, effettuaBackUp
 
 
+def backup_click():
+    effettuaBackUp()
+
+    messaggio = QMessageBox()
+    messaggio.setWindowIcon(QIcon('CroceVerde.png'))
+    messaggio.setWindowTitle("Completato")
+    messaggio.setText('Back-up completato.')
+    messaggio.exec_()
+    return
+
+
 class VistaBackUp(QWidget):
 
     def __init__(self):
@@ -21,8 +32,7 @@ class VistaBackUp(QWidget):
 
         self.add_info_text("ora", "Nuovo orario")
 
-        # Combo box lista orari dell'ambulatorio
-        # Creazione e riempimento con le visite della combobox
+        # ComboBox con frequenze di back-up in giorni
         self.combo_frequenza = QComboBox()
         options = ["1", "2", "3", "4", "5", "6", "7"]
 
@@ -40,7 +50,7 @@ class VistaBackUp(QWidget):
 
         btn_backup = QPushButton('Esegui Back-up adesso')
         btn_backup.setFixedSize(300, 100)
-        btn_backup.clicked.connect(lambda: self.backup_click())
+        btn_backup.clicked.connect(lambda: backup_click())
         self.v_layout.addWidget(btn_backup)
 
         self.setLayout(self.v_layout)
@@ -72,15 +82,5 @@ class VistaBackUp(QWidget):
         messaggio.setWindowIcon(QIcon('CroceVerde.png'))
         messaggio.setWindowTitle("Modifica")
         messaggio.setText('Orario e frequenza di back-up modificati con successo')
-        messaggio.exec_()
-        return
-
-    def backup_click(self):
-        effettuaBackUp()
-
-        messaggio = QMessageBox()
-        messaggio.setWindowIcon(QIcon('CroceVerde.png'))
-        messaggio.setWindowTitle("Completato")
-        messaggio.setText('Back-up completato.')
         messaggio.exec_()
         return
