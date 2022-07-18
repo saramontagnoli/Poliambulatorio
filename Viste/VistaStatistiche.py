@@ -25,7 +25,7 @@ class VistaStatistiche(QWidget):
         v_layout.addWidget(btn_stat_more)
 
         self.setLayout(v_layout)
-        self.setWindowTitle("Prenotazione")
+        self.setWindowTitle("Statistiche")
 
     def stat_ricevute_click(self):
         messaggio = QMessageBox()

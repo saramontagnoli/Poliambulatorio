@@ -31,7 +31,8 @@ class VistaHomeMedico(QWidget):
         pass
 
     def go_informazioni(self):
-        pass
+        self.vista_modifica_medico = VistaModificaMedico(self.medico)
+        self.vista_modifica_medico.show()
 
     def go_logout(self):
         pass
