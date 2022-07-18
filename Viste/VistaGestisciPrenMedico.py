@@ -49,19 +49,16 @@ class VistaGestisciPrenMedico:
                 current = dict(pickle.load(f))
                 self.prenotazioni.extend(current.values())
 
-        self.pren_attuali = []
-        c = 0
         for prenotazione in prenotazioni:
-            if prenotazione.id_medico == self.medico.id:
-                self.pren_attuali[c] = prenotazione
-                c += 1
+            if prenotazione.id_medico != self.medico.id:
+                del prenotazioni[prenotazione.id]
 
     # Stampa della lista aggiornata nella finestra dei prenotazioni
     def update_ui(self):
-        self.pren_attuali = []
+        self.prenotazioni = []
         self.load_prenotazioni()
         listview_model = QStandardItemModel(self.list_view)
-        for prenotazione in self.pren_attuali:
+        for prenotazione in self.prenotazioni:
             prenotazione.scadenzaPrenotazione()
             item = QStandardItem()
             nome = f"{type(prenotazione).__name__} {prenotazione.id}"
@@ -89,6 +86,11 @@ class VistaGestisciPrenMedico:
             QMessageBox.critical(self, 'Errore', 'Nessun elemento selezionato', QMessageBox.Ok, QMessageBox.Ok)
             return
 
+    # Richiama la vista per l'inserimento di una nuova prenotazione
+    def show_new(self):
+        self.inserisci_prenotazione = VistaInserisciPrenotazioni(callback=self.update_ui)
+        self.inserisci_prenotazione.show()
+
     # Dati contenuti dentro la casella di testo della ricerca
     def add_info_text(self, nome, label):
         self.h_layout.addWidget(QLabel(label))
@@ -107,7 +109,7 @@ class VistaGestisciPrenMedico:
 
         f = 0
         # controllo l'ID delle prenotazioni inserite
-        for prenotazione in self.pren_attuali:
+        for prenotazione in self.prenotazioni:
             if prenotazione.id == ID:
                 f = 1
                 self.vista_prenotazione = VistaPrenotazione(prenotazione, elimina_callback=self.update_ui)
