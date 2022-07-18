@@ -5,7 +5,6 @@ from PyQt5.QtGui import QStandardItemModel, QStandardItem, QIcon
 from PyQt5.QtWidgets import QWidget, QHBoxLayout, QListView, QVBoxLayout, QPushButton, QLineEdit, QLabel, QMessageBox
 
 from Attivita.Prenotazione import Prenotazione
-from Viste.VistaPrenotazione import VistaPrenotazione
 from Viste.VistaInserisciPrenotazioni import VistaInserisciPrenotazioni
 from Viste.VistaPrenotazioneMedico import VistaPrenotazioneMedico
 

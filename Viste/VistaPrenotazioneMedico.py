@@ -1,10 +1,6 @@
-import os
-import pickle
-
 from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QWidget, QVBoxLayout, QLabel, QSpacerItem, QSizePolicy, QPushButton, QMessageBox
 
-from Attivita.Mora import Mora
 from Attivita.Prenotazione import Prenotazione
 
 
