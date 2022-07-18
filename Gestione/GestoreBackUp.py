@@ -1,4 +1,13 @@
+import datetime
+
+
 class GestoreBackUp:
+
+    # Impostazioni standard di Back-up
+    def __init__(self):
+        self.ora = datetime.time(21, 0, 0)
+        self.frequenza = 1
+
     def copiaDatiMora(self):
         # boolean
         return
@@ -30,5 +39,12 @@ class GestoreBackUp:
 
     # frequenza intesa come intervallo giornaliero (ogni n giorni)
     def modificaBackUp(self, ora, frequenza):
-        # boolean
+        print("In modifica (classe)")
+        print(self.ora)
+        print(self.frequenza)
+
+        self.ora = ora
+        self.frequenza = frequenza
+        print(self.ora)
+        print(self.frequenza)
         return

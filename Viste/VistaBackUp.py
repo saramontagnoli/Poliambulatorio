@@ -53,25 +53,22 @@ class VistaBackUp(QWidget):
         self.v_layout.addWidget(current_text)
 
     def modifica_click(self):
-        print("In modifica")
+        gb = GestoreBackUp()
         try:
             ora = datetime.strptime(self.qlines["ora"].text(), '%H:%M')
-            frequenza = int(self.qlines["frequenza"].currentText())
-            print(ora)
-            print(frequenza)
-            gb = GestoreBackUp()
-            if gb.modificaBackUp(ora, frequenza):
-                QMessageBox(self, 'Modifica', 'Orario e frequenza di back-up modificati con successo',
-                            QMessageBox.Ok, QMessageBox.Ok)
-                return
-            else:
-                QMessageBox.critical(self, 'Errore', 'Modifica non effettuata',
-                                     QMessageBox.Ok, QMessageBox.Ok)
-                return
+            frequenza = int(self.qlines["frequenza"].currentIndex() + 1)
+            gb.modificaBackUp(ora, frequenza)
         except:
             QMessageBox.critical(self, 'Errore', 'Controlla bene i dati inseriti',
                                  QMessageBox.Ok, QMessageBox.Ok)
             return
+
+        messaggio = QMessageBox()
+        messaggio.setWindowIcon(QIcon('CroceVerde.png'))
+        messaggio.setWindowTitle("Modifica")
+        messaggio.setText('Orario e frequenza di back-up modificati con successo')
+        messaggio.exec_()
+        return
 
     def backup_click(self):
         return
