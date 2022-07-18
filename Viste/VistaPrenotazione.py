@@ -86,7 +86,7 @@ class VistaPrenotazione(QWidget):
     def disdetta_prenotazione_click(self, prenotazione):
         if isinstance(prenotazione, Prenotazione):
             messaggio = QMessageBox()
-            if(prenotazione.disdiciPrenotazione()):
+            if(prenotazione.disdiciPrenotazione(0)):
                 messaggio.setWindowTitle("Disdetta")
                 messaggio.setText("La prenotazione e' stato disdetta con successo. ")
                 messaggio.exec_()

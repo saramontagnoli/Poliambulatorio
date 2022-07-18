@@ -5,7 +5,7 @@ import os
 import pickle
 from datetime import datetime
 from PyQt5.QtWidgets import QWidget, QVBoxLayout, QLabel, QLineEdit, QPushButton, QMessageBox, QComboBox
-from Attivita.Medico import Medico
+
 
 class VistaInserisciMedici(QWidget):
 

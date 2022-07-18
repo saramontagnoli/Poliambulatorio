@@ -171,9 +171,9 @@ class Prenotazione:
         self.conclusa = conclusa
 
     # Disdetta di una prenotazione effettuata in precedenza
-    def disdiciPrenotazione(self):
+    def disdiciPrenotazione(self, num):
         if not self.disdetta and not self.conclusa:
-            sottrazione_data = datetime.datetime.today() - self.data
+            sottrazione_data = self.data - datetime.datetime.today()
             if sottrazione_data.days < 5:
                 visite = []
             # Apertura e scrittura su file delle visite
@@ -186,8 +186,12 @@ class Prenotazione:
                     if self.id_visita == visita.id:
                         costo = visita.costo
 
-                mora = Mora(self.id, costo, "Non disdetta in tempo. ", datetime.datetime.today())
-                #print (mora.id)
+                #Controllo sul chi disdice la prenotazione (paziente = paga, amm/med = no)
+                if num == 1:
+                    mora = Mora(self.id, costo, "Non disdetta in tempo. ", datetime.datetime.today())
+                else:
+                    mora = Mora(self.id, 0, "Prenotazione disdetta dal medico o dall'amministratore. ", datetime.datetime.today())
+
             self.disdetta = True
             prenotazioni = {}
             # Apertura e scrittura su file della prenotazione
