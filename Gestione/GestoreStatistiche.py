@@ -3,9 +3,8 @@ import os
 import pickle
 
 
-def richiediStatisticheMora():
+def richiediStatisticheMore():
     more = []
-    # Apertura e scrittura su file delle visite
     if os.path.isfile('File/More.pickle'):
         with open('File/More.pickle', 'rb') as f:
             current = dict(pickle.load(f))
@@ -26,17 +25,24 @@ def richiediStatisticheMora():
     return f"Somma totale anno {anno_attuale}: {round(somma,2)}€ \nNumero more: {num}"
 
 
-def richiediStatisticheRicevuta():
+def richiediStatisticheRicevute():
     ricevute = []
-    # Apertura e scrittura su file delle visite
     if os.path.isfile('File/Ricevute.pickle'):
         with open('File/Ricevute.pickle', 'rb') as f:
             current = dict(pickle.load(f))
             ricevute.extend(current.values())
+    somma = 0
+    num = 0
+    anno_attuale = int(datetime.datetime.today().year)
+    for ricevuta in ricevute:
+        anno_ricevuta = int(ricevuta.data_ora.year)
 
-    # for ricevuta in ricevute:
+        if anno_ricevuta == anno_attuale:
+            num += 1
+            somma += ricevuta.importo
 
-    return
+    return f"Somma totale anno {anno_attuale}: {round(somma, 2)}€ \nNumero ricevute: {num}"
+
 
 
 class GestoreStatistiche:

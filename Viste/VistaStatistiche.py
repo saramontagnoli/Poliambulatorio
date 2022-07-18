@@ -1,7 +1,7 @@
 from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QWidget, QVBoxLayout, QLabel, QSpacerItem, QSizePolicy, QPushButton, QMessageBox
 
-from Gestione.GestoreStatistiche import richiediStatisticheMora
+from Gestione.GestoreStatistiche import richiediStatisticheMore, richiediStatisticheRicevute
 
 
 class VistaStatistiche(QWidget):
@@ -34,12 +34,16 @@ class VistaStatistiche(QWidget):
         self.setWindowTitle("Prenotazione")
 
     def stat_ricevute_click(self):
-        print("NULL")
+        messaggio = QMessageBox()
+        messaggio.setWindowIcon(QIcon('CroceVerde.png'))
+        messaggio.setWindowTitle("Statistiche Ricevute")
+        messaggio.setText(richiediStatisticheRicevute())
+        messaggio.exec_()
         return
 
     def stat_more_click(self):
         messaggio = QMessageBox()
         messaggio.setWindowIcon(QIcon('CroceVerde.png'))
         messaggio.setWindowTitle("Statistiche More")
-        messaggio.setText(richiediStatisticheMora())
+        messaggio.setText(richiediStatisticheMore())
         messaggio.exec_()
