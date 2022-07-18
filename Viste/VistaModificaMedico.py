@@ -13,7 +13,6 @@ class VistaModificaMedico(QWidget):
         super(VistaModificaMedico, self).__init__()
         self.medico = medico
         self.setWindowIcon(QIcon('CroceVerde.png'))
-        self.callback = callback
         self.v_layout = QVBoxLayout()
         self.qlines = {}
 
@@ -72,5 +71,4 @@ class VistaModificaMedico(QWidget):
                                  QMessageBox.Ok, QMessageBox.Ok)
             return
 
-        self.callback()
         self.close()
