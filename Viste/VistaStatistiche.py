@@ -1,3 +1,4 @@
+from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QWidget, QVBoxLayout, QLabel, QSpacerItem, QSizePolicy, QPushButton, QMessageBox
 
@@ -9,24 +10,17 @@ class VistaStatistiche(QWidget):
     def __init__(self):
         super(VistaStatistiche, self).__init__()
         self.setWindowIcon(QIcon('CroceVerde.png'))
+        self.setGeometry(0, 0, 300, 300)
 
         v_layout = QVBoxLayout()
-        nome = ""
-        info = {}
-
-        label_nome = QLabel(nome)
-        font_nome = label_nome.font()
-        font_nome.setPointSize(30)
-        label_nome.setFont(font_nome)
-        v_layout.addWidget(label_nome)
-
-        v_layout.addItem(QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding))
-
+        v_layout.setAlignment(Qt.AlignCenter)
         btn_stat_ricevute = QPushButton('Statistiche ricevute')
         btn_stat_ricevute.clicked.connect(lambda: self.stat_ricevute_click())
+        btn_stat_ricevute.setFixedSize(300, 100)
         v_layout.addWidget(btn_stat_ricevute)
 
         btn_stat_more = QPushButton('Statistiche more')
+        btn_stat_more.setFixedSize(300, 100)
         btn_stat_more.clicked.connect(lambda: self.stat_more_click())
         v_layout.addWidget(btn_stat_more)
 
