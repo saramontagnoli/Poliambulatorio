@@ -1,6 +1,7 @@
 from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QWidget, QGridLayout, QPushButton, QSizePolicy
 from Viste.VistaGestisciPrenMedico import VistaGestisciPrenMedico
+from Viste.VistaModificaMedico import VistaModificaMedico
 
 class VistaHomeMedico(QWidget):
 

@@ -6,9 +6,9 @@ import pickle
 from datetime import datetime
 from PyQt5.QtWidgets import QWidget, QVBoxLayout, QLabel, QLineEdit, QPushButton, QMessageBox, QComboBox
 
-class VistaModificaMedico (QWidget):
+class VistaModificaMedico(QWidget):
 
-    def __init__(self, medico, callback):
+    def __init__(self, medico):
 
         super(VistaModificaMedico, self).__init__()
         self.medico = medico
@@ -60,7 +60,12 @@ class VistaModificaMedico (QWidget):
             abilitazione = self.qlines["abilitazione"].text()
 
 
-            medico.setInfoMedico(self.medico.id, password, self.medico.cognome, self.medico.nome, self.medico.data_nascita, self.medico.CF, telefono, self.medico.genere, mail, indirizzo, nota, abilitazione, self.medico.id_reparto)
+            self.medico.setInfoMedico(self.medico.id, password, self.medico.cognome, self.medico.nome, self.medico.data_nascita, self.medico.CF, telefono, self.medico.genere, mail, indirizzo, nota, abilitazione, self.medico.id_reparto)
+            messaggio = QMessageBox()
+            messaggio.setWindowIcon(QIcon('CroceVerde.png'))
+            messaggio.setWindowTitle("Modifica informazioni")
+            messaggio.setText("Modifica effettuata")
+            messaggio.exec_()
 
         except:
             QMessageBox.critical(self, 'Errore', 'Controlla bene i dati inseriti',
