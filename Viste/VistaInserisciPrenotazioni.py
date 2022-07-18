@@ -6,7 +6,6 @@ from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QWidget, QVBoxLayout, QLabel, QLineEdit, QPushButton, QMessageBox, QComboBox
 from Attivita.Prenotazione import Prenotazione
 
-
 class VistaInserisciPrenotazioni(QWidget):
 
     def __init__(self, callback):
