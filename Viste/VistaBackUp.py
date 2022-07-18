@@ -3,7 +3,7 @@ from datetime import datetime
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QWidget, QVBoxLayout, QPushButton, QMessageBox, QLabel, QLineEdit, QComboBox
-from Gestione.GestoreBackUp import GestoreBackUp
+from Gestione.GestoreBackUp import GestoreBackUp, effettuaBackUp
 
 
 class VistaBackUp(QWidget):
@@ -16,6 +16,8 @@ class VistaBackUp(QWidget):
         self.v_layout = QVBoxLayout()
         self.v_layout.setAlignment(Qt.AlignCenter)
         self.qlines = {}
+
+        self.gb = GestoreBackUp()
 
         self.add_info_text("ora", "Nuovo orario")
 
@@ -56,11 +58,11 @@ class VistaBackUp(QWidget):
         return self.combo_frequenza.currentText()
 
     def modifica_click(self):
-        gb = GestoreBackUp()
+
         try:
             ora = datetime.strptime(self.qlines["ora"].text(), '%H:%M')
             frequenza = int(self.qlines["frequenza"].currentIndex() + 1)
-            gb.modificaBackUp(ora, frequenza)
+            self.gb.modificaBackUp(ora, frequenza)
         except:
             QMessageBox.critical(self, 'Errore', 'Controlla bene i dati inseriti',
                                  QMessageBox.Ok, QMessageBox.Ok)
@@ -74,4 +76,11 @@ class VistaBackUp(QWidget):
         return
 
     def backup_click(self):
+        effettuaBackUp()
+
+        messaggio = QMessageBox()
+        messaggio.setWindowIcon(QIcon('CroceVerde.png'))
+        messaggio.setWindowTitle("Completato")
+        messaggio.setText('Back-up completato.')
+        messaggio.exec_()
         return

@@ -1,6 +1,11 @@
-import datetime
 import os
 import pickle
+import shutil
+
+
+def effettuaBackUp():
+    shutil.copytree("File/", "Backup/")
+    return
 
 
 class GestoreBackUp:
@@ -16,35 +21,6 @@ class GestoreBackUp:
 
             self.ora = impostazioni[0].ora
             self.frequenza = impostazioni[0].frequenza
-
-    def copiaDatiMora(self):
-        # boolean
-        return
-
-    def copiaDatiPrenotazione(self):
-        # boolean
-        return
-
-    def copiaDatiReferto(self):
-        # boolean
-        return
-
-    def copiaDatiRicevuta(self):
-        # boolean
-        return
-
-    def copiaDatiUtilizzatore(self):
-        # boolean
-        return
-
-    def effettuaBackUp(self):
-        self.copiaDatiUtilizzatore()
-        self.copiaDatiPrenotazione()
-        self.copiaDatiReferto()
-        self.copiaDatiRicevuta()
-        self.copiaDatiMora()
-        # void
-        return
 
     # frequenza intesa come intervallo giornaliero (ogni n giorni)
     def modificaBackUp(self, ora, frequenza):
