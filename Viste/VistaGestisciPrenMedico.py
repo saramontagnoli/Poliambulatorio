@@ -7,6 +7,7 @@ from PyQt5.QtWidgets import QWidget, QHBoxLayout, QListView, QVBoxLayout, QPushB
 from Attivita.Prenotazione import Prenotazione
 from Viste.VistaPrenotazione import VistaPrenotazione
 from Viste.VistaInserisciPrenotazioni import VistaInserisciPrenotazioni
+from Viste.VistaPrenotazioneMedico import VistaPrenotazioneMedico
 
 class VistaGestisciPrenMedico(QWidget):
 
@@ -78,8 +79,8 @@ class VistaGestisciPrenMedico(QWidget):
 
             if tipo == "Prenotazione":
                 prenotazione = Prenotazione().ricerca(id)
-            self.vista_prenotazione = VistaPrenotazione(prenotazione, elimina_callback=self.update_ui)
-            self.vista_prenotazione.show()
+            self.vista_prenotazione_medico = VistaPrenotazioneMedico(prenotazione)
+            self.vista_prenotazione_medico.show()
         except IndexError:
             QMessageBox.critical(self, 'Errore', 'Nessun elemento selezionato', QMessageBox.Ok, QMessageBox.Ok)
             return

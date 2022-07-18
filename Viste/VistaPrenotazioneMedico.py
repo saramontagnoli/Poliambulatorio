@@ -10,7 +10,7 @@ from Attivita.Prenotazione import Prenotazione
 
 class VistaPrenotazioneMedico(QWidget):
 
-    def __init__(self, prenotazione, elimina_callback):
+    def __init__(self, prenotazione):
         super(VistaPrenotazioneMedico, self).__init__()
         self.setWindowIcon(QIcon('CroceVerde.png'))
         v_layout = QVBoxLayout()
