@@ -1,6 +1,6 @@
 class GestoreBackUp:
     def copiaDatiMora(self):
-        #boolean
+        # boolean
         return
 
     def copiaDatiPrenotazione(self):
@@ -25,10 +25,10 @@ class GestoreBackUp:
         self.copiaDatiReferto()
         self.copiaDatiRicevuta()
         self.copiaDatiMora()
-        #void
+        # void
         return
 
-    # frequenza intesa come intervallo orario (ogni n ore)
-    def modificaBackUp(self,date,frequenza):
+    # frequenza intesa come intervallo giornaliero (ogni n giorni)
+    def modificaBackUp(self, ora, frequenza):
         # boolean
         return
