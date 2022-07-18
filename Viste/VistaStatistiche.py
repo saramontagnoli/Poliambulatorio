@@ -1,6 +1,6 @@
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QIcon
-from PyQt5.QtWidgets import QWidget, QVBoxLayout, QLabel, QSpacerItem, QSizePolicy, QPushButton, QMessageBox
+from PyQt5.QtWidgets import QWidget, QVBoxLayout, QPushButton, QMessageBox
 
 from Gestione.GestoreStatistiche import richiediStatisticheMore, richiediStatisticheRicevute
 
