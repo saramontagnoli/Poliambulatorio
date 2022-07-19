@@ -33,7 +33,6 @@ class Paziente(Utilizzatore):
     # Ritorna un dizionario con le informazioni di Paziente
     def getInfoPaziente(self):
         info = self.getInfoUtilizzatore()
-        info["prenotazioni"] = self.prenotazioni
         info["allergia"] = self.allergia
         info["malattia_pregressa"] = self.malattia_pregressa
         return info
@@ -66,7 +65,6 @@ class Paziente(Utilizzatore):
             with open('File/Pazienti.pickle', 'wb') as f:
                 pickle.dump(pazienti, f, pickle.HIGHEST_PROTOCOL)
         self.rimuoviUtilizzatore()
-        self.prenotazioni = []
         self.allergia = False
         self.malattia_pregressa = False
         del self
