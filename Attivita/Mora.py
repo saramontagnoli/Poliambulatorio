@@ -5,11 +5,11 @@ import pickle
 
 class Mora:
 
-    def __init__(self, id, importo, nota, data_emissione):
+    def __init__(self, id, importo, nota):
         self.id = id
         self.importo = importo / 3.0
         self.nota = nota
-        self.data_emissione = data_emissione
+        self.data_emissione = datetime.datetime.today()
 
         more = {}
         if os.path.isfile('File/More.pickle'):
