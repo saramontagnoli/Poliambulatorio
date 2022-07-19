@@ -2,6 +2,7 @@ from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QWidget, QGridLayout, QPushButton, QSizePolicy
 from Viste.VistaGestisciPrenMedico import VistaGestisciPrenMedico
 from Viste.VistaModificaMedico import VistaModificaMedico
+import cv2
 
 class VistaHomeMedico(QWidget):
 
@@ -29,7 +30,8 @@ class VistaHomeMedico(QWidget):
         self.vista_gestisci_pren_medico.show()
 
     def go_turni(self):
-        pass
+        img = cv2.imread('Turni.png')
+        cv2.imshow('Turni.png', img)
 
     def go_informazioni(self):
         self.vista_modifica_medico = VistaModificaMedico(self.medico)
