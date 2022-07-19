@@ -1,5 +1,5 @@
 from PyQt5.QtGui import QIcon
-from PyQt5.QtWidgets import QWidget, QGridLayout, QPushButton, QSizePolicy
+from PyQt5.QtWidgets import QWidget, QGridLayout, QPushButton, QSizePolicy, QMessageBox
 
 from Viste.VistaGestisciPrenPaziente import VistaGestisciPrenPaziente
 from Viste.VistaModificaPaziente import VistaModificaPaziente
@@ -44,7 +44,7 @@ class VistaHomePaziente(QWidget):
         messaggio = QMessageBox()
         messaggio.setWindowIcon(QIcon('CroceVerde.png'))
         messaggio.setWindowTitle("Profilo")
-        messaggio.setText(f"Id: {self.paziente.id} \nNome: {self.paziente.nome} \nCognome: {self.paziente.cognome} \nCF: {self.paziente.CF} \nData nascita: {self.paziente.data_nascita.strftime('%Y-%m-%d')} \nGenere: {self.paziente.genere} \nIndirizzo: {self.paziente.indirizzo}\nMail: {self.paziente.mail} \nTelefono: {self.paziente.telefono} \nNota: {self.medico.nota} \nAllergia: {self.paziente.allergia} \nMalattia pregressa: {self.paziente.malattia_pregressa}" )
+        messaggio.setText(f"Id: {self.paziente.id} \nNome: {self.paziente.nome} \nCognome: {self.paziente.cognome} \nCF: {self.paziente.CF} \nData nascita: {self.paziente.data_nascita.strftime('%Y-%m-%d')} \nGenere: {self.paziente.genere} \nIndirizzo: {self.paziente.indirizzo}\nMail: {self.paziente.mail} \nTelefono: {self.paziente.telefono} \nNota: {self.paziente.nota} \nAllergia: {self.paziente.allergia} \nMalattia pregressa: {self.paziente.malattia_pregressa}" )
         messaggio.exec_()
         return
 
