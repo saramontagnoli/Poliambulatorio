@@ -38,8 +38,8 @@ class VistaHomeMedico(QWidget):
         self.vista_modifica_medico = VistaModificaMedico(self.medico)
         self.vista_modifica_medico.show()
 
-    def go_logout(self):
-        pass
+    def go_logout(self, titolo):
+        QCoreApplication.quit()
 
     def go_vis_info(self):
         messaggio = QMessageBox()

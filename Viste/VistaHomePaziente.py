@@ -17,7 +17,7 @@ class VistaHomePaziente(QWidget):
         grid_layout.addWidget(self.get_generic_button("Vedi Prenotazioni", self.go_prenotazioni), 0, 0)
         grid_layout.addWidget(self.get_generic_button("Modifica Informazioni", self.go_modifica), 0, 1)
         grid_layout.addWidget(self.get_generic_button("Visualizza Informazioni", self.go_vis_info), 1, 0)
-        grid_layout.addWidget(self.get_generic_button("Logout", self.go), 1, 1)
+        grid_layout.addWidget(self.get_generic_button("Logout", self.go_logout), 1, 1)
         self.setLayout(grid_layout)
         self.resize(400, 300)
         self.setWindowTitle(f"{self.paziente.nome} {self.paziente.cognome} - {self.paziente.id}")
@@ -37,8 +37,8 @@ class VistaHomePaziente(QWidget):
         self.vista_modifica_paziente = VistaModificaPaziente(self.paziente)
         self.vista_modifica_paziente.show()
 
-    def go(self):
-        pass
+    def go_logout(self):
+        QCoreApplication.quit()
 
     def go_vis_info(self):
 
