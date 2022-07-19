@@ -2,16 +2,21 @@ import datetime
 import os
 import pickle
 
+
 class Referto:
-    def incrementaId(self):
-        self.incrementaId.id += 1
-        return self.incrementaId.id
 
-    incrementaId.id = 0
+    def __init__(self, id, nota):
+        self.id = id
+        self.nota = nota
+        self.data_emissione = datetime.datetime.today()
 
-    def __init__(self):
-        self.id = self.incrementaId()
-        self.nota = ""
+        referti = {}
+        if os.path.isfile('File/Referti.pickle'):
+            with open('File/Referti.pickle', 'rb') as f:
+                referti = pickle.load(f)
+        referti[self.id] = self
+        with open('File/Referti.pickle', 'wb') as f:
+            pickle.dump(referti, f, pickle.HIGHEST_PROTOCOL)
 
     def getId(self):
         return self.id
@@ -21,8 +26,3 @@ class Referto:
 
     def getNota(self):
         return self.nota
-
-
-
-
-

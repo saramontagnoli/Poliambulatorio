@@ -1,8 +1,12 @@
+import os
+import pickle
+
 from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QWidget, QVBoxLayout, QLabel, QSpacerItem, QSizePolicy, QPushButton, QMessageBox
 
 from Attivita.Prenotazione import Prenotazione
-
+from Viste.VistaInserisciReferto import VistaInserisciReferto
+from Attivita.Referto import Referto
 
 class VistaPrenotazioneMedico(QWidget):
 
@@ -52,6 +56,26 @@ class VistaPrenotazioneMedico(QWidget):
             btn_disdici.clicked.connect(lambda: self.disdetta_prenotazione_click(prenotazione))
             v_layout.addWidget(btn_disdici)
 
+        if prenotazione.conclusa:
+            referti = []
+            # Apertura e scrittura su file delle more
+            if os.path.isfile('File/Referti.pickle'):
+                with open('File/Referti.pickle', 'rb') as f:
+                    current = dict(pickle.load(f))
+                    referti.extend(current.values())
+
+            flag = False
+            for referto in referti:
+                if referto.id == prenotazione.id:
+                    flag = True
+                    btn_visualizza_referto = QPushButton('Visualizza referti')
+                    btn_visualizza_referto.clicked.connect(lambda: self.visualizza_referto_click(referto))
+                    v_layout.addWidget(btn_visualizza_referto)
+            if not flag:
+                btn_inserisci_referto = QPushButton('Inserisci referto')
+                btn_inserisci_referto.clicked.connect(lambda: self.inserisci_referto_click(prenotazione))
+                v_layout.addWidget(btn_inserisci_referto)
+
         self.setLayout(v_layout)
         self.setWindowTitle("Prenotazione")
 
@@ -59,7 +83,7 @@ class VistaPrenotazioneMedico(QWidget):
     def disdetta_prenotazione_click(self, prenotazione):
         if isinstance(prenotazione, Prenotazione):
             messaggio = QMessageBox()
-            if(prenotazione.disdiciPrenotazione(0)):
+            if (prenotazione.disdiciPrenotazione(0)):
                 messaggio.setWindowTitle("Disdetta")
                 messaggio.setText("La prenotazione e' stato disdetta con successo. ")
                 messaggio.exec_()
@@ -70,3 +94,21 @@ class VistaPrenotazioneMedico(QWidget):
         self.elimina_callback()
         self.close()
 
+    # Funzione per l'inserimento del referto
+    def inserisci_referto_click(self, prenotazione):
+        if isinstance(prenotazione, Prenotazione):
+            # self.elimina_callback = VistaGestisciPrenMedico.update_ui(VistaGestisciPrenMedico)
+            self.inserisci_referto = VistaInserisciReferto(prenotazione, self.elimina_callback)
+            self.inserisci_referto.show()
+            self.elimina_callback()
+            self.close()
+
+    # Funzione per la visualizzazione della mora quando si preme il pulsante
+    def visualizza_referto_click(self, referto):
+        if isinstance(referto, Referto):
+            messaggio = QMessageBox()
+            messaggio.setWindowIcon(QIcon('CroceVerde.png'))
+            messaggio.setWindowTitle("Referto")
+            messaggio.setText(
+                f"Id: {referto.id} \nNota: {referto.nota} \nData e ora: {referto.data_emissione.strftime('%Y-%m-%d %H:%M')}")
+            messaggio.exec_()
