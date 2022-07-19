@@ -35,5 +35,6 @@ class VistaLogin(QWidget):
     def go_login(self):
         username = self.user_obj.text()
         password = self.user_pwd.text()
-
         GestoreAccesso.login(self, username, password)
+        self.close()
+

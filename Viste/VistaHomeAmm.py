@@ -1,3 +1,4 @@
+from PyQt5.QtCore import QCoreApplication
 from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QWidget, QGridLayout, QPushButton, QSizePolicy
 
@@ -5,7 +6,7 @@ from Viste.VistaGestisciPazienti import VistaGestisciPazienti
 from Viste.VistaGestisciMedici import VistaGestisciMedici
 from Viste.VistaGestisciPrenotazioni import VistaGestisciPrenotazioni
 from Viste.VistaStatistiche import VistaStatistiche
-from Viste.VistaBackUp  import VistaBackUp
+from Viste.VistaBackUp import VistaBackUp
 
 
 class VistaHomeAmm(QWidget):
@@ -20,6 +21,7 @@ class VistaHomeAmm(QWidget):
         grid_layout.addWidget(self.get_generic_button("Gestisci Medici", self.go_medici), 1, 0)
         grid_layout.addWidget(self.get_generic_button("Gestisci Statistiche", self.go_statistiche), 1, 1)
         grid_layout.addWidget(self.get_generic_button("Gestisci BackUp", self.go_backup), 2, 0, 1, 2)
+        grid_layout.addWidget(self.get_generic_button("Log-out", self.go_logout), 2, 0, 2, 2)
         self.setLayout(grid_layout)
         self.resize(400, 300)
         self.setWindowTitle("ADMIN")
@@ -51,3 +53,7 @@ class VistaHomeAmm(QWidget):
     def go_backup(self):
         self.vista_backup = VistaBackUp()
         self.vista_backup.show()
+
+    def go_logout(self):
+        QCoreApplication.quit()
+

@@ -1,3 +1,4 @@
+from PyQt5.QtCore import QCoreApplication
 from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QWidget, QGridLayout, QPushButton, QSizePolicy, QMessageBox
 
@@ -39,6 +40,7 @@ class VistaHomePaziente(QWidget):
 
     def go_logout(self):
         QCoreApplication.quit()
+
 
     def go_vis_info(self):
 
