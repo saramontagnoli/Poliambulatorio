@@ -24,7 +24,20 @@ class VistaInserisciMedici(QWidget):
         self.add_info_text("CF", "Codice Fiscale")
         self.add_info_text("mail", "Email")
         self.add_info_text("telefono", "Telefono")
-        self.add_info_text("genere", "Genere(M,F,A)")
+
+        # self.add_info_text("genere", "Genere(M,F,A)")
+        self.combo_genere = QComboBox()
+
+        options = ["M", "F", "A"]
+
+        for option in options:
+            self.combo_genere.addItem(option)
+
+        self.combo_genere.currentIndexChanged.connect(self.selectionchange)
+        self.qlines["genere"] = self.combo_genere
+        self.v_layout.addWidget(self.combo_genere)
+        self.setLayout(self.v_layout)
+
         self.add_info_text("indirizzo", "Indirizzo")
         self.add_info_text("nota", "Nota")
         self.add_info_text("abilitazione", "Abilitazione")

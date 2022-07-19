@@ -25,13 +25,24 @@ class VistaInserisciPazienti(QWidget):
         self.add_info_text("CF", "Codice Fiscale")
         self.add_info_text("mail", "Email")
         self.add_info_text("telefono", "Telefono")
-        self.add_info_text("genere", "Genere(M,F,A)")
+        # self.add_info_text("genere", "Genere(M,F,A)")
+
+        self.combo_genere = QComboBox()
+
+        options = ["M", "F", "A"]
+
+        for option in options:
+            self.combo_genere.addItem(option)
+
+        self.combo_genere.currentIndexChanged.connect(self.selectionchange)
+        self.qlines["genere"] = self.combo_genere
+        self.v_layout.addWidget(self.combo_genere)
+        self.setLayout(self.v_layout)
+
         self.add_info_text("indirizzo", "Indirizzo")
         self.add_info_text("nota", "Nota")
         self.add_checkbox("allergia", "Allergia")
         self.add_checkbox("malattia_pregressa", "Malattia pregressa")
-        # self.add_info_text("allergia", "Allergia")
-        # self.add_info_text("malattia_pregressa", "Malattia pregressa")
 
         btn_ok = QPushButton("OK")
         btn_ok.clicked.connect(self.aggiungi_paziente)
@@ -47,6 +58,9 @@ class VistaInserisciPazienti(QWidget):
         self.qlines[nome] = self.checkbox
         self.v_layout.addWidget(self.checkbox)
         self.checkbox.stateChanged.connect(self.clickBox)
+
+    def selectionchange(self,i):
+        return self.combo_genere.currentText()
 
     def clickBox(self, state):
         if state == QtCore.Qt.Checked:
