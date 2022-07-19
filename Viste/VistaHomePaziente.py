@@ -1,19 +1,19 @@
 from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QWidget, QGridLayout, QPushButton, QSizePolicy
 
-from Attivita.Paziente import Paziente
+from Viste.VistaGestisciPrenPaziente import VistaGestisciPrenPaziente
 
 
 class VistaHomePaziente(QWidget):
 
     #Vista che rappresenta la home del paziente con i relativi pulsanti
     def __init__(self, paziente, parent = None):
-        self.paziente = paziente
         super(VistaHomePaziente, self).__init__(parent)
+        self.paziente = paziente
         self.setWindowIcon(QIcon('CroceVerde.png'))
         grid_layout = QGridLayout()
         print(self.paziente.CF)
-        grid_layout.addWidget(self.get_generic_button("Vedi Prenotazioni",self.go), 0, 0)
+        grid_layout.addWidget(self.get_generic_button("Vedi Prenotazioni",self.go_prenotazioni), 0, 0)
         grid_layout.addWidget(self.get_generic_button("Modifica Informazioni", self.go), 0, 1)
         grid_layout.addWidget(self.get_generic_button("Logout", self.go), 2, 0, 1, 2)
         self.setLayout(grid_layout)
@@ -27,8 +27,13 @@ class VistaHomePaziente(QWidget):
         button.clicked.connect(on_click)
         return button
 
+    def go_prenotazioni(self):
+        self.vista_gestisci_pren_paziente = VistaGestisciPrenPaziente(self.paziente)
+        self.vista_gestisci_pren_paziente.show()
+
     def go(self):
         pass
+
 
 
 

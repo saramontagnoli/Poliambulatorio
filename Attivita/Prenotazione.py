@@ -172,6 +172,7 @@ class Prenotazione:
 
     # Disdetta di una prenotazione effettuata in precedenza
     def disdiciPrenotazione(self, num):
+        costo = 0
         if not self.disdetta and not self.conclusa:
             sottrazione_data = self.data - datetime.datetime.today()
             if sottrazione_data.days < 5:
@@ -188,9 +189,9 @@ class Prenotazione:
 
                 #Controllo sul chi disdice la prenotazione (paziente = paga, amm/med = no)
                 if num == 1:
-                    mora = Mora(self.id, costo, "Non disdetta in tempo. ", datetime.datetime.today())
+                    mora = Mora(self.id, costo, "Non disdetta in tempo. ")
                 else:
-                    mora = Mora(self.id, 0, "Prenotazione disdetta dal medico o dall'amministratore. ", datetime.datetime.today())
+                    mora = Mora(self.id, 0, "Prenotazione disdetta dal medico o dall'amministratore. ")
 
             self.disdetta = True
             prenotazioni = {}
@@ -207,6 +208,7 @@ class Prenotazione:
 
     # Funzione per la gestione delle scadenze delle prenotazioni secondo la data
     def scadenzaPrenotazione(self):
+        costo = 0
         if not self.scaduta and not self.conclusa:
             scadenza = datetime.datetime.today()
             scadenza = scadenza.replace(day=scadenza.day - 1)
@@ -224,7 +226,7 @@ class Prenotazione:
                     if self.id_visita == visita.id:
                         costo = visita.costo
 
-                mora = Mora(self.id, costo, "Prenotazione scaduta. ", datetime.datetime.today())
+                mora = Mora(self.id, costo, "Prenotazione scaduta. ")
 
                 prenotazioni = {}
                 # Apertura e scrittura su file delle prenotazioni
@@ -252,7 +254,7 @@ class Prenotazione:
                 if self.id_visita == visita.id:
                     costo = visita.costo
 
-            ricevuta = Ricevuta(self.id, costo, datetime.datetime.today())
+            ricevuta = Ricevuta(self.id, costo)
             self.conclusa = True
 
             prenotazioni = {}

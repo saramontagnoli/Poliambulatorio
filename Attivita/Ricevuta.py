@@ -1,12 +1,13 @@
+import datetime
 import os
 import pickle
 
 class Ricevuta:
 
-    def __init__(self, id, importo, data_ora):
+    def __init__(self, id, importo):
         self.id = id
         self.importo = importo
-        self.data_ora = data_ora
+        self.data_ora = datetime.datetime.today()
 
         ricevute ={}
         if os.path.isfile('File/Ricevute.pickle'):
