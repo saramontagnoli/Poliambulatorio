@@ -38,6 +38,7 @@ class VistaHomePaziente(QWidget):
         self.vista_modifica_paziente = VistaModificaPaziente(self.paziente)
         self.vista_modifica_paziente.show()
 
+    # Logout - chiude tutte le finestre
     def go_logout(self):
         QCoreApplication.quit()
 

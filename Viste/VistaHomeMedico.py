@@ -39,7 +39,7 @@ class VistaHomeMedico(QWidget):
     def go_informazioni(self):
         self.vista_modifica_medico = VistaModificaMedico(self.medico)
         self.vista_modifica_medico.show()
-
+# Logout - chiude tutte le finestre
     def go_logout(self):
         QCoreApplication.quit()
 

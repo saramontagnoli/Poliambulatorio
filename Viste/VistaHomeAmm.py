@@ -54,6 +54,7 @@ class VistaHomeAmm(QWidget):
         self.vista_backup = VistaBackUp()
         self.vista_backup.show()
 
+    # Logout - chiude tutte le finestre
     def go_logout(self):
         QCoreApplication.quit()
 
