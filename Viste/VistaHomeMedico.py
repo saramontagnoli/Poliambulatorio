@@ -1,8 +1,10 @@
+from PyQt5.QtCore import QCoreApplication
 from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QWidget, QGridLayout, QPushButton, QSizePolicy, QMessageBox
 from Viste.VistaGestisciPrenMedico import VistaGestisciPrenMedico
 from Viste.VistaModificaMedico import VistaModificaMedico
 import cv2
+
 
 class VistaHomeMedico(QWidget):
 
@@ -37,14 +39,15 @@ class VistaHomeMedico(QWidget):
     def go_informazioni(self):
         self.vista_modifica_medico = VistaModificaMedico(self.medico)
         self.vista_modifica_medico.show()
-
+# Logout - chiude tutte le finestre
     def go_logout(self):
-        pass
+        QCoreApplication.quit()
 
     def go_vis_info(self):
         messaggio = QMessageBox()
         messaggio.setWindowIcon(QIcon('CroceVerde.png'))
         messaggio.setWindowTitle("Profilo")
-        messaggio.setText(f"Id: {self.medico.id} \nNome: {self.medico.nome} \nCognome: {self.medico.cognome} \nCF: {self.medico.CF} \nData nascita: {self.medico.data_nascita.strftime('%Y-%m-%d')} \nGenere: {self.medico.genere} \nIndirizzo: {self.medico.indirizzo}\nMail: {self.medico.mail} \nTelefono: {self.medico.telefono} \nReparto: {self.medico.id_reparto} \nAbilitazione: {self.medico.abilitazione} \nNota: {self.medico.nota}" )
+        messaggio.setText(
+            f"Id: {self.medico.id} \nNome: {self.medico.nome} \nCognome: {self.medico.cognome} \nCF: {self.medico.CF} \nData nascita: {self.medico.data_nascita.strftime('%Y-%m-%d')} \nGenere: {self.medico.genere} \nIndirizzo: {self.medico.indirizzo}\nMail: {self.medico.mail} \nTelefono: {self.medico.telefono} \nReparto: {self.medico.id_reparto} \nAbilitazione: {self.medico.abilitazione} \nNota: {self.medico.nota}")
         messaggio.exec_()
         return

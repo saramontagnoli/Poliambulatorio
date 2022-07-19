@@ -10,10 +10,10 @@ class GestoreAccesso:
     def __init__(self):
         self.vista_home = None
 
-    #Gestione dei livelli di accesso degli utenti della piattaforma
+    # Gestione dei livelli di accesso degli utenti della piattaforma
     def login(self, username, password):
         trovato = 0
-        #Controllo se l'utente che vuole accedere è l'admin (superutente)
+        # Controllo se l'utente che vuole accedere è l'admin (superutente)
         if username == "admin" and password == "admin":
             trovato = 1
             self.vista_home = VistaHomeAmm()
@@ -25,7 +25,7 @@ class GestoreAccesso:
                     current = dict(pickle.load(f))
                     self.medici.extend(current.values())
             for medico in self.medici:
-                if(medico.CF == username and medico.password == password):
+                if (medico.CF == username and medico.password == password):
                     trovato = 1
                     self.vista_home = VistaHomeMedico(medico)
                     self.vista_home.show()
@@ -37,13 +37,11 @@ class GestoreAccesso:
                     self.pazienti.extend(current.values())
             for paziente in self.pazienti:
                 trovato = 1
-                #print(paziente.CF)
-                if(paziente.CF == username and paziente.password == password):
+                # print(paziente.CF)
+                if (paziente.CF == username and paziente.password == password):
                     self.vista_home = VistaHomePaziente(paziente)
                     VistaHomePaziente.paziente = paziente
                     self.vista_home.show()
-
-
 
     def logout(self):
         return

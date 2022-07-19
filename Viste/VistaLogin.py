@@ -1,8 +1,8 @@
 from PyQt5.QtGui import QIcon
-from PyQt5.QtWidgets import (QApplication, QWidget, QPushButton, QLabel, QLineEdit, QGridLayout, QSizePolicy)
+from PyQt5.QtWidgets import QWidget, QPushButton, QLabel, QLineEdit, QGridLayout, QSizePolicy
 
-from Viste.VistaHomeAmm import VistaHomeAmm
 from Gestione.GestoreAccesso import GestoreAccesso
+
 
 class VistaLogin(QWidget):
     def __init__(self):
@@ -17,7 +17,7 @@ class VistaLogin(QWidget):
         grid_layout.addWidget(self.user_obj, 0, 1)
         label2 = QLabel('<font size="8"> Password </font>')
         self.user_pwd = QLineEdit(self)
-        #impostazioni della visibilita password
+        # impostazioni della visibilita password
         self.user_pwd.setEchoMode(QLineEdit.Password)
         grid_layout.addWidget(label2, 1, 0)
         grid_layout.addWidget(self.user_pwd, 1, 1)
@@ -31,9 +31,10 @@ class VistaLogin(QWidget):
         button.clicked.connect(on_click)
         return button
 
-    #Rimando al controllo username e pwd per il login
+    # Rimando al controllo username e pwd per il login
     def go_login(self):
         username = self.user_obj.text()
         password = self.user_pwd.text()
-
+        # Forse togliere self
         GestoreAccesso.login(self, username, password)
+        self.close()
