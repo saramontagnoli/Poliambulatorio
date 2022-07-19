@@ -2,7 +2,8 @@ from datetime import datetime
 
 from PyQt5 import QtCore
 from PyQt5.QtGui import QIcon
-from PyQt5.QtWidgets import QWidget, QVBoxLayout, QLabel, QLineEdit, QPushButton, QMessageBox, QCheckBox, QRadioButton
+from PyQt5.QtWidgets import QWidget, QVBoxLayout, QLabel, QLineEdit, QPushButton, QMessageBox, QCheckBox, QRadioButton, \
+    QComboBox
 # from PyQt5.uic.properties import QtWidgets
 
 from Attivita.Paziente import Paziente
@@ -35,6 +36,8 @@ class VistaInserisciPazienti(QWidget):
             self.combo_genere.addItem(option)
 
         self.combo_genere.currentIndexChanged.connect(self.selectionchange)
+        self.topLabel = QLabel('Genere', self)
+        self.v_layout.addWidget(self.topLabel)
         self.qlines["genere"] = self.combo_genere
         self.v_layout.addWidget(self.combo_genere)
         self.setLayout(self.v_layout)
@@ -101,7 +104,7 @@ class VistaInserisciPazienti(QWidget):
             CF = self.qlines["CF"].text()
             mail = self.qlines["mail"].text()
             telefono = self.qlines["telefono"].text()
-            genere = self.qlines["genere"].text()
+            genere = self.qlines["genere"].currentText()
             indirizzo = self.qlines["indirizzo"].text()
             nota = self.qlines["nota"].text()
             allergia = self.qlines["allergia"].isChecked()
