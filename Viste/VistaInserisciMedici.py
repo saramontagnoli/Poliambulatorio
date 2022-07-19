@@ -34,6 +34,8 @@ class VistaInserisciMedici(QWidget):
             self.combo_genere.addItem(option)
 
         self.combo_genere.currentIndexChanged.connect(self.selectionchange)
+        self.topLabel = QLabel('Genere', self)
+        self.v_layout.addWidget(self.topLabel)
         self.qlines["genere"] = self.combo_genere
         self.v_layout.addWidget(self.combo_genere)
         self.setLayout(self.v_layout)
@@ -57,6 +59,8 @@ class VistaInserisciMedici(QWidget):
             self.combo_reparti.addItem(id_reparto_nome)
 
         self.combo_reparti.currentIndexChanged.connect(self.selectionchange)
+        self.topLabel = QLabel('Reparto', self)
+        self.v_layout.addWidget(self.topLabel)
         self.qlines["reparto"] = self.combo_reparti
         self.v_layout.addWidget(self.combo_reparti)
         self.setLayout(self.v_layout)
@@ -105,7 +109,7 @@ class VistaInserisciMedici(QWidget):
             CF = self.qlines["CF"].text()
             mail = self.qlines["mail"].text()
             telefono = self.qlines["telefono"].text()
-            genere = self.qlines["genere"].text()
+            genere = self.qlines["genere"].currentText()
             indirizzo = self.qlines["indirizzo"].text()
             nota = self.qlines["nota"].text()
             abilitazione = self.qlines["abilitazione"].text()

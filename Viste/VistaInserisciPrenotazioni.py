@@ -29,6 +29,8 @@ class VistaInserisciPrenotazioni(QWidget):
             self.combo_ora.addItem(option)
 
         self.combo_ora.currentIndexChanged.connect(self.selectionchange)
+        self.topLabel = QLabel('Ora', self)
+        self.v_layout.addWidget(self.topLabel)
         self.qlines["ora"] = self.combo_ora
         self.v_layout.addWidget(self.combo_ora)
         self.setLayout(self.v_layout)
@@ -48,6 +50,8 @@ class VistaInserisciPrenotazioni(QWidget):
             self.combo_visita.addItem(visita.nome)
 
         self.combo_visita.currentIndexChanged.connect(self.selectionchange)
+        self.topLabel = QLabel('Visita', self)
+        self.v_layout.addWidget(self.topLabel)
         self.qlines["visita"] = self.combo_visita
         self.v_layout.addWidget(self.combo_visita)
         self.setLayout(self.v_layout)
@@ -68,6 +72,8 @@ class VistaInserisciPrenotazioni(QWidget):
             self.combo_medico.addItem(id_cognome)
 
         self.combo_medico.currentIndexChanged.connect(self.selectionchange)
+        self.topLabel = QLabel('Medico', self)
+        self.v_layout.addWidget(self.topLabel)
         self.qlines["medico"] = self.combo_medico
         self.v_layout.addWidget(self.combo_medico)
         self.setLayout(self.v_layout)
