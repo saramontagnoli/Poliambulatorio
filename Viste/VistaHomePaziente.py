@@ -2,6 +2,7 @@ from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QWidget, QGridLayout, QPushButton, QSizePolicy
 
 from Viste.VistaGestisciPrenPaziente import VistaGestisciPrenPaziente
+from Viste.VistaModificaPaziente import VistaModificaPaziente
 
 
 class VistaHomePaziente(QWidget):
@@ -14,7 +15,7 @@ class VistaHomePaziente(QWidget):
         grid_layout = QGridLayout()
         print(self.paziente.CF)
         grid_layout.addWidget(self.get_generic_button("Vedi Prenotazioni",self.go_prenotazioni), 0, 0)
-        grid_layout.addWidget(self.get_generic_button("Modifica Informazioni", self.go), 0, 1)
+        grid_layout.addWidget(self.get_generic_button("Modifica Informazioni", self.go_modifica), 0, 1)
         grid_layout.addWidget(self.get_generic_button("Logout", self.go), 2, 0, 1, 2)
         self.setLayout(grid_layout)
         self.resize(400, 300)
@@ -30,6 +31,10 @@ class VistaHomePaziente(QWidget):
     def go_prenotazioni(self):
         self.vista_gestisci_pren_paziente = VistaGestisciPrenPaziente(self.paziente)
         self.vista_gestisci_pren_paziente.show()
+
+    def go_modifica(self):
+        self.vista_modifica_paziente = VistaModificaPaziente(self.paziente)
+        self.vista_modifica_paziente.show()
 
     def go(self):
         pass
