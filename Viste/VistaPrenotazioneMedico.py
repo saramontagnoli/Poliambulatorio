@@ -8,7 +8,6 @@ from Attivita.Prenotazione import Prenotazione
 from Viste.VistaInserisciReferto import VistaInserisciReferto
 from Attivita.Referto import Referto
 
-
 class VistaPrenotazioneMedico(QWidget):
 
     def __init__(self, prenotazione, elimina_callback):
@@ -84,7 +83,7 @@ class VistaPrenotazioneMedico(QWidget):
     def disdetta_prenotazione_click(self, prenotazione):
         if isinstance(prenotazione, Prenotazione):
             messaggio = QMessageBox()
-            if(prenotazione.disdiciPrenotazione(0)):
+            if (prenotazione.disdiciPrenotazione(0)):
                 messaggio.setWindowTitle("Disdetta")
                 messaggio.setText("La prenotazione e' stato disdetta con successo. ")
                 messaggio.exec_()
@@ -98,9 +97,11 @@ class VistaPrenotazioneMedico(QWidget):
     # Funzione per l'inserimento del referto
     def inserisci_referto_click(self, prenotazione):
         if isinstance(prenotazione, Prenotazione):
-            self.inserisci_referto = VistaInserisciReferto(prenotazione)
+            # self.elimina_callback = VistaGestisciPrenMedico.update_ui(VistaGestisciPrenMedico)
+            self.inserisci_referto = VistaInserisciReferto(prenotazione, self.elimina_callback)
             self.inserisci_referto.show()
-            return
+            self.elimina_callback()
+            self.close()
 
     # Funzione per la visualizzazione della mora quando si preme il pulsante
     def visualizza_referto_click(self, referto):
@@ -108,14 +109,6 @@ class VistaPrenotazioneMedico(QWidget):
             messaggio = QMessageBox()
             messaggio.setWindowIcon(QIcon('CroceVerde.png'))
             messaggio.setWindowTitle("Referto")
-            messaggio.setText(f"Id: {referto.id} \nNota: {referto.nota} \nData e ora: {referto.data_emissione.strftime('%Y-%m-%d %H:%M')}" )
+            messaggio.setText(
+                f"Id: {referto.id} \nNota: {referto.nota} \nData e ora: {referto.data_emissione.strftime('%Y-%m-%d %H:%M')}")
             messaggio.exec_()
-            return
-
-
-
-
-
-
-
-

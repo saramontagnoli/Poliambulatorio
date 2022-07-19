@@ -5,7 +5,6 @@ from PyQt5.QtGui import QStandardItemModel, QStandardItem, QIcon
 from PyQt5.QtWidgets import QWidget, QHBoxLayout, QListView, QVBoxLayout, QPushButton, QLineEdit, QLabel, QMessageBox
 
 from Attivita.Prenotazione import Prenotazione
-from Viste.VistaInserisciPrenotazioni import VistaInserisciPrenotazioni
 from Viste.VistaPrenotazioneMedico import VistaPrenotazioneMedico
 
 class VistaGestisciPrenMedico(QWidget):
@@ -83,11 +82,6 @@ class VistaGestisciPrenMedico(QWidget):
         except IndexError:
             QMessageBox.critical(self, 'Errore', 'Nessun elemento selezionato', QMessageBox.Ok, QMessageBox.Ok)
             return
-
-    # Richiama la vista per l'inserimento di una nuova prenotazione
-    def show_new(self):
-        self.inserisci_prenotazione = VistaInserisciPrenotazioni(callback=self.update_ui)
-        self.inserisci_prenotazione.show()
 
     # Dati contenuti dentro la casella di testo della ricerca
     def add_info_text(self, nome, label):

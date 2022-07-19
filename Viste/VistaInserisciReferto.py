@@ -6,11 +6,11 @@ from Attivita.Referto import Referto
 
 class VistaInserisciReferto(QWidget):
 
-    def __init__(self, prenotazione):
+    def __init__(self, prenotazione, callback):
         super(VistaInserisciReferto, self).__init__()
         self.prenotazione = prenotazione
         self.setWindowIcon(QIcon('CroceVerde.png'))
-        # self.callback = callback
+        self.callback = callback
         self.v_layout = QVBoxLayout()
         self.qlines = {}
         # Casella di testo per inserimento nota referto
@@ -56,5 +56,5 @@ class VistaInserisciReferto(QWidget):
             QMessageBox.critical(self, 'Errore', 'Controlla bene i dati inseriti',
                                  QMessageBox.Ok, QMessageBox.Ok)
             return
-        # self.callback()
+        self.callback()
         self.close()
