@@ -16,7 +16,8 @@ class VistaHomePaziente(QWidget):
         print(self.paziente.CF)
         grid_layout.addWidget(self.get_generic_button("Vedi Prenotazioni",self.go_prenotazioni), 0, 0)
         grid_layout.addWidget(self.get_generic_button("Modifica Informazioni", self.go_modifica), 0, 1)
-        grid_layout.addWidget(self.get_generic_button("Logout", self.go), 2, 0, 1, 2)
+        grid_layout.addWidget(self.get_generic_button("Visualizza Informazioni", self.go_vis_info), 1, 0)
+        grid_layout.addWidget(self.get_generic_button("Logout", self.go), 1, 1)
         self.setLayout(grid_layout)
         self.resize(400, 300)
         self.setWindowTitle(f"{self.paziente.nome} {self.paziente.cognome} - {self.paziente.id}")
@@ -39,6 +40,13 @@ class VistaHomePaziente(QWidget):
     def go(self):
         pass
 
+    def go_vis_info(self):
+        messaggio = QMessageBox()
+        messaggio.setWindowIcon(QIcon('CroceVerde.png'))
+        messaggio.setWindowTitle("Profilo")
+        messaggio.setText(f"Id: {self.paziente.id} \nNome: {self.paziente.nome} \nCognome: {self.paziente.cognome} \nCF: {self.paziente.CF} \nData nascita: {self.paziente.data_nascita.strftime('%Y-%m-%d')} \nGenere: {self.paziente.genere} \nIndirizzo: {self.paziente.indirizzo}\nMail: {self.paziente.mail} \nTelefono: {self.paziente.telefono} \nNota: {self.medico.nota} \nAllergia: {self.paziente.allergia} \nMalattia pregressa: {self.paziente.malattia_pregressa}" )
+        messaggio.exec_()
+        return
 
 
 
