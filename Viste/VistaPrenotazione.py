@@ -6,6 +6,7 @@ from PyQt5.QtWidgets import QWidget, QMessageBox
 
 from Attivita.Mora import Mora
 from Attivita.Prenotazione import Prenotazione
+from Attivita.Referto import Referto
 
 
 class VistaPrenotazione(QWidget):

@@ -2,16 +2,17 @@ import os
 import pickle
 
 from PyQt5.QtGui import QIcon
-from PyQt5.QtWidgets import QWidget, QVBoxLayout, QLabel, QSpacerItem, QSizePolicy, QPushButton, QMessageBox
+from PyQt5.QtWidgets import QVBoxLayout, QLabel, QSpacerItem, QSizePolicy, QPushButton
 
 from Attivita.Prenotazione import Prenotazione
 from Viste.VistaInserisciReferto import VistaInserisciReferto
-from Attivita.Referto import Referto
+from Viste.VistaPrenotazione import VistaPrenotazione
 
-class VistaPrenotazioneMedico(QWidget):
+
+class VistaPrenotazioneMedico(VistaPrenotazione):
 
     def __init__(self, prenotazione, elimina_callback):
-        super(VistaPrenotazioneMedico, self).__init__()
+        super(VistaPrenotazione, self).__init__()
         self.setWindowIcon(QIcon('CroceVerde.png'))
         self.elimina_callback = elimina_callback
         self.utente = "medico"
@@ -88,4 +89,3 @@ class VistaPrenotazioneMedico(QWidget):
             self.inserisci_referto.show()
             self.elimina_callback()
             self.close()
-
