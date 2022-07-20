@@ -1,6 +1,3 @@
-import os.path
-import pickle
-
 from Attivita.Utilizzatore import Utilizzatore
 from Gestione.GestoreFile import scriviFile, ricercaElemFile, rimuoviElemFile
 
