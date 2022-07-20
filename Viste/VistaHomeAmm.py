@@ -4,7 +4,7 @@ from PyQt5.QtWidgets import QWidget, QGridLayout, QPushButton, QSizePolicy
 
 from Viste.VistaGestisciPazienti import VistaGestisciPazienti
 from Viste.VistaGestisciMedici import VistaGestisciMedici
-from Viste.VistaGestisciPrenotazioni import VistaGestisciPrenotazioni
+from Viste.VistaGestisciPrenAmm import VistaGestisciPrenAmm
 from Viste.VistaStatistiche import VistaStatistiche
 from Viste.VistaBackUp import VistaBackUp
 
@@ -35,7 +35,7 @@ class VistaHomeAmm(QWidget):
 
     # Metodi onclick
     def go_prenotazioni(self):
-        self.vista_gestisci_prenotazioni = VistaGestisciPrenotazioni()
+        self.vista_gestisci_prenotazioni = VistaGestisciPrenAmm()
         self.vista_gestisci_prenotazioni.show()
 
     def go_pazienti(self):
