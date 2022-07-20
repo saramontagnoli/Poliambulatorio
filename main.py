@@ -1,3 +1,8 @@
+"""
+    Classe contenente il main
+    Run dell'applicazione e apertura della vista del login
+"""
+
 import os
 import shutil
 import sys
@@ -12,9 +17,11 @@ from Viste.VistaLogin import VistaLogin
 from Viste.VistaInserisciPazienti import VistaInserisciPazienti
 from Attivita.Reparto import Reparto
 from Attivita.Visita import Visita
-# main con vista login degli utenti
+
+
 if __name__ == '__main__':
 
+    # chiamate ai costruttori Reparto e Visita per la creazione dei file precompilati da parte dell'amministratore
     """"
     c1 = Reparto(1, "cardiologia", "cuore")
     c2 = Reparto(2, "radiologia", "ossa")
@@ -33,9 +40,9 @@ if __name__ == '__main__':
     empty_list = []
     """
 
-    # interfaccia grafica per il login
     app = QApplication(sys.argv)
 
+    # chiamata a GestoreFile, controllo se i file esistono, in caso contrario li copio dal package Appoggio (file di default)
     creazioneFile('Prenotazioni')
     creazioneFile("Pazienti")
     creazioneFile("Medici")
@@ -45,6 +52,8 @@ if __name__ == '__main__':
     creazioneFile('Visite')
     creazioneFile('Reparti')
     creazioneFile('Backup')
+
+    # chiamata alla vista contenente la form di login
     form = VistaLogin()
     form.show()
     sys.exit(app.exec())
