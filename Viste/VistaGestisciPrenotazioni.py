@@ -63,9 +63,13 @@ class VistaGestisciPrenotazioni(QWidget):
         self.load_prenotazioni()
         listview_model = QStandardItemModel(self.list_view)
         for prenotazione in self.prenotazioni:
+
             prenotazione.scadenzaPrenotazione()
             item = QStandardItem()
-            nome = f"{type(prenotazione).__name__} {prenotazione.id}"
+            if not prenotazione.scaduta and not prenotazione.disdetta and not prenotazione.conclusa:
+                nome = f"P. {prenotazione.id}"
+            else:
+                nome = f"P. {prenotazione.id} (Non attiva)"
             item.setText(nome)
             item.setEditable(False)
             font = item.font()
@@ -82,7 +86,7 @@ class VistaGestisciPrenotazioni(QWidget):
             id = int(selected.split(" ")[1].strip())
             prenotazione = None
 
-            if tipo == "Prenotazione":
+            if tipo == "P.":
                 prenotazione = Prenotazione().ricerca(id)
             self.vista_prenotazione = VistaPrenotazione(prenotazione, elimina_callback=self.update_ui)
             self.vista_prenotazione.show()
