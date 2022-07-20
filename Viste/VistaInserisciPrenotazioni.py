@@ -17,7 +17,7 @@ class VistaInserisciPrenotazioni(QWidget):
         self.qlines = {}
         # Caselle di testo per inserimento informazioni del paziente
         self.add_info_text("id", "Id")
-        self.add_info_text("data", "Data")
+        self.add_info_text("data", "Data (DD/MM/YYYY)")
         self.add_info_text("cf_paziente", "CF Paziente")
 
         # Combo box lista orari dell'ambulatorio
@@ -116,6 +116,15 @@ class VistaInserisciPrenotazioni(QWidget):
             id_visita = int(self.qlines["visita"].currentIndex()) + 1
 
             id_medico = int(self.qlines["medico"].currentText().split(" ")[0].strip())
+
+            prenotazioni = caricaFile("Prenotazioni")
+
+            for prenotazione in prenotazioni:
+
+                if id == prenotazione.id:
+                    QMessageBox.critical(self, 'Errore', 'ID già utilizzato', QMessageBox.Ok,
+                                         QMessageBox.Ok)
+                    return
 
             prova = prenotazione.aggiungiPrenotazione(id, data, ora, id_medico, id_visita, cf_paziente)
 
