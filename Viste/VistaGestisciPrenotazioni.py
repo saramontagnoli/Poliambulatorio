@@ -6,7 +6,7 @@ from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QWidget, QHBoxLayout, QListView, QLineEdit, QLabel, QMessageBox
 
 from Attivita.Prenotazione import Prenotazione
-from Viste.VistaPrenotazione import VistaPrenotazione
+from Viste.VistaPrenotazioneAmm import VistaPrenotazioneAmm
 
 # Interfaccia grafica per la gestione delle Prenotazioni (da parte dell'admin)
 from Viste.VistaPrenotazioneMedico import VistaPrenotazioneMedico
@@ -54,7 +54,7 @@ class VistaGestisciPrenotazioni(QWidget):
             if self.utente == "admin":
                 f = 1
                 print("SEI ADMIN")
-                self.vista_prenotazione = VistaPrenotazione(prenotazione, elimina_callback=self.update_ui)
+                self.vista_prenotazione = VistaPrenotazioneAmm(prenotazione, elimina_callback=self.update_ui)
                 self.vista_prenotazione.show()
             elif self.utente == "medico":
                 f = 1
@@ -91,7 +91,7 @@ class VistaGestisciPrenotazioni(QWidget):
                 if self.utente == "admin":
                     f = 1
                     print("SEI ADMIN")
-                    self.vista_prenotazione = VistaPrenotazione(prenotazione, elimina_callback=self.update_ui)
+                    self.vista_prenotazione = VistaPrenotazioneAmm(prenotazione, elimina_callback=self.update_ui)
                     self.vista_prenotazione.show()
                 elif self.utente == "medico":
                     f = 1
