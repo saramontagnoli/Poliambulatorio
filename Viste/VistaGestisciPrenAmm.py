@@ -1,10 +1,8 @@
 from PyQt5.QtGui import QIcon, QStandardItemModel, QStandardItem
-from PyQt5.QtWidgets import QHBoxLayout, QListView, QVBoxLayout, QPushButton, QMessageBox
+from PyQt5.QtWidgets import QHBoxLayout, QListView, QVBoxLayout, QPushButton
 
-from Attivita.Prenotazione import Prenotazione
 from Viste.VistaGestisciPrenotazioni import VistaGestisciPrenotazioni
 from Viste.VistaInserisciPrenotazioni import VistaInserisciPrenotazioni
-from Viste.VistaPrenotazione import VistaPrenotazione
 
 
 # Interfaccia grafica per la gestione delle Prenotazioni (da parte dell'admin)
@@ -49,22 +47,6 @@ class VistaGestisciPrenAmm(VistaGestisciPrenotazioni):
         self.resize(600, 300)
         self.setWindowTitle("Gestisci Prenotazioni")
 
-    # Permette la visualizzazione delle informazioni di una particolare prenotazione
-    def show_selected_info(self):
-        try:
-            selected = self.list_view.selectedIndexes()[0].data()
-            tipo = selected.split(" ")[0].strip()
-            id = int(selected.split(" ")[1].strip())
-            prenotazione = None
-
-            if tipo == "P.":
-                prenotazione = Prenotazione().ricerca(id)
-            self.vista_prenotazione = VistaPrenotazione(prenotazione, elimina_callback=self.update_ui)
-            self.vista_prenotazione.show()
-        except IndexError:
-            QMessageBox.critical(self, 'Errore', 'Nessun elemento selezionato', QMessageBox.Ok, QMessageBox.Ok)
-            return
-
     # Richiama la vista per l'inserimento di una nuova prenotazione
     def show_new(self):
         self.inserisci_prenotazione = VistaInserisciPrenotazioni(callback=self.update_ui)
@@ -91,4 +73,3 @@ class VistaGestisciPrenAmm(VistaGestisciPrenotazioni):
             item.setFont(font)
             listview_model.appendRow(item)
         self.list_view.setModel(listview_model)
-

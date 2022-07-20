@@ -50,8 +50,20 @@ class VistaGestisciPrenotazioni(QWidget):
 
             if tipo == "P.":
                 prenotazione = Prenotazione().ricerca(id)
-            self.vista_prenotazione = VistaPrenotazione(prenotazione, elimina_callback=self.update_ui)
-            self.vista_prenotazione.show()
+
+            if self.utente == "admin":
+                f = 1
+                print("SEI ADMIN")
+                self.vista_prenotazione = VistaPrenotazione(prenotazione, elimina_callback=self.update_ui)
+                self.vista_prenotazione.show()
+            elif self.utente == "medico":
+                f = 1
+                self.vista_prenotazione = VistaPrenotazioneMedico(prenotazione, elimina_callback=self.update_ui)
+                self.vista_prenotazione.show()
+            elif self.utente == "paziente":
+                f = 1
+                self.vista_prenotazione = VistaPrenotazionePaziente(prenotazione, elimina_callback=self.update_ui)
+                self.vista_prenotazione.show()
         except IndexError:
             QMessageBox.critical(self, 'Errore', 'Nessun elemento selezionato', QMessageBox.Ok, QMessageBox.Ok)
             return
