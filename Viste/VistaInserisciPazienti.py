@@ -2,8 +2,7 @@ from datetime import datetime
 
 from PyQt5 import QtCore
 from PyQt5.QtGui import QIcon
-from PyQt5.QtWidgets import QWidget, QVBoxLayout, QLabel, QLineEdit, QPushButton, QMessageBox, QCheckBox, QRadioButton
-# from PyQt5.uic.properties import QtWidgets
+from PyQt5.QtWidgets import QWidget, QVBoxLayout, QLabel, QLineEdit, QPushButton, QMessageBox, QCheckBox, QComboBox
 
 from Attivita.Paziente import Paziente
 
@@ -35,6 +34,8 @@ class VistaInserisciPazienti(QWidget):
             self.combo_genere.addItem(option)
 
         self.combo_genere.currentIndexChanged.connect(self.selectionchange)
+        self.topLabel = QLabel('Genere', self)
+        self.v_layout.addWidget(self.topLabel)
         self.qlines["genere"] = self.combo_genere
         self.v_layout.addWidget(self.combo_genere)
         self.setLayout(self.v_layout)
@@ -59,7 +60,7 @@ class VistaInserisciPazienti(QWidget):
         self.v_layout.addWidget(self.checkbox)
         self.checkbox.stateChanged.connect(self.clickBox)
 
-    def selectionchange(self,i):
+    def selectionchange(self, i):
         return self.combo_genere.currentText()
 
     def clickBox(self, state):
@@ -101,22 +102,17 @@ class VistaInserisciPazienti(QWidget):
             CF = self.qlines["CF"].text()
             mail = self.qlines["mail"].text()
             telefono = self.qlines["telefono"].text()
-            genere = self.qlines["genere"].text()
+            genere = self.qlines["genere"].currentText()
             indirizzo = self.qlines["indirizzo"].text()
             nota = self.qlines["nota"].text()
             allergia = self.qlines["allergia"].isChecked()
             malattia_pregressa = self.qlines["malattia_pregressa"].isChecked()
 
-            # print(allergia)
-            # print(malattia_pregressa)
-
             paziente.setInfoPaziente(id, nome, cognome, password, data_nascita, CF, telefono, genere, mail, indirizzo,
-                                     nota,
-                                     allergia, malattia_pregressa)
+                                     nota, allergia, malattia_pregressa)
 
         except:
-            QMessageBox.critical(self, 'Errore', 'Controlla bene i dati inseriti',
-                                 QMessageBox.Ok, QMessageBox.Ok)
+            QMessageBox.critical(self, 'Errore', 'Controlla bene i dati inseriti', QMessageBox.Ok, QMessageBox.Ok)
             return
         self.callback()
         self.close()
