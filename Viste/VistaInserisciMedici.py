@@ -15,7 +15,7 @@ class VistaInserisciMedici(QWidget):
         self.callback = callback
         self.v_layout = QVBoxLayout()
         self.qlines = {}
-        #Caselle di testo per inserimento informazioni del medico
+        # Caselle di testo per inserimento informazioni del medico
         self.add_info_text("id", "Id")
         self.add_info_text("password", "Password")
         self.add_info_text("nome", "Nome")
@@ -25,15 +25,13 @@ class VistaInserisciMedici(QWidget):
         self.add_info_text("mail", "Email")
         self.add_info_text("telefono", "Telefono")
 
-        # self.add_info_text("genere", "Genere(M,F,A)")
         self.combo_genere = QComboBox()
-
         options = ["M", "F", "A"]
-
         for option in options:
             self.combo_genere.addItem(option)
-
         self.combo_genere.currentIndexChanged.connect(self.selectionchange)
+        self.topLabel = QLabel('Genere', self)
+        self.v_layout.addWidget(self.topLabel)
         self.qlines["genere"] = self.combo_genere
         self.v_layout.addWidget(self.combo_genere)
         self.setLayout(self.v_layout)
@@ -49,7 +47,7 @@ class VistaInserisciMedici(QWidget):
                 current = dict(pickle.load(f))
                 self.reparti.extend(current.values())
 
-        # Creazione e riepimento con le visite della combobox
+        # Creazione e riempimento con le visite della combobox
         self.combo_reparti = QComboBox()
 
         for reparto in self.reparti:
@@ -57,6 +55,8 @@ class VistaInserisciMedici(QWidget):
             self.combo_reparti.addItem(id_reparto_nome)
 
         self.combo_reparti.currentIndexChanged.connect(self.selectionchange)
+        self.topLabel = QLabel('Reparto', self)
+        self.v_layout.addWidget(self.topLabel)
         self.qlines["reparto"] = self.combo_reparti
         self.v_layout.addWidget(self.combo_reparti)
         self.setLayout(self.v_layout)
@@ -72,16 +72,16 @@ class VistaInserisciMedici(QWidget):
     def selectionchange(self, i):
         return self.combo_reparti.currentText()
 
-    #Prelevo le informazioni scritte nelle caselle di testo
+    # Prelevo le informazioni scritte nelle caselle di testo
     def add_info_text(self, nome, label):
         self.v_layout.addWidget(QLabel(label))
         current_text = QLineEdit(self)
         self.qlines[nome] = current_text
         self.v_layout.addWidget(current_text)
 
-    #Aggiunta di un nuovo medico
+    # Aggiunta di un nuovo medico
     def aggiungi_medico(self):
-        #controllo ID
+        # controllo ID
         try:
             id = int(self.qlines["id"].text())
         except:
@@ -96,7 +96,7 @@ class VistaInserisciMedici(QWidget):
                     return
         medico = Medico()
 
-        #Controllo delle caselle di testo (devono essere tutte riempite)
+        # Controllo delle caselle di testo (devono essere tutte riempite)
         try:
             password = self.qlines["password"].text()
             nome = self.qlines["nome"].text()
@@ -105,14 +105,14 @@ class VistaInserisciMedici(QWidget):
             CF = self.qlines["CF"].text()
             mail = self.qlines["mail"].text()
             telefono = self.qlines["telefono"].text()
-            genere = self.qlines["genere"].text()
+            genere = self.qlines["genere"].currentText()
             indirizzo = self.qlines["indirizzo"].text()
             nota = self.qlines["nota"].text()
             abilitazione = self.qlines["abilitazione"].text()
             id_reparto = int(self.qlines["reparto"].currentText().split(" ")[0].strip())
 
-
-            medico.setInfoMedico(id, password, cognome, nome, data_nascita, CF, telefono, genere, mail, indirizzo, nota, abilitazione, id_reparto)
+            medico.setInfoMedico(id, password, cognome, nome, data_nascita, CF, telefono, genere, mail, indirizzo, nota,
+                                 abilitazione, id_reparto)
 
         except:
             QMessageBox.critical(self, 'Errore', 'Controlla bene i dati inseriti',
