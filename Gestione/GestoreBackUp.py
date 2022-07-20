@@ -1,10 +1,13 @@
+import datetime
 import os
 import pickle
 import shutil
 
 
 def effettuaBackUp():
-    shutil.copytree("File/", "Backup/")
+    today = datetime.datetime.today()
+    backup_folder = f"Backup_{today.year}_{today.month}_{today.day}_{today.hour}_{today.minute}_{today.second}/"
+    shutil.copytree("File/", backup_folder)
     return
 
 
