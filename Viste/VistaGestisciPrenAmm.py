@@ -10,11 +10,11 @@ from Viste.VistaInserisciPrenotazioni import VistaInserisciPrenotazioni
 
 
 # Interfaccia grafica per la gestione delle Prenotazioni (da parte dell'admin)
-class VistaGestisciPrenotazioni(QWidget):
+class VistaGestisciPrenAmm(QWidget):
 
     def __init__(self, parent=None):
         # stampa lista delle prenotazioni
-        super(VistaGestisciPrenotazioni, self).__init__(parent)
+        super(VistaGestisciPrenAmm, self).__init__(parent)
         self.setWindowIcon(QIcon('CroceVerde.png'))
         self.h_layout = QHBoxLayout()
         self.list_view = QListView()
