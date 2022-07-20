@@ -1,7 +1,10 @@
+import os
+import shutil
 import sys
 
 from PyQt5.QtWidgets import QApplication
 
+from Gestione.GestoreFile import creazioneFile
 from Viste.VistaHomeAmm import VistaHomeAmm
 from Viste.VistaHomePaziente import VistaHomePaziente
 from Viste.VistaHomeMedico import VistaHomeMedico
@@ -32,6 +35,16 @@ if __name__ == '__main__':
 
     # interfaccia grafica per il login
     app = QApplication(sys.argv)
+
+    creazioneFile('Prenotazioni')
+    creazioneFile("Pazienti")
+    creazioneFile("Medici")
+    creazioneFile('Ricevute')
+    creazioneFile('Referti')
+    creazioneFile('More')
+    creazioneFile('Visite')
+    creazioneFile('Reparti')
+    creazioneFile('Backup')
     form = VistaLogin()
     form.show()
     sys.exit(app.exec())

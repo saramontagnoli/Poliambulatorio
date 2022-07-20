@@ -1,5 +1,16 @@
 import os
 import pickle
+import shutil
+
+
+def creazioneFile(filename):
+    empty_list = []
+    path1 = f"Appoggio/{filename}.pickle"
+    path2 = f"File/{filename}.pickle"
+    print(path1)
+    if not os.path.exists(path2):
+        shutil.copy(path1, 'File/')
+
 
 
 def ricercaElemFile(filename, id):
