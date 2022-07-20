@@ -20,7 +20,7 @@ class VistaInserisciMedici(QWidget):
         self.add_info_text("password", "Password")
         self.add_info_text("nome", "Nome")
         self.add_info_text("cognome", "Cognome")
-        self.add_info_text("data_nascita", "Data Nascita")
+        self.add_info_text("data_nascita", "Data Nascita (DD/MM/YYYY)")
         self.add_info_text("CF", "Codice Fiscale")
         self.add_info_text("mail", "Email")
         self.add_info_text("telefono", "Telefono")
@@ -105,6 +105,18 @@ class VistaInserisciMedici(QWidget):
             nota = self.qlines["nota"].text()
             abilitazione = self.qlines["abilitazione"].text()
             id_reparto = int(self.qlines["reparto"].currentText().split(" ")[0].strip())
+
+            medici = caricaFile("Medici")
+
+            for medico in medici:
+                if CF == medico.CF:
+                    QMessageBox.critical(self, 'Errore', 'CF già utilizzato', QMessageBox.Ok,
+                                         QMessageBox.Ok)
+                    return
+                if id == medico.id:
+                    QMessageBox.critical(self, 'Errore', 'ID già utilizzato', QMessageBox.Ok,
+                                         QMessageBox.Ok)
+                    return
 
             medico.setInfoMedico(id, password, cognome, nome, data_nascita, CF, telefono, genere, mail, indirizzo, nota,
                                  abilitazione, id_reparto)

@@ -30,7 +30,7 @@ class VistaBackUp(QWidget):
 
         self.gb = GestoreBackUp()
 
-        self.add_info_text("ora", "Nuovo orario")
+        self.add_info_text("ora", "Nuovo orario (HH:MM)")
 
         # ComboBox con frequenze di back-up in giorni
         self.combo_frequenza = QComboBox()

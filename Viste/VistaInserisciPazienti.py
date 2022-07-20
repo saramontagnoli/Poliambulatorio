@@ -5,6 +5,7 @@ from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QWidget, QVBoxLayout, QLabel, QLineEdit, QPushButton, QMessageBox, QCheckBox, QComboBox
 
 from Attivita.Paziente import Paziente
+from Gestione.GestoreFile import caricaFile
 
 
 class VistaInserisciPazienti(QWidget):
@@ -20,7 +21,7 @@ class VistaInserisciPazienti(QWidget):
         self.add_info_text("password", "Password")
         self.add_info_text("nome", "Nome")
         self.add_info_text("cognome", "Cognome")
-        self.add_info_text("data_nascita", "Data Nascita")
+        self.add_info_text("data_nascita", "Data Nascita (DD/MM/YYYY)")
         self.add_info_text("CF", "Codice Fiscale")
         self.add_info_text("mail", "Email")
         self.add_info_text("telefono", "Telefono")
@@ -107,6 +108,20 @@ class VistaInserisciPazienti(QWidget):
             nota = self.qlines["nota"].text()
             allergia = self.qlines["allergia"].isChecked()
             malattia_pregressa = self.qlines["malattia_pregressa"].isChecked()
+
+            pazienti = caricaFile("Pazienti")
+
+            for paziente in pazienti:
+                if CF == paziente.CF:
+                    QMessageBox.critical(self, 'Errore', 'CF già utilizzato', QMessageBox.Ok,
+                                         QMessageBox.Ok)
+                    return
+                if id == paziente.id:
+                    QMessageBox.critical(self, 'Errore', 'ID già utilizzato', QMessageBox.Ok,
+                                         QMessageBox.Ok)
+                    return
+
+
 
             paziente.setInfoPaziente(id, nome, cognome, password, data_nascita, CF, telefono, genere, mail, indirizzo,
                                      nota, allergia, malattia_pregressa)
