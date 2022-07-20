@@ -58,7 +58,10 @@ class VistaGestisciPrenPaziente(QWidget):
             if prenotazione.cf_paziente == self.paziente.CF:
                 prenotazione.scadenzaPrenotazione()
                 item = QStandardItem()
-                nome = f"{type(prenotazione).__name__} {prenotazione.id}"
+                if not prenotazione.scaduta and not prenotazione.disdetta and not prenotazione.conclusa:
+                    nome = f"P. {prenotazione.id}"
+                else:
+                    nome = f"P. {prenotazione.id} (Non attiva)"
                 item.setText(nome)
                 item.setEditable(False)
                 font = item.font()
@@ -75,7 +78,7 @@ class VistaGestisciPrenPaziente(QWidget):
             id = int(selected.split(" ")[1].strip())
             prenotazione = None
 
-            if tipo == "Prenotazione":
+            if tipo == "P.":
                 prenotazione = Prenotazione().ricerca(id)
             self.vista_prenotazione_paziente = VistaPrenotazionePaziente(prenotazione, elimina_callback=self.update_ui)
             self.vista_prenotazione_paziente.show()
