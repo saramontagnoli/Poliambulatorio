@@ -2,6 +2,8 @@ import datetime
 import os
 import pickle
 
+from Gestione.GestoreFile import scriviFile
+
 
 class Mora:
 
@@ -11,13 +13,7 @@ class Mora:
         self.nota = nota
         self.data_emissione = datetime.datetime.today()
 
-        more = {}
-        if os.path.isfile('File/More.pickle'):
-            with open('File/More.pickle', 'rb') as f:
-                more = pickle.load(f)
-        more[self.id] = self
-        with open('File/More.pickle', 'wb') as f:
-            pickle.dump(more, f, pickle.HIGHEST_PROTOCOL)
+        scriviFile("More", self)
 
     # metodi get e set dei vari attributi
     def getId(self):

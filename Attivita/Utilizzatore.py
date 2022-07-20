@@ -57,14 +57,6 @@ class Utilizzatore:
     def ricercaUtilizzatoreId(self, id):
         pass
 
-    # Metodo di modifica per le informazioni di utilizzatore
-    def modificaUtilizzatore(self, password, telefono, mail, indirizzo, nota):
-        self.password = password
-        self.telefono = telefono
-        self.mail = mail
-        self.indirizzo = indirizzo
-        self.nota = nota
-
     # Rimozione di un utilizzatore
     def rimuoviUtilizzatore(self):
         self.id = -1

@@ -42,7 +42,7 @@ def rimuoviElemFile(filename, elemento):
         with open(path, 'rb') as f:
             dizionario = dict(pickle.load(f))
             del dizionario[elemento.id]
-        with open('File/Medici.pickle', 'wb') as f:
+        with open(path, 'wb') as f:
             pickle.dump(dizionario, f, pickle.HIGHEST_PROTOCOL)
 
 

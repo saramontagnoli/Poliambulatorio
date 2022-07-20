@@ -2,6 +2,7 @@ import os.path
 import pickle
 
 from Attivita.Utilizzatore import Utilizzatore
+from Gestione.GestoreFile import scriviFile, ricercaElemFile, rimuoviElemFile
 
 
 class Paziente(Utilizzatore):
@@ -20,15 +21,8 @@ class Paziente(Utilizzatore):
                                  nota)
         self.allergia = allergia
         self.malattia_pregressa = malattia_pregressa
-        pazienti = {}
 
-        # Load del file Pazienti sul dizionario pazienti
-        if os.path.isfile('File/Pazienti.pickle'):
-            with open('File/Pazienti.pickle', 'rb') as f:
-                pazienti = pickle.load(f)
-        pazienti[id] = self
-        with open('File/Pazienti.pickle', 'wb') as f:
-            pickle.dump(pazienti, f, pickle.HIGHEST_PROTOCOL)
+        scriviFile("Pazienti", self)
 
     # Ritorna un dizionario con le informazioni di Paziente
     def getInfoPaziente(self):
@@ -39,31 +33,15 @@ class Paziente(Utilizzatore):
 
     # Ricerca paziente per codice fiscale
     def ricercaUtilizzatoreCF(self, CF):
-        if os.path.isfile('File/Pazienti.pickle'):
-            with open('File/Pazienti.pickle', 'rb') as f:
-                pazienti = dict(pickle.load(f))
-                return pazienti.get(CF, None)
-        else:
-            return None
+        return ricercaElemFile("Pazienti", CF)
 
     # Ricerca paziente per id
     def ricercaUtilizzatoreId(self, id):
-        if os.path.isfile('File/Pazienti.pickle'):
-            with open('File/Pazienti.pickle', 'rb') as f:
-                pazienti = dict(pickle.load(f))
-                return pazienti.get(id, None)
-
-        else:
-            return None
+        return ricercaElemFile("Pazienti", id)
 
     # Rimozione di un paziente mediante il suo id
     def rimuoviPaziente(self):
-        if os.path.isfile('File/Pazienti.pickle'):
-            with open('File/Pazienti.pickle', 'rb') as f:
-                pazienti = dict(pickle.load(f))
-                del pazienti[self.id]
-            with open('File/Pazienti.pickle', 'wb') as f:
-                pickle.dump(pazienti, f, pickle.HIGHEST_PROTOCOL)
+        rimuoviElemFile("Pazienti", self)
         self.rimuoviUtilizzatore()
         self.allergia = False
         self.malattia_pregressa = False
@@ -81,10 +59,4 @@ class Paziente(Utilizzatore):
         self.malattia_pregressa = malattia_pregressa
 
     def setAllergia(self, allergia):
-        self.allergia = allergia
-
-    # Modifica di un paziente
-    def modificaPaziente(self, password, telefono, mail, indirizzo, nota, malattia_pregressa, allergia):
-        self.modificaUtilizzatore(password, telefono, mail, indirizzo, nota)
-        self.malattia_pregressa = malattia_pregressa
         self.allergia = allergia
