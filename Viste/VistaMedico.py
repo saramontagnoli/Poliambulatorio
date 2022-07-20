@@ -51,7 +51,7 @@ class VistaMedico(QWidget):
         v_layout.addWidget(btn_elimina)
 
         self.setLayout(v_layout)
-        self.setWindowTitle("Medico")
+        self.setWindowTitle(f"Medico {medico.id} - {medico.nome} {medico.cognome}")
 
     # Funzione per l'eliminazione del medico selezionato quando si preme il bottone
     def elimina_medico_click(self, medico):

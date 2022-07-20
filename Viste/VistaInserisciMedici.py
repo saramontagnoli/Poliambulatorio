@@ -1,11 +1,9 @@
-from PyQt5.QtGui import QIcon
-
-from Attivita.Medico import Medico
-import os
-import pickle
 from datetime import datetime
+
+from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QWidget, QVBoxLayout, QLabel, QLineEdit, QPushButton, QMessageBox, QComboBox
 
+from Attivita.Medico import Medico
 from Gestione.GestoreFile import caricaFile
 
 

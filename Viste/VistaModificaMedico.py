@@ -1,10 +1,7 @@
 from PyQt5.QtGui import QIcon
 
-from Attivita.Medico import Medico
-import os
-import pickle
-from datetime import datetime
-from PyQt5.QtWidgets import QWidget, QVBoxLayout, QLabel, QLineEdit, QPushButton, QMessageBox, QComboBox
+from PyQt5.QtWidgets import QWidget, QVBoxLayout, QLabel, QLineEdit, QPushButton, QMessageBox
+
 
 class VistaModificaMedico(QWidget):
 
@@ -16,7 +13,7 @@ class VistaModificaMedico(QWidget):
         self.v_layout = QVBoxLayout()
         self.qlines = {}
 
-        #Caselle di testo per inserimento informazioni del medico
+        # Caselle di testo per inserimento informazioni del medico
         self.add_info_text("password", "Password")
         self.add_info_text("mail", "Email")
         self.add_info_text("telefono", "Telefono")
@@ -32,14 +29,14 @@ class VistaModificaMedico(QWidget):
         self.setLayout(self.v_layout)
         self.setWindowTitle("Modifica medico")
 
-    #Prelevo le informazioni scritte nelle caselle di testo
+    # Prelevo le informazioni scritte nelle caselle di testo
     def add_info_text(self, nome, label):
         self.v_layout.addWidget(QLabel(label))
         current_text = QLineEdit(self)
         self.qlines[nome] = current_text
         self.v_layout.addWidget(current_text)
 
-    #Aggiunta di un nuovo medico
+    # Aggiunta di un nuovo medico
     def modifica_medico(self):
 
         for value in self.qlines.values():
@@ -49,7 +46,7 @@ class VistaModificaMedico(QWidget):
                                          QMessageBox.Ok, QMessageBox.Ok)
                     return
 
-        #Controllo delle caselle di testo (devono essere tutte riempite)
+        # Controllo delle caselle di testo (devono essere tutte riempite)
         try:
             password = self.qlines["password"].text()
             mail = self.qlines["mail"].text()
@@ -58,8 +55,9 @@ class VistaModificaMedico(QWidget):
             nota = self.qlines["nota"].text()
             abilitazione = self.qlines["abilitazione"].text()
 
-
-            self.medico.setInfoMedico(self.medico.id, password, self.medico.cognome, self.medico.nome, self.medico.data_nascita, self.medico.CF, telefono, self.medico.genere, mail, indirizzo, nota, abilitazione, self.medico.id_reparto)
+            self.medico.setInfoMedico(self.medico.id, password, self.medico.cognome, self.medico.nome,
+                                      self.medico.data_nascita, self.medico.CF, telefono, self.medico.genere, mail,
+                                      indirizzo, nota, abilitazione, self.medico.id_reparto)
             messaggio = QMessageBox()
             messaggio.setWindowIcon(QIcon('CroceVerde.png'))
             messaggio.setWindowTitle("Modifica informazioni")

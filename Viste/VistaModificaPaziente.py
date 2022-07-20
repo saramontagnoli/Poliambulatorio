@@ -1,11 +1,6 @@
-from PyQt5.QtGui import QIcon
 from PyQt5 import QtCore
-
-from Attivita.Paziente import Paziente
-import os
-import pickle
-from datetime import datetime
-from PyQt5.QtWidgets import QWidget, QVBoxLayout, QLabel, QLineEdit, QPushButton, QMessageBox, QComboBox, QCheckBox
+from PyQt5.QtGui import QIcon
+from PyQt5.QtWidgets import QWidget, QVBoxLayout, QLabel, QLineEdit, QPushButton, QMessageBox, QCheckBox
 
 
 class VistaModificaPaziente(QWidget):
@@ -18,7 +13,7 @@ class VistaModificaPaziente(QWidget):
         self.v_layout = QVBoxLayout()
         self.qlines = {}
 
-        #Caselle di testo per inserimento informazioni del medico
+        # Caselle di testo per inserimento informazioni del medico
         self.add_info_text("password", "Password")
         self.add_info_text("mail", "Email")
         self.add_info_text("telefono", "Telefono")
@@ -26,7 +21,6 @@ class VistaModificaPaziente(QWidget):
         self.add_info_text("nota", "Nota")
         self.add_checkbox("allergia", "Allergia")
         self.add_checkbox("malattia_pregressa", "Malattia pregressa")
-
 
         btn_ok = QPushButton("Modifica")
         btn_ok.clicked.connect(self.modifica_paziente)
@@ -36,7 +30,7 @@ class VistaModificaPaziente(QWidget):
         self.setLayout(self.v_layout)
         self.setWindowTitle("Modifica paziente")
 
-    #Prelevo le informazioni scritte nelle caselle di testo
+    # Prelevo le informazioni scritte nelle caselle di testo
     def add_info_text(self, nome, label):
         self.v_layout.addWidget(QLabel(label))
         current_text = QLineEdit(self)
@@ -56,7 +50,7 @@ class VistaModificaPaziente(QWidget):
         else:
             return False
 
-    #Aggiunta di un nuovo medico
+    # Aggiunta di un nuovo medico
     def modifica_paziente(self):
 
         for value in self.qlines.values():
@@ -66,7 +60,7 @@ class VistaModificaPaziente(QWidget):
                                          QMessageBox.Ok, QMessageBox.Ok)
                     return
 
-        #Controllo delle caselle di testo (devono essere tutte riempite)
+        # Controllo delle caselle di testo (devono essere tutte riempite)
         try:
             password = self.qlines["password"].text()
             mail = self.qlines["mail"].text()
@@ -76,7 +70,9 @@ class VistaModificaPaziente(QWidget):
             allergia = self.qlines["allergia"].text()
             malattia_pregressa = self.qlines["malattia_pregressa"].text()
 
-            self.paziente.setInfoPaziente(self.paziente.id, self.paziente.nome, self.paziente.cognome, password, self.paziente.data_nascita, self.paziente.CF, telefono, self.paziente.genere, mail, indirizzo, nota, allergia, malattia_pregressa)
+            self.paziente.setInfoPaziente(self.paziente.id, self.paziente.nome, self.paziente.cognome, password,
+                                          self.paziente.data_nascita, self.paziente.CF, telefono, self.paziente.genere,
+                                          mail, indirizzo, nota, allergia, malattia_pregressa)
             messaggio = QMessageBox()
             messaggio.setWindowIcon(QIcon('CroceVerde.png'))
             messaggio.setWindowTitle("Modifica informazioni")

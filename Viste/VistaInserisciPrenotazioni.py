@@ -1,10 +1,11 @@
-import os
-import pickle
 from datetime import datetime
 
 from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QWidget, QVBoxLayout, QLabel, QLineEdit, QPushButton, QMessageBox, QComboBox
+
 from Attivita.Prenotazione import Prenotazione
+from Gestione.GestoreFile import caricaFile
+
 
 class VistaInserisciPrenotazioni(QWidget):
 
@@ -19,11 +20,12 @@ class VistaInserisciPrenotazioni(QWidget):
         self.add_info_text("data", "Data")
         self.add_info_text("cf_paziente", "CF Paziente")
 
-# Combo box lista orari dell'ambulatorio
+        # Combo box lista orari dell'ambulatorio
         # Creazione e riepimento con le visite della combobox
         self.combo_ora = QComboBox()
 
-        options = ["8:00","8:30","9:00","9:30", "10:00", "10:30", "11:00", "11:30", "14:00", "14:30", "15:00", "15:30", "16:00", "16:30", "17:00", "17:30"]
+        options = ["8:00", "8:30", "9:00", "9:30", "10:00", "10:30", "11:00", "11:30", "14:00", "14:30", "15:00",
+                   "15:30", "16:00", "16:30", "17:00", "17:30"]
 
         for option in options:
             self.combo_ora.addItem(option)
@@ -35,13 +37,8 @@ class VistaInserisciPrenotazioni(QWidget):
         self.v_layout.addWidget(self.combo_ora)
         self.setLayout(self.v_layout)
 
-# Combo box lista visite
-        self.visite = []
-
-        if os.path.isfile('File/Visite.pickle'):
-            with open('File/Visite.pickle', 'rb') as f:
-                current = dict(pickle.load(f))
-                self.visite.extend(current.values())
+        # Combo box lista visite
+        self.visite = caricaFile("Visite")
 
         # Creazione e riepimento con le visite della combobox
         self.combo_visita = QComboBox()
@@ -56,13 +53,8 @@ class VistaInserisciPrenotazioni(QWidget):
         self.v_layout.addWidget(self.combo_visita)
         self.setLayout(self.v_layout)
 
-# Combo box per lista medici
-        self.medici = []
-
-        if os.path.isfile('File/Medici.pickle'):
-            with open('File/Medici.pickle', 'rb') as f:
-                current = dict(pickle.load(f))
-                self.medici.extend(current.values())
+        # Combo box per lista medici
+        self.medici = caricaFile("Medici")
 
         # Creazione e riepimento con cognomi dei medici della combobox
         self.combo_medico = QComboBox()
@@ -86,7 +78,7 @@ class VistaInserisciPrenotazioni(QWidget):
         self.setLayout(self.v_layout)
         self.setWindowTitle("Nuova prenotazione")
 
-    def selectionchange(self,i):
+    def selectionchange(self, i):
         return self.combo_visita.currentText()
 
     # Prelevo le informazioni scritte nelle caselle di testo
@@ -127,38 +119,39 @@ class VistaInserisciPrenotazioni(QWidget):
 
             prova = prenotazione.aggiungiPrenotazione(id, data, ora, id_medico, id_visita, cf_paziente)
 
-            #errore cf paziente non esistente
+            # errore cf paziente non esistente
             if prova == 0:
                 QMessageBox.critical(self, 'Errore', 'Codice fiscale non valido',
-                                 QMessageBox.Ok, QMessageBox.Ok)
+                                     QMessageBox.Ok, QMessageBox.Ok)
                 return
 
-            #sto scegliendo una visita e un medico di reparti diversi
+            # sto scegliendo una visita e un medico di reparti diversi
             if prova == -1:
                 QMessageBox.critical(self, 'Errore', 'Il reparto del medico e della visita non corrispondono',
-                                 QMessageBox.Ok, QMessageBox.Ok)
+                                     QMessageBox.Ok, QMessageBox.Ok)
                 return
 
-            #il medico ha già un'altra visita
+            # il medico ha già un'altra visita
             if prova == -2:
                 QMessageBox.critical(self, 'Errore', 'Il medico è già impegnato in un''altra visita',
-                                 QMessageBox.Ok, QMessageBox.Ok)
+                                     QMessageBox.Ok, QMessageBox.Ok)
                 return
 
-            #sto prenotando di sabato o domenica
+            # sto prenotando di sabato o domenica
             if prova == -3:
                 QMessageBox.critical(self, 'Errore', 'Il sabato e la domenica l''ambulatorio è chiuso',
-                                 QMessageBox.Ok, QMessageBox.Ok)
+                                     QMessageBox.Ok, QMessageBox.Ok)
                 return
 
             if prova == -4:
-                QMessageBox.critical(self, 'Errore', 'Il paziente ha già prenotato per un''altra visita in questa data e ora',
-                                 QMessageBox.Ok, QMessageBox.Ok)
+                QMessageBox.critical(self, 'Errore',
+                                     'Il paziente ha già prenotato per un''altra visita in questa data e ora',
+                                     QMessageBox.Ok, QMessageBox.Ok)
                 return
 
             if prova == -5:
                 QMessageBox.critical(self, 'Errore', 'Il paziente ha troppe prenotazioni attive al momento',
-                                 QMessageBox.Ok, QMessageBox.Ok)
+                                     QMessageBox.Ok, QMessageBox.Ok)
                 return
         except:
             QMessageBox.critical(self, 'Errore', 'Controlla bene i dati inseriti',
