@@ -42,7 +42,7 @@ class GestoreAccesso:
         medici = caricaFile("Medici")
         for medico in medici:
             if medico.CF == username and medico.password == password:
-                # trovato = 1
+                # apro la vista del medico
                 self.vista_home = VistaHomeMedico(medico)
                 self.vista_home.show()
                 return True
@@ -51,6 +51,7 @@ class GestoreAccesso:
         pazienti = caricaFile("Pazienti")
         for paziente in pazienti:
             if paziente.CF == username and paziente.password == password:
+                # apro la vista del paziente
                 self.vista_home = VistaHomePaziente(paziente)
                 VistaHomePaziente.paziente = paziente
                 self.vista_home.show()
