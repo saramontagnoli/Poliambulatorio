@@ -14,6 +14,7 @@ class VistaPrenotazioneMedico(QWidget):
         super(VistaPrenotazioneMedico, self).__init__()
         self.setWindowIcon(QIcon('CroceVerde.png'))
         self.elimina_callback = elimina_callback
+        self.utente = "medico"
         v_layout = QVBoxLayout()
         nome = ""
         info = {}
@@ -79,21 +80,6 @@ class VistaPrenotazioneMedico(QWidget):
         self.setLayout(v_layout)
         self.setWindowTitle("Prenotazione")
 
-    # Funzione per l'eliminazione della prenotazione selezionato quando si preme il bottone
-    def disdetta_prenotazione_click(self, prenotazione):
-        if isinstance(prenotazione, Prenotazione):
-            messaggio = QMessageBox()
-            if (prenotazione.disdiciPrenotazione(0)):
-                messaggio.setWindowTitle("Disdetta")
-                messaggio.setText("La prenotazione e' stato disdetta con successo. ")
-                messaggio.exec_()
-            else:
-                messaggio.setWindowTitle("Errore")
-                messaggio.setText("La prenotazione e' gia' stata disdetta. ")
-                messaggio.exec_()
-        self.elimina_callback()
-        self.close()
-
     # Funzione per l'inserimento del referto
     def inserisci_referto_click(self, prenotazione):
         if isinstance(prenotazione, Prenotazione):
@@ -103,12 +89,3 @@ class VistaPrenotazioneMedico(QWidget):
             self.elimina_callback()
             self.close()
 
-    # Funzione per la visualizzazione della mora quando si preme il pulsante
-    def visualizza_referto_click(self, referto):
-        if isinstance(referto, Referto):
-            messaggio = QMessageBox()
-            messaggio.setWindowIcon(QIcon('CroceVerde.png'))
-            messaggio.setWindowTitle("Referto")
-            messaggio.setText(
-                f"Id: {referto.id} \nNota: {referto.nota} \nData e ora: {referto.data_emissione.strftime('%Y-%m-%d %H:%M')}")
-            messaggio.exec_()

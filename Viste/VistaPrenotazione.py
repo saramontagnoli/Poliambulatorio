@@ -64,3 +64,13 @@ class VistaPrenotazione(QWidget):
             messaggio.setText(
                 f"Id: {mora.id} \nImporto: {round(mora.importo, 2)}€ \nNota: {mora.nota} \nData e ora: {mora.data_emissione.strftime('%Y-%m-%d %H:%M')}")
             messaggio.exec_()
+
+    # Funzione per la visualizzazione della mora quando si preme il pulsante
+    def visualizza_referto_click(self, referto):
+        if isinstance(referto, Referto):
+            messaggio = QMessageBox()
+            messaggio.setWindowIcon(QIcon('CroceVerde.png'))
+            messaggio.setWindowTitle("Referto")
+            messaggio.setText(
+                f"Id: {referto.id} \nNota: {referto.nota} \nData e ora: {referto.data_emissione.strftime('%Y-%m-%d %H:%M')}")
+            messaggio.exec_()
