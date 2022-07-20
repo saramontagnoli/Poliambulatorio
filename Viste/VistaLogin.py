@@ -1,5 +1,5 @@
 from PyQt5.QtGui import QIcon
-from PyQt5.QtWidgets import QWidget, QPushButton, QLabel, QLineEdit, QGridLayout, QSizePolicy
+from PyQt5.QtWidgets import QWidget, QPushButton, QLabel, QLineEdit, QGridLayout, QSizePolicy, QMessageBox
 
 from Gestione.GestoreAccesso import GestoreAccesso
 
@@ -36,5 +36,8 @@ class VistaLogin(QWidget):
         username = self.user_obj.text()
         password = self.user_pwd.text()
         # Forse togliere self
-        GestoreAccesso.login(self, username, password)
+        if not GestoreAccesso.login(self, username, password):
+            QMessageBox.critical(self, 'Errore', 'Codice fiscale o password errati.', QMessageBox.Ok, QMessageBox.Ok)
+            return
+
         self.close()
