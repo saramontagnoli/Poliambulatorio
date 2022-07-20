@@ -1,18 +1,17 @@
-import os.path
-import pickle
-
 from PyQt5.QtGui import QStandardItemModel, QStandardItem, QIcon
 from PyQt5.QtWidgets import QWidget, QHBoxLayout, QListView, QVBoxLayout, QPushButton, QLineEdit, QLabel, QMessageBox
 
 from Attivita.Medico import Medico
-from Viste.VistaMedico import VistaMedico
+from Gestione.GestoreFile import caricaFile
 from Viste.VistaInserisciMedici import VistaInserisciMedici
+from Viste.VistaMedico import VistaMedico
 
-#Interfaccia grafica per la gestione dei medici (da parte dell'admin)
+
+# Interfaccia grafica per la gestione dei medici (da parte dell'admin)
 class VistaGestisciMedici(QWidget):
 
     def __init__(self, parent=None):
-        #stampa lista dei medici
+        # stampa lista dei medici
         super(VistaGestisciMedici, self).__init__(parent)
         self.setWindowIcon(QIcon('CroceVerde.png'))
         self.h_layout = QHBoxLayout()
@@ -21,7 +20,7 @@ class VistaGestisciMedici(QWidget):
         self.h_layout.addWidget(self.list_view)
         self.qlines = {}
 
-        #QPushButton per un nuovo Medico o visualizzazione dati
+        # QPushButton per un nuovo Medico o visualizzazione dati
         buttons_layout = QVBoxLayout()
         open_button = QPushButton('Apri')
         open_button.clicked.connect(self.show_selected_info)
@@ -33,10 +32,10 @@ class VistaGestisciMedici(QWidget):
         buttons_layout.addStretch()
         self.h_layout.addLayout(buttons_layout)
 
-        #Casella di testo per la ricerca
+        # Casella di testo per la ricerca
         self.add_info_text("ricerca", "ricerca")
 
-        #Pulsanti per la ricerca CF o ID
+        # Pulsanti per la ricerca CF o ID
         ricerca_CF = QPushButton('Ricerca CF')
         ricerca_CF.clicked.connect(self.ricerca_medico_CF)
         buttons_layout.addWidget(ricerca_CF)
@@ -58,14 +57,11 @@ class VistaGestisciMedici(QWidget):
         self.resize(600, 300)
         self.setWindowTitle("Gestisci Medici")
 
-    #Load file Medici nel dizionario
+    # Load file Medici nel dizionario
     def load_medici(self):
-        if os.path.isfile('File/Medici.pickle'):
-            with open('File/Medici.pickle', 'rb') as f:
-                current = dict(pickle.load(f))
-                self.medici.extend(current.values())
+        self.medici = caricaFile("Medici")
 
-    #Stampa della lista aggiornata nella finestra dei medici
+    # Stampa della lista aggiornata nella finestra dei medici
     def update_ui(self):
         self.medici = []
         self.load_medici()
@@ -81,7 +77,7 @@ class VistaGestisciMedici(QWidget):
             listview_model.appendRow(item)
         self.list_view.setModel(listview_model)
 
-    #Permette la visualizzazione delle informazioni di un particolare medico
+    # Permette la visualizzazione delle informazioni di un particolare medico
     def show_selected_info(self):
         try:
             selected = self.list_view.selectedIndexes()[0].data()
@@ -96,56 +92,56 @@ class VistaGestisciMedici(QWidget):
             QMessageBox.critical(self, 'Errore', 'Nessun elemento selezionato', QMessageBox.Ok, QMessageBox.Ok)
             return
 
-    #Richiama la vista per l'inserimento di un nuovo medico
+    # Richiama la vista per l'inserimento di un nuovo medico
     def show_new(self):
         self.inserisci_medico = VistaInserisciMedici(callback=self.update_ui)
         self.inserisci_medico.show()
 
-    #Dati contenuti dentro la casella di testo della ricerca
+    # Dati contenuti dentro la casella di testo della ricerca
     def add_info_text(self, nome, label):
         self.h_layout.addWidget(QLabel(label))
         current_text = QLineEdit(self)
         self.qlines[nome] = current_text
         self.h_layout.addWidget(current_text)
 
-    #Ricerca di un particolare medico mediante il codice fiscale
+    # Ricerca di un particolare medico mediante il codice fiscale
     def ricerca_medico_CF(self):
         f = 0
         CF = self.qlines["ricerca"].text()
 
-        #controllo il codice fiscale dei medici inseriti
+        # controllo il codice fiscale dei medici inseriti
         for medico in self.medici:
             if medico.CF == CF:
                 f = 1
                 self.vista_medico = VistaMedico(medico, elimina_callback=self.update_ui)
                 self.vista_medico.show()
 
-        #Se non trovo nessun medico con quel CF stampo un pop-up di errore
-        if f == 0 :
+        # Se non trovo nessun medico con quel CF stampo un pop-up di errore
+        if f == 0:
             messaggio = QMessageBox()
             messaggio.setWindowTitle("Non trovato")
             messaggio.setText("Non è stato trovato nessun medico con questo codice fiscale. ")
             messaggio.exec_()
 
-    #Ricerca di un particolare paziente mediante l'ID
+    # Ricerca di un particolare paziente mediante l'ID
     def ricerca_medico_ID(self):
         f = 0
-        #Controllo sull'ID (deve contenere solo numeri)
+        # Controllo sull'ID (deve contenere solo numeri)
         try:
             ID = int(self.qlines["ricerca"].text())
         except:
             QMessageBox.critical(self, 'Errore', 'L id non sembra un numero valido.', QMessageBox.Ok, QMessageBox.Ok)
             return
 
-        #controllo l'ID dei medici inseriti
+        # controllo l'ID dei medici inseriti
         for medico in self.medici:
             if medico.id == ID:
                 f = 1
                 self.vista_medico = VistaMedico(medico, elimina_callback=self.update_ui)
                 self.vista_medico.show()
 
-        #Se non trovo nessun medico con quell'ID stampo un pop-up errore
-        if f == 0 :
+        # Se non trovo nessun medico con quell'ID stampo un pop-up errore
+        if f == 0:
             messaggio = QMessageBox()
             messaggio.setWindowTitle("Non trovato")
             messaggio.setText("Non è stato trovato nessun medico con questo ID. ")

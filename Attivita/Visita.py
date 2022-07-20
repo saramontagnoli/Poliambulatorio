@@ -1,6 +1,5 @@
-import datetime
-import os
-import pickle
+from Gestione.GestoreFile import scriviFile
+
 
 class Visita:
 
@@ -11,15 +10,9 @@ class Visita:
         self.id_reparto = id_reparto
         self.costo = costo
 
-        visite ={}
-        if os.path.isfile('File/Visite.pickle'):
-            with open('File/Visite.pickle', 'rb') as f:
-                visite = pickle.load(f)
-        visite[self.id] = self
-        with open('File/Visite.pickle', 'wb') as f:
-            pickle.dump(visite, f, pickle.HIGHEST_PROTOCOL)
+        scriviFile("Visite", self)
 
-    #metodi set e get dei vari attributi
+    # metodi set e get dei vari attributi
     def getId(self):
         return self.id
 
@@ -38,6 +31,6 @@ class Visita:
     def getCosto(self):
         return self.costo
 
-    #metodo per stampare i dati di una visita
+    # metodo per stampare i dati di una visita
     def visualizza(self):
         return

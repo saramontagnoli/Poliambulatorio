@@ -1,6 +1,5 @@
 import datetime
-import os
-import pickle
+from Gestione.GestoreFile import scriviFile
 
 
 class Referto:
@@ -10,13 +9,7 @@ class Referto:
         self.nota = nota
         self.data_emissione = datetime.datetime.today()
 
-        referti = {}
-        if os.path.isfile('File/Referti.pickle'):
-            with open('File/Referti.pickle', 'rb') as f:
-                referti = pickle.load(f)
-        referti[self.id] = self
-        with open('File/Referti.pickle', 'wb') as f:
-            pickle.dump(referti, f, pickle.HIGHEST_PROTOCOL)
+        scriviFile("Referti", self)
 
     def getId(self):
         return self.id

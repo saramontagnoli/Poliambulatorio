@@ -1,12 +1,10 @@
-import os
-import pickle
-
 from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QWidget, QMessageBox
 
 from Attivita.Mora import Mora
 from Attivita.Prenotazione import Prenotazione
 from Attivita.Referto import Referto
+from Gestione.GestoreFile import caricaFile
 
 
 class VistaPrenotazione(QWidget):
@@ -40,12 +38,7 @@ class VistaPrenotazione(QWidget):
     # Funzione per la visualizzazione della ricevuta quando si preme il bottone
     def visualizza_ricevuta_click(self, prenotazione):
         if isinstance(prenotazione, Prenotazione):
-            ricevute = []
-            # Apertura e scrittura su file delle ricevute
-            if os.path.isfile('File/Ricevute.pickle'):
-                with open('File/Ricevute.pickle', 'rb') as f:
-                    current = dict(pickle.load(f))
-                    ricevute.extend(current.values())
+            ricevute = caricaFile("Ricevute")
 
             for ricevuta in ricevute:
                 if ricevuta.id == prenotazione.id:

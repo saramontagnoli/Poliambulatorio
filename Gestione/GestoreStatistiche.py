@@ -2,14 +2,11 @@ import datetime
 import os
 import pickle
 
+from Gestione.GestoreFile import caricaFile
+
 
 def richiediStatisticheMore():
-    more = []
-    if os.path.isfile('File/More.pickle'):
-        with open('File/More.pickle', 'rb') as f:
-            current = dict(pickle.load(f))
-            more.extend(current.values())
-
+    more = caricaFile("More")
     somma = 0
     num = 0
     anno_attuale = int(datetime.datetime.today().year)
@@ -22,15 +19,12 @@ def richiediStatisticheMore():
             num += 1
             somma += mora.importo
 
-    return f"Somma totale anno {anno_attuale}: {round(somma,2)}€ \nNumero more: {num}"
+    return f"Somma totale anno {anno_attuale}: {round(somma, 2)}€ \nNumero more: {num}"
 
 
 def richiediStatisticheRicevute():
-    ricevute = []
-    if os.path.isfile('File/Ricevute.pickle'):
-        with open('File/Ricevute.pickle', 'rb') as f:
-            current = dict(pickle.load(f))
-            ricevute.extend(current.values())
+    ricevute = caricaFile("Ricevute")
+
     somma = 0
     num = 0
     anno_attuale = int(datetime.datetime.today().year)
@@ -42,7 +36,6 @@ def richiediStatisticheRicevute():
             somma += ricevuta.importo
 
     return f"Somma totale anno {anno_attuale}: {round(somma, 2)}€ \nNumero ricevute: {num}"
-
 
 
 class GestoreStatistiche:

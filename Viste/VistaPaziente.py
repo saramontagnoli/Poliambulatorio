@@ -56,13 +56,7 @@ class VistaPaziente(QWidget):
         v_layout.addWidget(btn_elimina)
 
         self.setLayout(v_layout)
-        self.setWindowTitle("Paziente")
-
-        """"def elimina_paziente_click(self, paziente):
-            if isinstance(paziente, Paziente):
-                paziente.rimuoviPaziente()
-            self.elimina_callback()
-            self.close()"""
+        self.setWindowTitle(f"Paziente {paziente.id} - {paziente.nome} {paziente.cognome}")
 
     # Funzione per l'eliminazione del paziente selezionato quando si preme il bottone
     def elimina_paziente_click(self, paziente):

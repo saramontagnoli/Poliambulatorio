@@ -1,10 +1,8 @@
-import os
-import pickle
-
 from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QVBoxLayout, QLabel, QSpacerItem, QSizePolicy, QPushButton
 
 from Attivita.Prenotazione import Prenotazione
+from Gestione.GestoreFile import caricaFile
 from Viste.VistaInserisciReferto import VistaInserisciReferto
 from Viste.VistaPrenotazione import VistaPrenotazione
 
@@ -37,7 +35,6 @@ class VistaPrenotazioneMedico(VistaPrenotazione):
         v_layout.addWidget(QLabel(f"Data: {info['data'].strftime('%Y-%m-%d')}"))
         v_layout.addWidget(QLabel(f"Ora: {info['ora'].strftime('%H:%M')}"))
         v_layout.addWidget(QLabel(f"CF Paziente: {info['cf_paziente']}"))
-        # v_layout.addWidget(QLabel(f"Id medico: {info['id_medico']}"))
         v_layout.addWidget(QLabel(f"Id visita: {info['id_visita']}"))
 
         # Eventuali stampe degli stati della prenotazione
@@ -59,12 +56,7 @@ class VistaPrenotazioneMedico(VistaPrenotazione):
             v_layout.addWidget(btn_disdici)
 
         if prenotazione.conclusa:
-            referti = []
-            # Apertura e scrittura su file delle more
-            if os.path.isfile('File/Referti.pickle'):
-                with open('File/Referti.pickle', 'rb') as f:
-                    current = dict(pickle.load(f))
-                    referti.extend(current.values())
+            referti = caricaFile("Referti")
 
             flag = False
             for referto in referti:

@@ -1,6 +1,4 @@
-import os
-import pickle
-
+from Gestione.GestoreFile import caricaFile
 from Viste.VistaHomeAmm import VistaHomeAmm
 from Viste.VistaHomeMedico import VistaHomeMedico
 from Viste.VistaHomePaziente import VistaHomePaziente
@@ -18,11 +16,7 @@ class GestoreAccesso:
             self.vista_home.show()
             return True
 
-        medici = []
-        if os.path.isfile('File/Medici.pickle'):
-            with open('File/Medici.pickle', 'rb') as f:
-                current = dict(pickle.load(f))
-                medici.extend(current.values())
+        medici = caricaFile("Medici")
         for medico in medici:
             if medico.CF == username and medico.password == password:
                 # trovato = 1
@@ -30,11 +24,7 @@ class GestoreAccesso:
                 self.vista_home.show()
                 return True
 
-        pazienti = []
-        if os.path.isfile('File/Pazienti.pickle'):
-            with open('File/Pazienti.pickle', 'rb') as f:
-                current = dict(pickle.load(f))
-                pazienti.extend(current.values())
+        pazienti = caricaFile("Pazienti")
         for paziente in pazienti:
             if paziente.CF == username and paziente.password == password:
                 self.vista_home = VistaHomePaziente(paziente)
@@ -43,6 +33,3 @@ class GestoreAccesso:
                 return True
 
         return False
-
-    def logout(self):
-        return

@@ -1,10 +1,8 @@
-import os
-import pickle
-
 from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QVBoxLayout, QLabel, QSpacerItem, QSizePolicy, QPushButton, QMessageBox
 
 from Attivita.Prenotazione import Prenotazione
+from Gestione.GestoreFile import caricaFile
 from Viste.VistaPrenotazione import VistaPrenotazione
 
 
@@ -62,12 +60,7 @@ class VistaPrenotazioneAmm(VistaPrenotazione):
             btn_visualizza_ricevuta.clicked.connect(lambda: self.visualizza_ricevuta_click(prenotazione))
             v_layout.addWidget(btn_visualizza_ricevuta)
 
-        more = []
-        # Apertura e scrittura su file delle more
-        if os.path.isfile('File/More.pickle'):
-            with open('File/More.pickle', 'rb') as f:
-                current = dict(pickle.load(f))
-                more.extend(current.values())
+        more = caricaFile("More")
 
         for mora in more:
             if mora.id == prenotazione.id:
