@@ -3,6 +3,8 @@ import os
 import pickle
 import shutil
 
+from Gestione.GestoreFile import caricaFile
+
 
 def effettuaBackUp():
     today = datetime.datetime.today()
@@ -15,18 +17,17 @@ class GestoreBackUp:
 
     # Impostazioni standard di Back-up
     def __init__(self):
-        impostazioni = []
+        self.impostazioni = caricaFile("Backup")
         # Caricamento delle impostazioni di back-up salvate in precedenza
-        if os.path.isfile('File/Backup.pickle'):
-            with open('File/Backup.pickle', 'rb') as f:
-                current = dict(pickle.load(f))
-                impostazioni.extend(current.values())
+        self.ora = self.impostazioni[0].ora
+        self.frequenza = self.impostazioni[0].frequenza
 
-            self.ora = impostazioni[0].ora
-            self.frequenza = impostazioni[0].frequenza
+        print(self.ora)
+        print(self.frequenza)
 
     # frequenza intesa come intervallo giornaliero (ogni n giorni)
     def modificaBackUp(self, ora, frequenza):
+
         self.ora = ora
         self.frequenza = frequenza
 
