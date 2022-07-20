@@ -2,11 +2,11 @@ import os
 import pickle
 
 from PyQt5.QtGui import QIcon
-from PyQt5.QtWidgets import QWidget, QVBoxLayout, QLabel, QSpacerItem, QSizePolicy, QPushButton, QMessageBox
+from PyQt5.QtWidgets import QVBoxLayout, QLabel, QSpacerItem, QSizePolicy, QPushButton, QMessageBox
 
-from Attivita.Mora import Mora
 from Attivita.Prenotazione import Prenotazione
 from Viste.VistaPrenotazione import VistaPrenotazione
+
 
 class VistaPrenotazioneAmm(VistaPrenotazione):
 
@@ -14,6 +14,7 @@ class VistaPrenotazioneAmm(VistaPrenotazione):
         super(VistaPrenotazione, self).__init__()
         self.setWindowIcon(QIcon('CroceVerde.png'))
         self.elimina_callback = elimina_callback
+        self.utente = "admin"
 
         v_layout = QVBoxLayout()
         nome = ""
@@ -84,9 +85,9 @@ class VistaPrenotazioneAmm(VistaPrenotazione):
 
     # Funzione per la creazione della ricevuta quando si preme il bottone
     def crea_ricevuta_click(self, prenotazione):
-        if isinstance(prenotazione,Prenotazione):
+        if isinstance(prenotazione, Prenotazione):
             messaggio = QMessageBox()
-            if(prenotazione.crea_ricevuta()):
+            if prenotazione.crea_ricevuta():
                 messaggio.setWindowTitle("Ricevuta")
                 messaggio.setText("La Ricevuta della prenotazione e' stata creata con successo. ")
                 messaggio.exec_()
@@ -96,4 +97,3 @@ class VistaPrenotazioneAmm(VistaPrenotazione):
                 messaggio.exec_()
         self.elimina_callback()
         self.close()
-
