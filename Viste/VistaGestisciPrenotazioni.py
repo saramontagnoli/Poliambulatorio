@@ -1,18 +1,15 @@
-import os.path
-import pickle
 from abc import abstractmethod
 
 from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QWidget, QHBoxLayout, QListView, QLineEdit, QLabel, QMessageBox
 
 from Attivita.Prenotazione import ricerca
+from Gestione.GestoreFile import caricaFile
 from Viste.VistaPrenotazioneAmm import VistaPrenotazioneAmm
-
-# Interfaccia grafica per la gestione delle Prenotazioni (da parte dell'admin)
 from Viste.VistaPrenotazioneMedico import VistaPrenotazioneMedico
 from Viste.VistaPrenotazionePaziente import VistaPrenotazionePaziente
 
-
+# Interfaccia grafica per la gestione delle Prenotazioni
 class VistaGestisciPrenotazioni(QWidget):
 
     # INIT DIVERSO PER TUTTE
@@ -30,10 +27,7 @@ class VistaGestisciPrenotazioni(QWidget):
 
     # Load file Prenotazioni nel dizionario
     def load_prenotazioni(self):
-        if os.path.isfile('File/Prenotazioni.pickle'):
-            with open('File/Prenotazioni.pickle', 'rb') as f:
-                current = dict(pickle.load(f))
-                self.prenotazioni.extend(current.values())
+        self.prenotazioni = caricaFile("Prenotazioni")
 
     # Stampa della lista aggiornata nella finestra dei prenotazioni
     @abstractmethod

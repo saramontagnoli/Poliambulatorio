@@ -1,12 +1,10 @@
-import os.path
-import pickle
-
 from PyQt5.QtGui import QStandardItemModel, QStandardItem, QIcon
 from PyQt5.QtWidgets import QWidget, QHBoxLayout, QListView, QVBoxLayout, QPushButton, QLineEdit, QLabel, QMessageBox
 
 from Attivita.Paziente import Paziente
-from Viste.VistaPaziente import VistaPaziente
+from Gestione.GestoreFile import caricaFile
 from Viste.VistaInserisciPazienti import VistaInserisciPazienti
+from Viste.VistaPaziente import VistaPaziente
 
 
 # Interfaccia grafica per la gestione dei Pazienti (da parte dell'admin)
@@ -61,10 +59,7 @@ class VistaGestisciPazienti(QWidget):
 
     # Load file Pazienti nel dizionario
     def load_pazienti(self):
-        if os.path.isfile('File/Pazienti.pickle'):
-            with open('File/Pazienti.pickle', 'rb') as f:
-                current = dict(pickle.load(f))
-                self.pazienti.extend(current.values())
+        self.pazienti = caricaFile("Pazienti")
 
     # Stampa della lista aggiornata nella finestra dei pazienti
     def update_ui(self):
