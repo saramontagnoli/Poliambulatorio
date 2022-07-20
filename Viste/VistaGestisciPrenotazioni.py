@@ -88,13 +88,15 @@ class VistaGestisciPrenotazioni(QWidget):
                     self.vista_prenotazione = VistaPrenotazioneAmm(prenotazione, elimina_callback=self.update_ui)
                     self.vista_prenotazione.show()
                 elif self.utente == "medico":
-                    f = 1
-                    self.vista_prenotazione = VistaPrenotazioneMedico(prenotazione, elimina_callback=self.update_ui)
-                    self.vista_prenotazione.show()
+                    if prenotazione.id_medico == self.medico.id:
+                        f = 1
+                        self.vista_prenotazione = VistaPrenotazioneMedico(prenotazione, elimina_callback=self.update_ui)
+                        self.vista_prenotazione.show()
                 elif self.utente == "paziente":
-                    f = 1
-                    self.vista_prenotazione = VistaPrenotazionePaziente(prenotazione, elimina_callback=self.update_ui)
-                    self.vista_prenotazione.show()
+                    if prenotazione.cf_paziente == self.paziente.CF:
+                        f = 1
+                        self.vista_prenotazione = VistaPrenotazionePaziente(prenotazione, elimina_callback=self.update_ui)
+                        self.vista_prenotazione.show()
 
         # Se non trovo nessuna prenotazione con quell'ID stampo un pop-up di errore
         if f == 0:
