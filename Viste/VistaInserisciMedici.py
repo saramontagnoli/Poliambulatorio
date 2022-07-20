@@ -6,6 +6,8 @@ import pickle
 from datetime import datetime
 from PyQt5.QtWidgets import QWidget, QVBoxLayout, QLabel, QLineEdit, QPushButton, QMessageBox, QComboBox
 
+from Gestione.GestoreFile import caricaFile
+
 
 class VistaInserisciMedici(QWidget):
 
@@ -40,12 +42,7 @@ class VistaInserisciMedici(QWidget):
         self.add_info_text("nota", "Nota")
         self.add_info_text("abilitazione", "Abilitazione")
 
-        self.reparti = []
-
-        if os.path.isfile('File/Reparti.pickle'):
-            with open('File/Reparti.pickle', 'rb') as f:
-                current = dict(pickle.load(f))
-                self.reparti.extend(current.values())
+        self.reparti = caricaFile("Reparti")
 
         # Creazione e riempimento con le visite della combobox
         self.combo_reparti = QComboBox()

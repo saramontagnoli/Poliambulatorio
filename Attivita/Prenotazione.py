@@ -2,11 +2,11 @@ import datetime
 
 from Attivita.Mora import Mora
 from Attivita.Ricevuta import Ricevuta
-from Gestione.GestoreFile import scriviFile, caricaFile, ricercaFile
+from Gestione.GestoreFile import scriviFile, caricaFile, ricercaElemFile
 
 
 def ricerca(id):
-    return ricercaFile("Prenotazioni", id)
+    return ricercaElemFile("Prenotazioni", id)
 
 
 class Prenotazione:

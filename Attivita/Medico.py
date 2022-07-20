@@ -1,7 +1,5 @@
-import os.path
-import pickle
-
 from Attivita.Utilizzatore import Utilizzatore
+from Gestione.GestoreFile import scriviFile, ricercaElemFile, rimuoviElemFile
 
 
 class Medico(Utilizzatore):
@@ -18,13 +16,7 @@ class Medico(Utilizzatore):
         self.abilitazione = abilitazione
         self.id_reparto = id_reparto
 
-        medici = {}
-        if os.path.isfile('File/Medici.pickle'):
-            with open('File/Medici.pickle', 'rb') as f:
-                medici = pickle.load(f)
-        medici[id] = self
-        with open('File/Medici.pickle', 'wb') as f:
-            pickle.dump(medici, f, pickle.HIGHEST_PROTOCOL)
+        scriviFile("Medici", self)
 
     def getInfoMedico(self):
         info = self.getInfoUtilizzatore()
@@ -33,33 +25,14 @@ class Medico(Utilizzatore):
         return info
 
     def ricercaUtilizzatoreCF(self, CF):
-        if os.path.isfile('File/Medici.pickle'):
-            with open('File/Medici.pickle', 'rb') as f:
-                medici = dict(pickle.load(f))
-                return medici.get(CF, None)
-        else:
-            return None
+        return ricercaElemFile("Medici", CF)
 
     def ricercaUtilizzatoreId(self, id):
-        if os.path.isfile('File/Medici.pickle'):
-            with open('File/Medici.pickle', 'rb') as f:
-                medici = dict(pickle.load(f))
-                return medici.get(id, None)
-        else:
-            return None
-
-    def modificaMedico(self, password, telefono, mail, indirizzo, nota, abilitazione):
-        self.modificaUtilizzatore(password, telefono, mail, indirizzo, nota)
-        self.abilitazione = abilitazione
+        return ricercaElemFile("Medici", id)
 
     # Rimozione di un medico mediante il suo id
     def rimuoviMedico(self):
-        if os.path.isfile('File/Medici.pickle'):
-            with open('File/Medici.pickle', 'rb') as f:
-                medici = dict(pickle.load(f))
-                del medici[self.id]
-            with open('File/Medici.pickle', 'wb') as f:
-                pickle.dump(medici, f, pickle.HIGHEST_PROTOCOL)
+        rimuoviElemFile("Medici", self)
         self.rimuoviUtilizzatore()
         self.abilitazione = ""
         # self.allergia = False

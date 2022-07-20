@@ -2,7 +2,7 @@ import os
 import pickle
 
 
-def ricercaFile(filename, id):
+def ricercaElemFile(filename, id):
     path = f"File/{filename}.pickle"
     if os.path.isfile(path):
         with open(path, 'rb') as f:
@@ -34,6 +34,16 @@ def scriviFile(filename, elemento):
     with open(path, 'wb') as f:
         pickle.dump(dizionario, f, pickle.HIGHEST_PROTOCOL)
         return True
+
+
+def rimuoviElemFile(filename, elemento):
+    path = f"File/{filename}.pickle"
+    if os.path.isfile(path):
+        with open(path, 'rb') as f:
+            dizionario = dict(pickle.load(f))
+            del dizionario[elemento.id]
+        with open('File/Medici.pickle', 'wb') as f:
+            pickle.dump(dizionario, f, pickle.HIGHEST_PROTOCOL)
 
 
 class GestoreFile:
