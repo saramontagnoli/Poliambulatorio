@@ -1,17 +1,13 @@
-import os
-import pickle
-
 from PyQt5.QtGui import QIcon, QStandardItemModel, QStandardItem
-from PyQt5.QtWidgets import QWidget, QHBoxLayout, QListView, QVBoxLayout, QPushButton, QMessageBox, QLabel, QLineEdit
+from PyQt5.QtWidgets import QHBoxLayout, QListView, QVBoxLayout, QPushButton
 
-from Attivita.Prenotazione import Prenotazione
-from Viste.VistaPrenotazionePaziente import VistaPrenotazionePaziente
+from Viste.VistaGestisciPrenotazioni import VistaGestisciPrenotazioni
 
 
-class VistaGestisciPrenPaziente(QWidget):
+class VistaGestisciPrenPaziente(VistaGestisciPrenotazioni):
     def __init__(self, paziente, parent=None):
         # stampa lista delle prenotazioni
-        super(VistaGestisciPrenPaziente, self).__init__(parent)
+        super(VistaGestisciPrenotazioni, self).__init__(parent)
         self.paziente = paziente
         self.setWindowIcon(QIcon('CroceVerde.png'))
         self.h_layout = QHBoxLayout()
@@ -19,6 +15,7 @@ class VistaGestisciPrenPaziente(QWidget):
         self.update_ui()
         self.h_layout.addWidget(self.list_view)
         self.qlines = {}
+        self.utente = "paziente"
 
         # QPushButton per una nuova Prenotazionee o Visualizzazione dati
         buttons_layout = QVBoxLayout()
@@ -42,13 +39,6 @@ class VistaGestisciPrenPaziente(QWidget):
         self.resize(600, 300)
         self.setWindowTitle("Gestisci Prenotazioni")
 
-    # Load file Prenotazioni nel dizionario
-    def load_prenotazioni(self):
-        if os.path.isfile('File/Prenotazioni.pickle'):
-            with open('File/Prenotazioni.pickle', 'rb') as f:
-                current = dict(pickle.load(f))
-                self.prenotazioni.extend(current.values())
-
     # Stampa della lista aggiornata nella finestra dei prenotazioni
     def update_ui(self):
         self.prenotazioni = []
@@ -70,51 +60,4 @@ class VistaGestisciPrenPaziente(QWidget):
                 listview_model.appendRow(item)
         self.list_view.setModel(listview_model)
 
-    # Permette la visualizzazione delle informazioni di una particolare prenotazione
-    def show_selected_info(self):
-        try:
-            selected = self.list_view.selectedIndexes()[0].data()
-            tipo = selected.split(" ")[0].strip()
-            id = int(selected.split(" ")[1].strip())
-            prenotazione = None
-
-            if tipo == "P.":
-                prenotazione = Prenotazione().ricerca(id)
-            self.vista_prenotazione_paziente = VistaPrenotazionePaziente(prenotazione, elimina_callback=self.update_ui)
-            self.vista_prenotazione_paziente.show()
-        except IndexError:
-            QMessageBox.critical(self, 'Errore', 'Nessun elemento selezionato', QMessageBox.Ok, QMessageBox.Ok)
-            return
-
-    # Dati contenuti dentro la casella di testo della ricerca
-    def add_info_text(self, nome, label):
-        self.h_layout.addWidget(QLabel(label))
-        current_text = QLineEdit(self)
-        self.qlines[nome] = current_text
-        self.h_layout.addWidget(current_text)
-
-    # Ricerca di una particolare prenotazione mediante l'ID
-    def ricerca_prenotazione_ID(self):
-        # Controllo sull'ID (deve contenere solo numeri)
-        try:
-            ID = int(self.qlines["ricerca"].text())
-        except:
-            QMessageBox.critical(self, 'Errore', 'L id non sembra un numero valido.', QMessageBox.Ok, QMessageBox.Ok)
-            return
-
-        f = 0
-        # controllo l'ID delle prenotazioni inserite
-        for prenotazione in self.prenotazioni:
-            if prenotazione.id == ID:
-                if prenotazione.cf_paziente == self.paziente.CF:
-                    f = 1
-                    self.vista_prenotazione_paziente = VistaPrenotazionePaziente(prenotazione, elimina_callback=self.update_ui)
-                    self.vista_prenotazione_paziente.show()
-
-        # Se non trovo nessuna prenotazione con quell'ID stampo un pop-up di errore
-        if f == 0:
-            messaggio = QMessageBox()
-            messaggio.setWindowTitle("Non trovato")
-            messaggio.setText("Non è stato trovato nessun prenotazione con questo ID. ")
-            messaggio.exec_()
 
