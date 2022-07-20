@@ -5,6 +5,10 @@ from Attivita.Ricevuta import Ricevuta
 from Gestione.GestoreFile import scriviFile, caricaFile, ricercaFile
 
 
+def ricerca(id):
+    return ricercaFile("Prenotazioni", id)
+
+
 class Prenotazione:
 
     # costruttore di Prenotazione
@@ -103,8 +107,6 @@ class Prenotazione:
         }
 
     # Ricerca prenotazione per id
-    def ricerca(self, id):
-        return ricercaFile("Prenotazioni", id)
 
     # Definizione di tutti i metodi getter degli attributi di prenotazione
     def getId(self):

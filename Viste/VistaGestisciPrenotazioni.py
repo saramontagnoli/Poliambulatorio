@@ -5,7 +5,7 @@ from abc import abstractmethod
 from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QWidget, QHBoxLayout, QListView, QLineEdit, QLabel, QMessageBox
 
-from Attivita.Prenotazione import Prenotazione
+from Attivita.Prenotazione import ricerca
 from Viste.VistaPrenotazioneAmm import VistaPrenotazioneAmm
 
 # Interfaccia grafica per la gestione delle Prenotazioni (da parte dell'admin)
@@ -49,7 +49,7 @@ class VistaGestisciPrenotazioni(QWidget):
             prenotazione = None
 
             if tipo == "P.":
-                prenotazione = Prenotazione().ricerca(id)
+                prenotazione = ricerca(id)
 
             if self.utente == "admin":
                 f = 1
