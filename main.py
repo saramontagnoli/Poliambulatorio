@@ -3,18 +3,12 @@
     Run dell'applicazione e apertura della vista del login
 """
 
-import os
-import shutil
 import sys
 
 from PyQt5.QtWidgets import QApplication
 
 from Gestione.GestoreFile import creazioneFile
-from Viste.VistaHomeAmm import VistaHomeAmm
-from Viste.VistaHomePaziente import VistaHomePaziente
-from Viste.VistaHomeMedico import VistaHomeMedico
 from Viste.VistaLogin import VistaLogin
-from Viste.VistaInserisciPazienti import VistaInserisciPazienti
 from Attivita.Reparto import Reparto
 from Attivita.Visita import Visita
 
