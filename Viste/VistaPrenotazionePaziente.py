@@ -16,7 +16,7 @@ from Viste.VistaPrenotazione import VistaPrenotazione
 class VistaPrenotazionePaziente(VistaPrenotazione):
     """
         Costruttore della classe figlia
-        Set della finestra della visualizzazione della prenotazione lato medico
+        Set della finestra della visualizzazione della prenotazione lato paziente
         Inserimento di tutte le informazioni della prenotazione con delle label
         Se le variabili boolean sono True stampa il campo: SI, altrimenti non stampa il campo
         Inserimento dei button di visualizzazione referto, mora e ricevuta (in base ai controlli effettuati)
