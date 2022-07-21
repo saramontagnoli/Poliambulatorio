@@ -85,13 +85,3 @@ class Medico(Utilizzatore):
         self.rimuoviUtilizzatore()
         self.abilitazione = ""
         del self
-
-
-    # CANCELLARE I SET E GET
-    # CANCELLARE I SET E GET
-    # CANCELLARE I SET E GET
-    def getAbilitazione(self):
-        return self.abilitazione
-
-    def setAbilitazione(self, abilitazione):
-        self.abilitazione = abilitazione

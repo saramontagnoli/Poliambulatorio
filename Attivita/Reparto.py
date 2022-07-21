@@ -24,23 +24,3 @@ class Reparto:
 
         # scrittura su file delle informazioni dei reparti
         scriviFile("Reparti", self)
-
-
-
-
-
-
-    # CANCELLARE I SET E GET
-    # CANCELLARE I SET E GET
-    # CANCELLARE I SET E GET
-    def getId(self):
-        return self.id
-
-    def getNome(self):
-        return self.nome
-
-    def setNota(self, nota):
-        self.nota = nota
-
-    def getNota(self):
-        return self.nota

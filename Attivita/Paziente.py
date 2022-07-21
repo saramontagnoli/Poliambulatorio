@@ -86,21 +86,3 @@ class Paziente(Utilizzatore):
         self.allergia = False
         self.malattia_pregressa = False
         del self
-
-
-
-
-    # CANCELLARE I SET E GET
-    # CANCELLARE I SET E GET
-    # CANCELLARE I SET E GET
-    def isAllergia(self):
-        return self.allergia
-
-    def isMalattia_pregressa(self):
-        return self.malattia_pregressa
-
-    def setMalattia_pregressa(self, malattia_pregressa):
-        self.malattia_pregressa = malattia_pregressa
-
-    def setAllergia(self, allergia):
-        self.allergia = allergia

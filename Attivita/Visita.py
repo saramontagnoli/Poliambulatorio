@@ -26,31 +26,3 @@ class Visita:
 
         # scrittura su file delle informazioni dei reparti
         scriviFile("Visite", self)
-
-
-
-
-    # CANCELLARE I SET E GET
-    # CANCELLARE I SET E GET
-    # CANCELLARE I SET E GET
-    def getId(self):
-        return self.id
-
-    def getNome(self):
-        return self.nome
-
-    def setNota(self, nota):
-        self.nota = nota
-
-    def getNota(self):
-        return self.nota
-
-    def setCosto(self, costo):
-        self.costo = costo
-
-    def getCosto(self):
-        return self.costo
-
-    # metodo per stampare i dati di una visita
-    def visualizza(self):
-        return

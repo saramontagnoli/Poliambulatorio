@@ -22,19 +22,3 @@ class Referto:
 
         # scrittura su file del Referto, chiamata a GestoreFile
         scriviFile("Referti", self)
-
-
-
-
-
-    # CANCELLARE I SET E GET
-    # CANCELLARE I SET E GET
-    # CANCELLARE I SET E GET
-    def getId(self):
-        return self.id
-
-    def setNota(self, nota):
-        self.nota = nota
-
-    def getNota(self):
-        return self.nota

@@ -26,32 +26,3 @@ class Mora:
 
         # chiamata al GestoreFile per il salvataggio della Mora
         scriviFile("More", self)
-
-
-
-    # CANCELLARE I SET E GET
-    # CANCELLARE I SET E GET
-    # CANCELLARE I SET E GET
-    def getId(self):
-        return self.id
-
-    def setImporto(self, importo):
-        self.importo = importo
-
-    def getImporto(self):
-        return self.importo
-
-    def setNota(self, nota):
-        self.nota = nota
-
-    def getNota(self):
-        return self.nota
-
-    def setData_emissione(self, data_emissione):
-        self.data_emissione = data_emissione
-
-    def getData_emissione(self):
-        return self.data_emissione
-
-    def stampa(self):
-        return

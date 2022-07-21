@@ -21,27 +21,3 @@ class Ricevuta:
 
         # scrittura su file delle informazioni di Ricevuta, chiamata al GestoFile
         scriviFile("Ricevute", self)
-
-
-
-
-    # CANCELLARE I SET E GET
-    # CANCELLARE I SET E GET
-    # CANCELLARE I SET E GET
-    def setImporto(self, importo):
-        self.importo = importo
-
-    def setData_ora(self, data_ora):
-        self.data_ora = data_ora
-
-    def getId(self):
-        return self.id
-
-    def getImporto(self):
-        return self.importo
-
-    def getData_ora(self):
-        return self.data_ora
-
-    def visualizza(self):
-        return
