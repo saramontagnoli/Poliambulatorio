@@ -1,3 +1,11 @@
+"""
+    Interfaccia grafica per la visualizzazione delle informazioni della prenotazione e gli eventuali button
+    per la disdetta della prenotazione, visualizzazione della ricevuta, del referto e della mora
+    La classe padre raggruppa al suo interno i metodi e attributi in comune tra VistaPrenotazioneAmm, VistaPrenotazionePaziente
+    e VistaPrenotazioneMedico
+    (ereditarietà)
+"""
+
 from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QVBoxLayout, QLabel, QSpacerItem, QSizePolicy, QPushButton, QMessageBox
 
