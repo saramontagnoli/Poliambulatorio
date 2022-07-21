@@ -103,7 +103,6 @@ class VistaInserisciPrenotazioni(QWidget):
                     QMessageBox.critical(self, 'Errore', 'Per favore, inserisci tutte le informazioni richieste',
                                          QMessageBox.Ok, QMessageBox.Ok)
                     return
-        prenotazione = Prenotazione()
 
         # Controllo delle caselle di testo (devono essere tutte riempite)
         try:
@@ -126,6 +125,7 @@ class VistaInserisciPrenotazioni(QWidget):
                                          QMessageBox.Ok)
                     return
 
+            prenotazione = Prenotazione()
             prova = prenotazione.aggiungiPrenotazione(id, data, ora, id_medico, id_visita, cf_paziente)
 
             # errore cf paziente non esistente
