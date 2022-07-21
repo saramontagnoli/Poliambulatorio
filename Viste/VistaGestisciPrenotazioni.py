@@ -62,6 +62,7 @@ class VistaGestisciPrenotazioni(QWidget):
             id = int(selected.split(" ")[1].strip())
             prenotazione = None
 
+            # ricerco la prenotazione che voglio aprire e poi controllo l'utente per vedere quale vista aprire
             if tipo == "P.":
                 prenotazione = ricerca(id)
 
