@@ -1,3 +1,12 @@
+"""
+    Interfaccia grafica per la visualizzazione della lista delle prenotazioni LATO MEDICO
+    Si stampa una lista, cliccando sulla prenotazione desiderata e cliccando APRI si può visualizzare le informazioni
+    della prenotazione.
+    E' presente una casella di testa che permette la ricerca secondo ID grazie al button corrispondente
+    La classe figlia eredita i metodi e attributi dalla classe padre VistaGestisciPrenotazioni
+    (ereditarietà)
+"""
+
 from PyQt5.QtGui import QIcon, QStandardItemModel, QStandardItem
 from PyQt5.QtWidgets import QHBoxLayout, QListView, QVBoxLayout, QPushButton
 
@@ -5,9 +14,13 @@ from Viste.VistaGestisciPrenotazioni import VistaGestisciPrenotazioni
 
 
 class VistaGestisciPrenMedico(VistaGestisciPrenotazioni):
-
+    """
+        Costruttore della classe figlia
+        Set della finestra della visualizzazione della lista di prenotazioni lato medico
+        Inserimento dei button per apertura prenotazione
+        Inserimento casella di testo e due button per la ricerca secondo ID
+    """
     def __init__(self, medico, parent=None):
-        # stampa lista delle prenotazioni
         super(VistaGestisciPrenotazioni, self).__init__(parent)
         self.medico = medico
         self.setWindowIcon(QIcon('CroceVerde.png'))
@@ -18,15 +31,16 @@ class VistaGestisciPrenMedico(VistaGestisciPrenotazioni):
         self.qlines = {}
         self.utente = "medico"
 
-        # QPushButton per una nuova Prenotazionee o Visualizzazione dati
+        # inserimento button per apertura della prenotazione, rimanda all'evento click show_selecteed_info che visualizza la prenotazione
         buttons_layout = QVBoxLayout()
         open_button = QPushButton('Apri')
         open_button.clicked.connect(self.show_selected_info)
         buttons_layout.addWidget(open_button)
 
-        # Casella di testo per la ricerca
+        # inserimento caselle di testo mediante metodo add_info_text per inserire l'id da ricercare
         self.add_info_text("ricerca", "ricerca")
 
+        # inserimento button per ricerca della prenotazione secondo l'ID, rimanda all'evento click ricerca_prenotazione_ID
         ricerca_ID = QPushButton('Ricerca ID')
         ricerca_ID.clicked.connect(self.ricerca_prenotazione_ID)
         buttons_layout.addWidget(ricerca_ID)
@@ -40,16 +54,28 @@ class VistaGestisciPrenMedico(VistaGestisciPrenotazioni):
         self.resize(600, 300)
         self.setWindowTitle("Gestisci Prenotazioni")
 
-        # Stampa della lista aggiornata nella finestra dei prenotazioni
-
+    """
+        Metodo che permette l'aggiornamento della lista delle prenotazioni nella vista
+        Carico le informazioni delle prenotazioni nel dizionario prenotazioni
+        Carico anche tutti gli elementi Qt mediante QStandardItemModel
+        Scorro tutte le prenotazioni controllando se quella appena inserita sia scadute o no, per la prenotazione creo un Item e stampo
+        P. e l'ID della prenotazione
+        Se la prenotazione è disdetta o scaduta o conclusa vicino aggiungo (NON ATTIVA)
+        Aggiungo l'elemento prenotazione alla vista lista degli elementi
+        Nella vista prendo solo le prenotazioni corrispondenti al medico attuale
+    """
     def update_ui(self):
+        # caricamento del dizionario
         self.prenotazioni = []
         self.load_prenotazioni()
         listview_model = QStandardItemModel(self.list_view)
         for prenotazione in self.prenotazioni:
             if prenotazione.id_medico == self.medico.id:
+                # cotnrollo la scadenza della prenotazione
                 prenotazione.scadenzaPrenotazione()
                 item = QStandardItem()
+
+                # esecuzione controlli per stampare se una prenotazione è attiva o no
                 if not prenotazione.scaduta and not prenotazione.disdetta:
                     nome = f"P. {prenotazione.id}"
                 else:
@@ -59,5 +85,7 @@ class VistaGestisciPrenMedico(VistaGestisciPrenotazioni):
                 font = item.font()
                 font.setPointSize(18)
                 item.setFont(font)
+
+                # aggiunta dell'elemento nella lista degli elementi in cui sono contenute le prenotazioni
                 listview_model.appendRow(item)
         self.list_view.setModel(listview_model)

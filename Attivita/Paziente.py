@@ -1,59 +1,88 @@
+"""
+    Classe di modellazione per il Paziente (derivata da Utilizzatore classe padre)
+    Rappresenta l'utente Paziente all'interno della piattaforma
+"""
+
 from Attivita.Utilizzatore import Utilizzatore
 from Gestione.GestoreFile import scriviFile, ricercaElemFile, rimuoviElemFile
 
 
 class Paziente(Utilizzatore):
 
-    # Costruttore della classe Paziente
+    """
+        Costruttore della classe
+        Richiamo la classe padre con super, set degli attributi della classe figlia
+    """
     def __init__(self):
+        # richiamo classe padre
         super().__init__()
         self.allergia = False
         self.malattia_pregressa = False
 
-    # Set delle informazioni del paziente (richiamo la superclasse che è Utilizzatore)
+    """
+        Metodo che permette l'inserimento o modifica delle informazioni di un nuovo Paziente.
+        Scrittura su file delle informazioni.
+        Essendo Paziente una classe derivata, si richiama il metodo di set dalla classe padre, mentre
+        le informazioni contenute solo in Paziente vengono inserite tramite il self.
+    """
     def setInfoPaziente(self, id, nome, cognome, password, data_nascita, CF, telefono, genere, mail, indirizzo, nota,
                         allergia, malattia_pregressa):
 
+        # chiamata al metodo set della classe padre (Utilizzatore)
         self.setInfoUtilizzatore(id, password, cognome, nome, data_nascita, CF, telefono, genere, mail, indirizzo,
                                  nota)
         self.allergia = allergia
         self.malattia_pregressa = malattia_pregressa
 
+        # chiamata a GestoreFile per salvataggio su file delle informazioni del Paziente
         scriviFile("Pazienti", self)
 
-    # Ritorna un dizionario con le informazioni di Paziente
+
+    """
+        Metodo che ritorna tutte le informazioni registrate di Paziente.
+        Essendo Paziemte una classe derivata, si richiama il metodo di get dalla classe padre, mentre
+        le informazioni contenute solo in Paziente vengono posizionata nel dizionario tramite il self.
+        Si ritorna il dizionario "info" con dentro le informazioni complete di Paziente.
+    """
     def getInfoPaziente(self):
+        # chiamata al metodo get della classe padre
         info = self.getInfoUtilizzatore()
+
         info["allergia"] = self.allergia
         info["malattia_pregressa"] = self.malattia_pregressa
         return info
 
-    # Ricerca paziente per codice fiscale
+
+    """
+        Metodo per la ricerca di un determinato Paziente sulla base del Codice Fiscale.
+        Si richiama il metodo di ricerca dal GestoreFile che permette l'apertura 
+        e lo scorrimento del file contennte i Pazienti.
+    """
     def ricercaUtilizzatoreCF(self, CF):
         return ricercaElemFile("Pazienti", CF)
 
-    # Ricerca paziente per id
+
+    """
+        Metodo per la ricerca di un determinato Paziente sulla base dell'ID.
+        Si richiama il metodo di ricerca dal GestoreFile che permette l'apertura 
+        e lo scorrimento del file contennte i Pazienti.
+    """
     def ricercaUtilizzatoreId(self, id):
         return ricercaElemFile("Pazienti", id)
 
-    # Rimozione di un paziente mediante il suo id
+
+    """
+        Metodo per la rimozione di un determinato Paziente sulla base dell'ID.
+        Si richiama il metodo di rimozione dal GestoreFile che permette l'apertura 
+        e lo scorrimento del file rimuovendo il Paziente in questione.
+        Elimino anche il Paziente dal self
+    """
     def rimuoviPaziente(self):
+        # chiamata a GestoreFile per la rimozione del paziente dal file
         rimuoviElemFile("Pazienti", self)
+
+        # rimozione Paziente da self
         self.rimuoviUtilizzatore()
         self.allergia = False
         self.malattia_pregressa = False
         del self
-
-    # Metodi getter degli attributi contenuti in Paziente (non ereditati da Utilizzatore)
-    def isAllergia(self):
-        return self.allergia
-
-    def isMalattia_pregressa(self):
-        return self.malattia_pregressa
-
-    # Metodi setter degli attributi contenuti in Paziente (non ereditati da Utilizzatore)
-    def setMalattia_pregressa(self, malattia_pregressa):
-        self.malattia_pregressa = malattia_pregressa
-
-    def setAllergia(self, allergia):
-        self.allergia = allergia

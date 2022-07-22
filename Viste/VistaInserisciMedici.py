@@ -1,3 +1,7 @@
+"""
+    Interfaccia grafica per l'inserimento di un nuovo medico
+"""
+
 from datetime import datetime
 
 from PyQt5.QtGui import QIcon
@@ -8,14 +12,21 @@ from Gestione.GestoreFile import caricaFile
 
 
 class VistaInserisciMedici(QWidget):
-
+    """
+        Costruttore della classe
+        Set della finestra dell'inserimento di un nuovo medico
+        Inserimento caselle di testo per l'inserimento di un medico nuovo
+        Inserimento della combobox per scelta di genere e reparto
+        Inserimento button per conferma inserimento nuovo medico
+    """
     def __init__(self, callback):
         super(VistaInserisciMedici, self).__init__()
         self.setWindowIcon(QIcon('CroceVerde.png'))
         self.callback = callback
         self.v_layout = QVBoxLayout()
         self.qlines = {}
-        # Caselle di testo per inserimento informazioni del medico
+
+        # inserimento caselle di testo mediante metodo add_info_text
         self.add_info_text("id", "Id")
         self.add_info_text("password", "Password")
         self.add_info_text("nome", "Nome")
@@ -25,6 +36,7 @@ class VistaInserisciMedici(QWidget):
         self.add_info_text("mail", "Email")
         self.add_info_text("telefono", "Telefono")
 
+        # inserimento di una combobox per selezionare il genere del medico (M, F, A) e salvataggio nel diz. qlines[] della scelta
         self.combo_genere = QComboBox()
         options = ["M", "F", "A"]
         for option in options:
@@ -56,6 +68,7 @@ class VistaInserisciMedici(QWidget):
         self.v_layout.addWidget(self.combo_reparti)
         self.setLayout(self.v_layout)
 
+        # inserimento del button di conferma, rimanda all'evento click per l'aggiunta del nuovo medico
         btn_ok = QPushButton("OK")
         btn_ok.clicked.connect(self.aggiungi_medico)
         self.qlines["btn_ok"] = btn_ok
@@ -64,25 +77,40 @@ class VistaInserisciMedici(QWidget):
         self.setLayout(self.v_layout)
         self.setWindowTitle("Nuovo medico")
 
+    """
+        Metodo che permette di monitorare i cambiamenti alle selezioni sulla combobox
+    """
     def selectionchange(self, i):
         return self.combo_reparti.currentText()
 
-    # Prelevo le informazioni scritte nelle caselle di testo
+    """
+        Metodo che permette di inserire caselle di testo e prelevare il valore all'interno aggiungedolo al dizionario qlines[]
+    """
     def add_info_text(self, nome, label):
         self.v_layout.addWidget(QLabel(label))
         current_text = QLineEdit(self)
         self.qlines[nome] = current_text
         self.v_layout.addWidget(current_text)
 
-    # Aggiunta di un nuovo medico
+    """
+        Metodo che permette di effettuare l'aggiunta di un nuovo medico da parte dell'amministratore
+        Controllo la validità dell'ID
+        Controllo che tutte le caselle siano state riempite
+        Controllo che i dati inseriti siano corretti
+        Controllo se il CF del medico è già stato registrato
+        Controllo se l'ID del medico è già stato registrato
+        Se non c'è nulla di errato il medico viene aggiunto ed è visualizzabile nella lista dei medici, altrimenti
+        stampo dei pop up di errore con la descrizione dettagliata dell'errore.
+    """
     def aggiungi_medico(self):
-        # controllo ID
+        # controllo che l'ID sia un numero, l'except blocca gli errori mostrando un pop up
         try:
             id = int(self.qlines["id"].text())
         except:
             QMessageBox.critical(self, 'Errore', 'L id non sembra un numero valido.', QMessageBox.Ok, QMessageBox.Ok)
             return
 
+        # controllo che tutte le caselle siano riempite
         for value in self.qlines.values():
             if isinstance(value, QLineEdit):
                 if value.text() == "":
@@ -91,7 +119,7 @@ class VistaInserisciMedici(QWidget):
                     return
         medico = Medico()
 
-        # Controllo delle caselle di testo (devono essere tutte riempite)
+        # try-except per il controllo dell'esattezza dei dati
         try:
             password = self.qlines["password"].text()
             nome = self.qlines["nome"].text()
@@ -106,6 +134,7 @@ class VistaInserisciMedici(QWidget):
             abilitazione = self.qlines["abilitazione"].text()
             id_reparto = int(self.qlines["reparto"].currentText().split(" ")[0].strip())
 
+            # caricamento dei medici in dizionario medici, controllo se l'ID e il CF inseriti sono già utilizzati (se si pop up errore)
             medici = caricaFile("Medici")
 
             for medico in medici:
@@ -118,10 +147,12 @@ class VistaInserisciMedici(QWidget):
                                          QMessageBox.Ok)
                     return
 
+            # chiamata al metodo setInfoMedico con passaggio parametri per l'aggiunta del medico
             medico.setInfoMedico(id, password, cognome, nome, data_nascita, CF, telefono, genere, mail, indirizzo, nota,
                                  abilitazione, id_reparto)
 
         except:
+            # pop up errore se i dati inseriti non sono corretti
             QMessageBox.critical(self, 'Errore', 'Controlla bene i dati inseriti',
                                  QMessageBox.Ok, QMessageBox.Ok)
             return

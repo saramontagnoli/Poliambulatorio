@@ -1,3 +1,10 @@
+"""
+    Interfaccia grafica per la visualizzazione della lista delle prenotazioni
+    La classe padre raggruppa al suo interno i metodi e attributi in comune tra VistaGestisciPrenmedico, VistaGestisciPrenPaziente
+    e VistaGestisciPrenAmm
+    (ereditarietà)
+"""
+
 from abc import abstractmethod
 
 from PyQt5.QtGui import QIcon
@@ -9,10 +16,13 @@ from Viste.VistaPrenotazioneAmm import VistaPrenotazioneAmm
 from Viste.VistaPrenotazioneMedico import VistaPrenotazioneMedico
 from Viste.VistaPrenotazionePaziente import VistaPrenotazionePaziente
 
-# Interfaccia grafica per la gestione delle Prenotazioni
+
 class VistaGestisciPrenotazioni(QWidget):
 
-    # INIT DIVERSO PER TUTTE
+    """
+        Costruttore della classe padre
+        Set della finestra della visualizzazione della lista di prenotazioni
+    """
     def __init__(self, parent=None):
         # stampa lista delle prenotazioni
         super(VistaGestisciPrenotazioni, self).__init__(parent)
@@ -25,16 +35,26 @@ class VistaGestisciPrenotazioni(QWidget):
         self.qlines = {}
         self.utente = ""
 
-    # Load file Prenotazioni nel dizionario
+    """
+        Metodo che permette il caricamento del file prenotazioni nel dizionario prenotazioni
+    """
     def load_prenotazioni(self):
         self.prenotazioni = caricaFile("Prenotazioni")
 
-    # Stampa della lista aggiornata nella finestra dei prenotazioni
+    """
+        Metodo astratto che implementa l'aggiornamento della vista della lista delle prenotazioni
+    """
     @abstractmethod
     def update_ui(self):
         pass
 
-    # Permette la visualizzazione delle informazioni di una particolare prenotazione
+    """
+        Metodo che permette la visualizzazione delle informazioni della prenotazione che si vuole aprire
+        Controlla l'utente attuale e per ognuno apre la vista della prenotazione relativa
+            - se sei l'addmin apre VistaPrenotazioneAmm
+            - se sei un medico apre VistaPrenotazioneMedico
+            - se sei un paziente apre VistaPrenotazionePaziente
+    """
     def show_selected_info(self):
         try:
             selected = self.list_view.selectedIndexes()[0].data()
@@ -42,6 +62,7 @@ class VistaGestisciPrenotazioni(QWidget):
             id = int(selected.split(" ")[1].strip())
             prenotazione = None
 
+            # ricerco la prenotazione che voglio aprire e poi controllo l'utente per vedere quale vista aprire
             if tipo == "P.":
                 prenotazione = ricerca(id)
 
@@ -62,16 +83,26 @@ class VistaGestisciPrenotazioni(QWidget):
             QMessageBox.critical(self, 'Errore', 'Nessun elemento selezionato', QMessageBox.Ok, QMessageBox.Ok)
             return
 
-    # Dati contenuti dentro la casella di testo della ricerca
+    """
+        Metodo che permette di inserire caselle di testo e prelevare il valore all'interno aggiungedolo al dizionario qlines[]
+    """
     def add_info_text(self, nome, label):
         self.h_layout.addWidget(QLabel(label))
         current_text = QLineEdit(self)
         self.qlines[nome] = current_text
         self.h_layout.addWidget(current_text)
 
-    # Ricerca di una particolare prenotazione mediante l'ID
+    """
+        Metodo per la ricerca di un determinata Prenotazione sulla base dell'ID.
+        Controllo che l'ID inserito sia valido
+        Se trovo la prenotazione del dizionario prenotazioni controllo l'utente connesso e apro la vista della prenotazione relativa:
+            - se sei l'addmin apre VistaPrenotazioneAmm
+            - se sei un medico apre VistaPrenotazioneMedico
+            - se sei un paziente apre VistaPrenotazionePaziente
+        Se non trovo la prenotazione apro un pop up di errore
+    """
     def ricerca_prenotazione_ID(self):
-        # Controllo sull'ID (deve contenere solo numeri)
+        # controllo validità dell'ID
         try:
             ID = int(self.qlines["ricerca"].text())
         except:
@@ -79,7 +110,7 @@ class VistaGestisciPrenotazioni(QWidget):
             return
 
         f = 0
-        # controllo l'ID delle prenotazioni inserite
+        # sccorro le prenotazioni, se la trovo controllo l'utente collegato, aprendo per ognuno la vista relativa
         for prenotazione in self.prenotazioni:
             if prenotazione.id == ID:
                 if self.utente == "admin":
@@ -98,7 +129,7 @@ class VistaGestisciPrenotazioni(QWidget):
                         self.vista_prenotazione = VistaPrenotazionePaziente(prenotazione, elimina_callback=self.update_ui)
                         self.vista_prenotazione.show()
 
-        # Se non trovo nessuna prenotazione con quell'ID stampo un pop-up di errore
+        # se non ho trovato la prenotazione apro un pop up di errore
         if f == 0:
             messaggio = QMessageBox()
             messaggio.setWindowTitle("Non trovato")
