@@ -7,13 +7,19 @@ import datetime
 
 from Attivita.Mora import Mora
 from Attivita.Ricevuta import Ricevuta
+from Eccezioni.MaxPrenException import MaxPrenException
+from Eccezioni.MedicoOccupatoException import MedicoOccupatoException
+from Eccezioni.PazienteAssenteException import PazienteAssenteException
+from Eccezioni.PazienteOccupatoException import PazienteOccupatoException
+from Eccezioni.RepartoMedicoException import RepartoMedicoException
+from Eccezioni.WeekEndException import WeekEndException
 from Gestione.GestoreFile import scriviFile, caricaFile, ricercaElemFile
 
 
 """
     Metodo per la ricerca di un determinata Prenotazione sulla base dell'ID.
     Si richiama il metodo di ricerca dal GestoreFile che permette l'apertura 
-    e lo scorrimento del file contennte le Prenotazioni.
+    e lo scorrimento del file contenente le Prenotazioni.
 """
 def ricerca(id):
     # chiamata al metodo contenuto in GestoreFile
@@ -62,7 +68,7 @@ class Prenotazione:
         # controllo weekend
         if data.isoweekday() > 5:
             # errore, la data scelta cade durante il weekend (sabato o domenica)
-            return -3
+            raise WeekEndException
 
         self.data = data
 
@@ -101,7 +107,7 @@ class Prenotazione:
                 for medico in medici:
                     if self.id_medico == medico.id:
 
-                        # caricamento della prenotazioni in dizionario prenotazioni, mediante chiamata al GestoreFile
+                        # caricamento delle prenotazioni in dizionario prenotazioni, mediante chiamata al GestoreFile
                         prenotazioni = caricaFile("Prenotazioni")
 
                         """
@@ -120,30 +126,30 @@ class Prenotazione:
                                         # se conto 5 o più prenotazioni restituisco un errore (il paziente può prenotare max 5 visite contemp.)
                                         if c >= 5:
                                             # errore troppe prenotazioni a carico di un paziente
-                                            return -5
+                                            raise MaxPrenException
 
                                         # se trovo una prenotazione con stessa data e stessa ora che non sia stata disdetta restituisco
                                         #un errore (il paziente non può fare + visite contemp.)
                                         if prenotazione.ora == self.ora and prenotazione.data == self.data and not prenotazione.disdetta:
                                             # errore più prenotazioni nello stesso momento per il paziente
-                                            return -4
+                                            raise PazienteOccupatoException
 
                         # controllo se il medico in questione è libero nel giorno e ora specificate, altrimenti restituisco un errore
                         for prenotazione in prenotazioni:
                             if prenotazione.id_medico == self.id_medico and not prenotazione.disdetta:
                                 if prenotazione.data == self.data and prenotazione.ora == self.ora:
                                     # errore medico già impegnato in altre visite nel giorno e ora desiderate
-                                    return -2
+                                    raise MedicoOccupatoException
 
                 # se non ho riscontrato alcun problema nei controlli posso salvare la prenotazione nel file con GestoreFile
                 scriviFile("Prenotazioni", self)
 
             else:
                 # errore della non corrispondenza tra id reparto del medico e id reparto della visita
-                return -1
+                raise RepartoMedicoException
         else:
             # errore CF del paziente non trovato nell'archivio
-            return 0
+            raise PazienteAssenteException
 
 
     """

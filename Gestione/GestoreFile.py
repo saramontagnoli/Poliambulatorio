@@ -20,10 +20,11 @@ def creazioneFile(filename):
     empty_list = []
     path1 = f"Appoggio/{filename}.pickle"
     path2 = f"File/{filename}.pickle"
-    print(path1)
+
     # se il file passato come parametro non esiste lo carica da Appoggio, se esiste lo mantiene
     if not os.path.exists(path2):
         shutil.copy(path1, 'File/')
+        print(f"{path1} caricato")
 
 
 """
