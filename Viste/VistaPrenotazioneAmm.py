@@ -23,6 +23,7 @@ class VistaPrenotazioneAmm(VistaPrenotazione):
         Inserimento del button di una eventuale mora (se esiste nel file More)
         Inserimento del button di disdetta della prenotazione (in base ai controlli effettuati)
     """
+
     def __init__(self, prenotazione, elimina_callback):
         super(VistaPrenotazione, self).__init__()
         self.setWindowIcon(QIcon('CroceVerde.png'))
@@ -91,11 +92,11 @@ class VistaPrenotazioneAmm(VistaPrenotazione):
         self.setLayout(v_layout)
         self.setWindowTitle("Prenotazione")
 
-
     """
         Metodo che implementa l'evento click per la creazione di una ricevuta (chiamata al metodo creaRicevuta in Prenotazione).
         Se la creazione è andata a buon fine mando un pop up di successo, altrimenti un pop up di errore
     """
+
     def crea_ricevuta_click(self, prenotazione):
         if isinstance(prenotazione, Prenotazione):
             messaggio = QMessageBox()

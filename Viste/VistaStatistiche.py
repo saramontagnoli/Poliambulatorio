@@ -20,6 +20,7 @@ class VistaStatistiche(QWidget):
             -statistiche sulle ricevute (button Statistiche ricevute)
         Entrambi i button richiamo due funzioni tramite lambda al click
     """
+
     def __init__(self):
         super(VistaStatistiche, self).__init__()
         self.setWindowIcon(QIcon('CroceVerde.png'))
@@ -42,11 +43,11 @@ class VistaStatistiche(QWidget):
         self.setLayout(v_layout)
         self.setWindowTitle("Statistiche")
 
-
     """
         Evento del click al button Richiedi Statistiche Ricevute
         Mostra un pop up che contiene tutte le informazioni delle statistiche
     """
+
     def stat_ricevute_click(self):
         # pop up che contiene le statistiche sulle ricevute, tramite chiamata a GestoreStatistiche
         messaggio = QMessageBox()
@@ -60,6 +61,7 @@ class VistaStatistiche(QWidget):
         Evento del click al button Richiedi Statistiche More
         Mostra un pop up che contiene tutte le informazioni delle statistiche
     """
+
     def stat_more_click(self):
         # pop up che contiene le statistiche sulle more, tramite chiamata a GestoreStatistiche
         messaggio = QMessageBox()

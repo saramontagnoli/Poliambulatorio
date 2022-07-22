@@ -26,6 +26,7 @@ class VistaPrenotazioneMedico(VistaPrenotazione):
 
     def __init__(self, prenotazione, elimina_callback):
         super(VistaPrenotazione, self).__init__()
+        self.inserisci_referto = None
         self.setWindowIcon(QIcon('CroceVerde.png'))
         self.elimina_callback = elimina_callback
         self.utente = "medico"

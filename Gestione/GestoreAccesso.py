@@ -11,14 +11,13 @@ from Viste.VistaHomePaziente import VistaHomePaziente
 
 
 class GestoreAccesso:
-
     """
         Costruttore della classe
         Definisco la vista home a None
     """
+
     def __init__(self):
         self.vista_home = None
-
 
     """
         Metodo che permette la gestione del login alla piattaforma del poliambulatorio.
@@ -29,6 +28,7 @@ class GestoreAccesso:
         In base all'utente che accede alla piattaforma (se i dati sono corretti) si apre la relativa vista dell'area privata 
         con tutte le funzionalità da poter svolgere
     """
+
     def login(self, username, password):
 
         # controllo se è l'admin a voler accedere (super utente)

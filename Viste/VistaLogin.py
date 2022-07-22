@@ -10,12 +10,12 @@ from Gestione.GestoreAccesso import GestoreAccesso
 
 
 class VistaLogin(QWidget):
-
     """
         Costruttore della classe
         Si effettuano tutti i set di icone, size, titolo della finestra e visualizzazione
         Inserimento di due caselle di testo per l'inserimento di username e password, e di un tasto d'invio
     """
+
     def __init__(self):
         super().__init__()
         self.setWindowTitle('Login')
@@ -40,10 +40,10 @@ class VistaLogin(QWidget):
         grid_layout.addWidget(self.get_generic_button("Login", self.go_login), 2, 0, 2, 2)
         self.setLayout(grid_layout)
 
-
     """
         Metodo che inserisce il button e collega l'evento on_click
     """
+
     def get_generic_button(self, titolo, on_click):
         button = QPushButton(titolo)
         button.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
@@ -57,6 +57,7 @@ class VistaLogin(QWidget):
         Se username o password sono errati si apre un pop up di errore, altrimenti tramite il GestoreAccesso si aprirà
         la vista relativa all'utente che vuole accedere
     """
+
     def go_login(self):
         username = self.user_obj.text()
         password = self.user_pwd.text()

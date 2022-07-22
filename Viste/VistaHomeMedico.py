@@ -8,12 +8,13 @@
         - eseguire il logout
 """
 
+import cv2
 from PyQt5.QtCore import QCoreApplication
 from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QWidget, QGridLayout, QPushButton, QSizePolicy, QMessageBox
+
 from Viste.VistaGestisciPrenMedico import VistaGestisciPrenMedico
 from Viste.VistaModificaMedico import VistaModificaMedico
-import cv2
 
 
 class VistaHomeMedico(QWidget):
@@ -28,8 +29,11 @@ class VistaHomeMedico(QWidget):
             - logout
         Ogni button ha l'evento click relativo che apre la vista per poter effettuare quella richiesta
     """
+
     def __init__(self, medico, parent=None):
         super(VistaHomeMedico, self).__init__(parent)
+        self.vista_modifica_medico = None
+        self.vista_gestisci_pren_medico = None
         self.medico = medico
         self.setWindowIcon(QIcon('CroceVerde.png'))
         grid_layout = QGridLayout()
@@ -44,20 +48,20 @@ class VistaHomeMedico(QWidget):
         self.resize(400, 300)
         self.setWindowTitle(f"Dot. {self.medico.nome} {self.medico.cognome} - {self.medico.id}")
 
-
     """
         Metodo che inserisce il button e collega l'evento on_click
     """
+
     def get_generic_button(self, titolo, on_click):
         button = QPushButton(titolo)
         button.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
         button.clicked.connect(on_click)
         return button
 
-
     """
         Metodi per eventi del click ai button visualizzati nella home del medico
     """
+
     def go_prenotazioni(self):
         # apertura della vista di gestione delle prenotazioni del medico
         self.vista_gestisci_pren_medico = VistaGestisciPrenMedico(self.medico)
@@ -86,7 +90,6 @@ class VistaHomeMedico(QWidget):
     """
         Metodo che permette di eseguire il logout chiudendo l'applicazione
     """
+
     def go_logout(self):
         QCoreApplication.quit()
-
-

@@ -15,23 +15,24 @@ from Eccezioni.RepartoMedicoException import RepartoMedicoException
 from Eccezioni.WeekEndException import WeekEndException
 from Gestione.GestoreFile import scriviFile, caricaFile, ricercaElemFile
 
-
 """
     Metodo per la ricerca di un determinata Prenotazione sulla base dell'ID.
     Si richiama il metodo di ricerca dal GestoreFile che permette l'apertura 
     e lo scorrimento del file contenente le Prenotazioni.
 """
+
+
 def ricerca(id):
     # chiamata al metodo contenuto in GestoreFile
     return ricercaElemFile("Prenotazioni", id)
 
 
 class Prenotazione:
-
     """
         Costruttore della classe
         Set degli attributi di Prenotazione a null
     """
+
     def __init__(self):
         self.id = 0
         self.data = datetime.datetime(1970, 1, 1)
@@ -47,7 +48,6 @@ class Prenotazione:
         self.id_ricevuta = 0
         self.id_mora = 0
 
-
     """
         Metodo che permette l'aggiunta delle informazioni di una nuova Prenotazione.
         Scrittura su file delle nuove informazioni.
@@ -59,6 +59,7 @@ class Prenotazione:
             - controllo che il paziente nella stessa data e ora non può avere prenotazioni in contemporanea
             - un paziente non può avere più di 5 prenotazioni attive contemporaneamente
     """
+
     def aggiungiPrenotazione(self, id, data, ora, id_medico, id_visita, cf_paziente):
         self.id = id
         self.ora = ora
@@ -129,7 +130,7 @@ class Prenotazione:
                                             raise MaxPrenException
 
                                         # se trovo una prenotazione con stessa data e stessa ora che non sia stata disdetta restituisco
-                                        #un errore (il paziente non può fare + visite contemp.)
+                                        # un errore (il paziente non può fare + visite contemp.)
                                         if prenotazione.ora == self.ora and prenotazione.data == self.data and not prenotazione.disdetta:
                                             # errore più prenotazioni nello stesso momento per il paziente
                                             raise PazienteOccupatoException
@@ -151,11 +152,11 @@ class Prenotazione:
             # errore CF del paziente non trovato nell'archivio
             raise PazienteAssenteException
 
-
     """
         Metodo che ritorna tutte le informazioni registrate di Prenotazione.
         Si ritorna il dizionario seguente con dentro le informazioni complete di Prenotazione.
     """
+
     def getInfoPrenotazione(self):
         return {
             "id": self.id,
@@ -169,7 +170,6 @@ class Prenotazione:
             "cf_paziente": self.cf_paziente
         }
 
-
     """
         Metodo per la disdetta di una particolare Prenotazione.
         Controllo se sono già passati i 5 giorni limite per la disdetta.
@@ -179,6 +179,7 @@ class Prenotazione:
             - se è il medico o l'amministratore a disdire per problemi interni, il paziente non avrà alcuna mora
         Set del flag di disdetta della prenotazione a prescindere dai controlli della mora.
     """
+
     def disdiciPrenotazione(self, num):
         costo = 0
 
@@ -203,7 +204,6 @@ class Prenotazione:
                 else:
                     Mora(self.id, 0, "Prenotazione disdetta dal medico o dall'amministratore. ")
 
-
             # set flag di disdetta e salvataggio delle informazioni della prenotazione su file (GestoreFile)
             self.disdetta = True
             scriviFile("Prenotazioni", self)
@@ -212,7 +212,6 @@ class Prenotazione:
             # errore, non posso disdire la prenotazione perché è già stata disdetta oppure è già conclusa
             return False
 
-
     """
         Metodo di controllo per la scadenza di Prenotazione.
         Controllo se la Prenotazione è già scaduta o conclusa
@@ -220,6 +219,7 @@ class Prenotazione:
         quindi dovrà pagare una mora.
         Set del flag scaduta della prenotazione e salvataggio delle informazioni di Prenotazione su file
     """
+
     def scadenzaPrenotazione(self):
         costo = 0
         if not self.scaduta and not self.conclusa:
@@ -244,11 +244,11 @@ class Prenotazione:
         else:
             return False
 
-
     """
         Metodo che permette la creazione di una nuova Ricevuta, set del flag prenotazione conclusa.
         Scrittura su file delle nuove informazioni.
     """
+
     def crea_ricevuta(self):
         costo = 0
 

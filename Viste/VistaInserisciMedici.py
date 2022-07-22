@@ -19,6 +19,7 @@ class VistaInserisciMedici(QWidget):
         Inserimento della combobox per scelta di genere e reparto
         Inserimento button per conferma inserimento nuovo medico
     """
+
     def __init__(self, callback):
         super(VistaInserisciMedici, self).__init__()
         self.setWindowIcon(QIcon('CroceVerde.png'))
@@ -80,12 +81,14 @@ class VistaInserisciMedici(QWidget):
     """
         Metodo che permette di monitorare i cambiamenti alle selezioni sulla combobox
     """
+
     def selectionchange(self):
         return self.combo_reparti.currentText()
 
     """
         Metodo che permette di inserire caselle di testo e prelevare il valore all'interno aggiungendolo al dizionario qlines[]
     """
+
     def add_info_text(self, nome, label):
         self.v_layout.addWidget(QLabel(label))
         current_text = QLineEdit(self)
@@ -102,6 +105,7 @@ class VistaInserisciMedici(QWidget):
         Se non c'è nulla di errato il medico viene aggiunto ed è visualizzabile nella lista dei medici, altrimenti
         stampo dei pop up di errore con la descrizione dettagliata dell'errore.
     """
+
     def aggiungi_medico(self):
         # controllo che l'ID sia un numero, except blocca gli errori mostrando un pop up
         try:

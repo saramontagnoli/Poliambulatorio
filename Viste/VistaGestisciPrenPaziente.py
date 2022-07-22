@@ -20,6 +20,7 @@ class VistaGestisciPrenPaziente(VistaGestisciPrenotazioni):
         Inserimento dei button per apertura prenotazione
         Inserimento casella di testo e due button per la ricerca secondo ID
     """
+
     def __init__(self, paziente, parent=None):
         super(VistaGestisciPrenotazioni, self).__init__(parent)
         self.paziente = paziente
@@ -64,6 +65,7 @@ class VistaGestisciPrenPaziente(VistaGestisciPrenotazioni):
         Aggiungo l'elemento prenotazione alla vista lista degli elementi
         Nella vista prendo solo le prenotazioni corrispondenti al paziente attuale
     """
+
     def update_ui(self):
         # caricamento del dizionario
         self.prenotazioni = []
@@ -89,5 +91,3 @@ class VistaGestisciPrenPaziente(VistaGestisciPrenotazioni):
                 # aggiunta dell'elemento nella lista degli elementi in cui sono contenute le prenotazioni
                 listview_model.appendRow(item)
         self.list_view.setModel(listview_model)
-
-

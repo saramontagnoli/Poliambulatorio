@@ -13,11 +13,11 @@ from PyQt5.QtCore import QCoreApplication
 from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QWidget, QGridLayout, QPushButton, QSizePolicy
 
-from Viste.VistaGestisciPazienti import VistaGestisciPazienti
+from Viste.VistaBackUp import VistaBackUp
 from Viste.VistaGestisciMedici import VistaGestisciMedici
+from Viste.VistaGestisciPazienti import VistaGestisciPazienti
 from Viste.VistaGestisciPrenAmm import VistaGestisciPrenAmm
 from Viste.VistaStatistiche import VistaStatistiche
-from Viste.VistaBackUp import VistaBackUp
 
 
 class VistaHomeAmm(QWidget):
@@ -33,8 +33,14 @@ class VistaHomeAmm(QWidget):
             - logout
         Ogni button ha l'evento click relativo che apre la vista per poter effettuare quella richiesta
     """
+
     def __init__(self, parent=None):
         super(VistaHomeAmm, self).__init__(parent)
+        self.vista_backup = None
+        self.vista_statistiche = None
+        self.vista_gestisci_medici = None
+        self.vista_gestisci_pazienti = None
+        self.vista_gestisci_prenotazioni = None
         self.setWindowIcon(QIcon('CroceVerde.png'))
         grid_layout = QGridLayout()
 
@@ -49,10 +55,10 @@ class VistaHomeAmm(QWidget):
         self.resize(400, 300)
         self.setWindowTitle("ADMIN")
 
-
     """
         Metodo che inserisce il button e collega l'evento on_click
     """
+
     def get_generic_button(self, titolo, on_click):
         button = QPushButton(titolo)
         button.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
@@ -62,6 +68,7 @@ class VistaHomeAmm(QWidget):
     """
         Metodi per eventi del click ai button visualizzati nella home dell'admin
     """
+
     def go_prenotazioni(self):
         # apertura della vista di gestione delle prenotazioni
         self.vista_gestisci_prenotazioni = VistaGestisciPrenAmm()
@@ -87,10 +94,9 @@ class VistaHomeAmm(QWidget):
         self.vista_backup = VistaBackUp()
         self.vista_backup.show()
 
-
     """
         Metodo che permette di eseguire il logout chiudendo l'applicazione
     """
+
     def go_logout(self):
         QCoreApplication.quit()
-

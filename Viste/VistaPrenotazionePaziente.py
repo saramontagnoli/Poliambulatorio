@@ -22,6 +22,7 @@ class VistaPrenotazionePaziente(VistaPrenotazione):
         Inserimento dei button di visualizzazione referto, mora e ricevuta (in base ai controlli effettuati)
         Inserimento del button di disdetta della prenotazione (in base ai controlli effettuati)
     """
+
     def __init__(self, prenotazione, elimina_callback):
         super(VistaPrenotazione, self).__init__()
         self.setWindowIcon(QIcon('CroceVerde.png'))
@@ -71,10 +72,8 @@ class VistaPrenotazionePaziente(VistaPrenotazione):
             # caricamento dei referti nel dizionario referti
             referti = caricaFile("Referti")
 
-            flag = False
             for referto in referti:
                 if referto.id == prenotazione.id:
-                    flag = True
                     # se il referto esiste stampo il button di visualizza referto, rimanda all'evento click
                     btn_visualizza_referto = QPushButton('Visualizza referto')
                     btn_visualizza_referto.clicked.connect(lambda: self.visualizza_referto_click(referto))

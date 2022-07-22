@@ -15,6 +15,7 @@ class VistaInserisciReferto(QWidget):
         Inserimento caselle di testo per l'inserimento della nota del referto
         Inserimento button per conferma inserimento referto
     """
+
     def __init__(self, prenotazione, callback):
         super(VistaInserisciReferto, self).__init__()
         self.prenotazione = prenotazione
@@ -38,6 +39,7 @@ class VistaInserisciReferto(QWidget):
     """
         Metodo che permette di inserire caselle di testo e prelevare il valore all'interno aggiungendolo al dizionario qlines[]
     """
+
     def add_info_text(self, nome, label):
         self.v_layout.addWidget(QLabel(label))
         current_text = QLineEdit(self)
@@ -51,6 +53,7 @@ class VistaInserisciReferto(QWidget):
         Se non c'è nulla di errato il referto viene aggiunto ed è visualizzabile nella finestra della prenotazione corrispondente, altrimenti
         stampo dei pop up di errore con la descrizione dettagliata dell'errore.
     """
+
     def inserisci_referto(self):
 
         # controllo che tutte le caselle siano riempite

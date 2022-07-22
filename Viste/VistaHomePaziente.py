@@ -26,8 +26,11 @@ class VistaHomePaziente(QWidget):
             - logout
         Ogni pulsante ha l'evento click relativo che apre la vista per poter effettuare quella richiesta
     """
+
     def __init__(self, paziente, parent=None):
         super(VistaHomePaziente, self).__init__(parent)
+        self.vista_modifica_paziente = None
+        self.vista_gestisci_pren_paziente = None
         self.paziente = paziente
         self.setWindowIcon(QIcon('CroceVerde.png'))
         grid_layout = QGridLayout()
@@ -45,16 +48,17 @@ class VistaHomePaziente(QWidget):
     """
         Metodo che inserisce il button e collega l'evento on_click
     """
+
     def get_generic_button(self, titolo, on_click):
         button = QPushButton(titolo)
         button.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
         button.clicked.connect(on_click)
         return button
 
-
     """
         Metodi per eventi del click ai button visualizzati nella home del paziente
     """
+
     def go_prenotazioni(self):
         # apertura della vista di gestione delle prenotazioni del paziente
         self.vista_gestisci_pren_paziente = VistaGestisciPrenPaziente(self.paziente)
@@ -64,7 +68,6 @@ class VistaHomePaziente(QWidget):
         # apertura della vista di modifica delle informazioni del paziente
         self.vista_modifica_paziente = VistaModificaPaziente(self.paziente)
         self.vista_modifica_paziente.show()
-
 
     def go_vis_info(self):
         messaggio = QMessageBox()
@@ -86,9 +89,9 @@ class VistaHomePaziente(QWidget):
         messaggio.exec_()
         return
 
-
     """
         Metodo che permette di eseguire il logout chiudendo l'applicazione
     """
+
     def go_logout(self):
         QCoreApplication.quit()

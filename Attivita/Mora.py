@@ -10,12 +10,12 @@ from Gestione.GestoreFile import scriviFile
 
 
 class Mora:
-
     """
         Costruttore della classe
         Set degli attributi della Mora (la data viene salvata in base al giorno di caricamento della mora).
         Salvataggio su file dei dati.
     """
+
     def __init__(self, id, importo, nota):
         self.id = id
         self.importo = importo / 3.0

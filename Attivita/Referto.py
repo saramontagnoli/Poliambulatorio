@@ -4,17 +4,18 @@
 """
 
 import datetime
+
 from Gestione.GestoreFile import scriviFile
 
 
 class Referto:
-
     """
         Costruttore della classe
         Set degli attributi di Referto secondo i parametri passati
         La data di emissione della mora è la data attuale (ovvero il momento in cui viene caricata)
         Scrittura su file delle informazioni del Referto creato
     """
+
     def __init__(self, id, nota):
         self.id = id
         self.nota = nota

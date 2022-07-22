@@ -22,8 +22,10 @@ class VistaGestisciPrenAmm(VistaGestisciPrenotazioni):
         Inserimento dei button per apertura prenotazione e nuova prenotazione
         Inserimento casella di testo e due button per la ricerca secondo ID
     """
+
     def __init__(self):
         super(VistaGestisciPrenotazioni, self).__init__()
+        self.inserisci_prenotazione = None
         self.setWindowIcon(QIcon('CroceVerde.png'))
         self.h_layout = QHBoxLayout()
         self.list_view = QListView()
@@ -66,10 +68,10 @@ class VistaGestisciPrenAmm(VistaGestisciPrenotazioni):
         Metodo che gestisce l'evento click della nuova prenotazione
         Permette l'apertura della vista per l'inserimento di una nuova prenotazione
     """
+
     def show_new(self):
         self.inserisci_prenotazione = VistaInserisciPrenotazioni(callback=self.update_ui)
         self.inserisci_prenotazione.show()
-
 
     """
         Metodo che permette l'aggiornamento della lista delle prenotazioni nella vista
@@ -80,6 +82,7 @@ class VistaGestisciPrenAmm(VistaGestisciPrenotazioni):
         Se la prenotazione è disdetta o scaduta o conclusa vicino aggiungo (NON ATTIVA)
         Aggiungo l'elemento prenotazione alla vista lista degli elementi
     """
+
     def update_ui(self):
         # caricamento del dizionario
         self.prenotazioni = []

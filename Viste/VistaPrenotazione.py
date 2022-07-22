@@ -20,6 +20,7 @@ class VistaPrenotazione(QWidget):
         Costruttore della classe padre
         Set della finestra della visualizzazione della prenotazione
     """
+
     def __init__(self, elimina_callback):
         super(VistaPrenotazione, self).__init__()
         self.utente = ""
@@ -33,6 +34,7 @@ class VistaPrenotazione(QWidget):
             - se è il paziente a chiedere la disdetta passo al metodo disdiciPrenotazione 1, eventualmente il paziente pagherà la mora
         Stampa di pop-up di errore o successo in base all'esito della disdetta
     """
+
     def disdetta_prenotazione_click(self, prenotazione):
         flag = False
         if isinstance(prenotazione, Prenotazione):
@@ -56,11 +58,11 @@ class VistaPrenotazione(QWidget):
         self.elimina_callback()
         self.close()
 
-
     """
         Metodo che implementa l'evento click per la visualizzazione di una particolare Ricevuta.
         Carico il file delle ricevute e cerco la ricevuta desiderata aprendo un pop-up con le informazioni
     """
+
     def visualizza_ricevuta_click(self, prenotazione):
         if isinstance(prenotazione, Prenotazione):
             # caricamento delle ricevute nel dizionario ricevute, scorro il dizionario e cerco la prenotazione desiderata, pop-up con le informazioni
@@ -80,6 +82,7 @@ class VistaPrenotazione(QWidget):
         Metodo che implementa l'evento click per la visualizzazione di una particolare Mora.
         Mediante le informazioni contenute in mora, setto un pop-up contenente tutte le informazioni
     """
+
     def visualizza_mora_click(self, mora):
         if isinstance(mora, Mora):
             messaggio = QMessageBox()
@@ -94,6 +97,7 @@ class VistaPrenotazione(QWidget):
         Metodo che implementa l'evento click per la visualizzazione di un particolare Referto.
         Mediante le informazioni contenute in referto, setto un pop-up contenente tutte le informazioni
     """
+
     def visualizza_referto_click(self, referto):
         if isinstance(referto, Referto):
             messaggio = QMessageBox()

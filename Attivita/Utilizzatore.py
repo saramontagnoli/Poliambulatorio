@@ -9,11 +9,11 @@ from abc import abstractmethod
 
 
 class Utilizzatore:
-
     """
         Costruttore della classe
         Set degli attributi di Utilizzatore a null
     """
+
     def __init__(self):
         self.id = -1
         self.password = ""
@@ -27,11 +27,11 @@ class Utilizzatore:
         self.indirizzo = ""
         self.nota = ""
 
-
     """
         Metodo che permette il set o modifica delle informazioni di un Utilizzatore.
         Una volta estesa la classe padre, le classi figlie avranno a disposizione gli attributi
     """
+
     def setInfoUtilizzatore(self, id, password, cognome, nome, data_nascita, CF, telefono, genere, mail, indirizzo,
                             nota):
         self.id = id
@@ -46,11 +46,11 @@ class Utilizzatore:
         self.indirizzo = indirizzo
         self.nota = nota
 
-
     """
         Metodo che ritorna tutte le informazioni dell'Utilizzatore.
         Si ritorna il dizionario seguente con tutte le info.
     """
+
     def getInfoUtilizzatore(self):
         return {
             "id": self.id,
@@ -68,6 +68,7 @@ class Utilizzatore:
     """
         Metodi astratti per la ricerca degli Utilizzatori in base all'ID o al CF desiderato
     """
+
     @abstractmethod
     def ricercaUtilizzatoreCF(self, CF):
         pass
@@ -76,11 +77,11 @@ class Utilizzatore:
     def ricercaUtilizzatoreId(self, id):
         pass
 
-
     """
         Metodo per la rimozione di un determinato Utilizzatore.
         Set di tutti i parametri di Utilizzatore a null
     """
+
     def rimuoviUtilizzatore(self):
         self.id = -1
         self.password = ""

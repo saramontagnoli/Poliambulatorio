@@ -6,8 +6,6 @@
 """
 
 import datetime
-import os
-import pickle
 
 from Gestione.GestoreFile import caricaFile
 
@@ -15,6 +13,8 @@ from Gestione.GestoreFile import caricaFile
     Metodo che permette di richiedere le statistiche sulle more emesse (n° di more e importo totale more)
     Ritorno una stringa formattata che contiene l'anno corrente, il totale delle more e il numero di more emesse
 """
+
+
 def richiediStatisticheMore():
     # caricamento delle more nel dizionario more
     more = caricaFile("More")
@@ -37,6 +37,8 @@ def richiediStatisticheMore():
     Metodo che permette di richiedere le statistiche sulle ricevute (n° di ricevute e importo totale ricevute)
     Ritorno una stringa formattata che contiene l'anno corrente, il totale delle ricevute e il numero di ricevute
 """
+
+
 def richiediStatisticheRicevute():
     # caricamento delle ricevute nel dizionario ricevute
     ricevute = caricaFile("Ricevute")

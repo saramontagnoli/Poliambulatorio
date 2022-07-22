@@ -18,14 +18,15 @@ from Viste.VistaPrenotazionePaziente import VistaPrenotazionePaziente
 
 
 class VistaGestisciPrenotazioni(QWidget):
-
     """
         Costruttore della classe padre
         Set della finestra della visualizzazione della lista di prenotazioni
     """
+
     def __init__(self, parent=None):
         # stampa lista delle prenotazioni
         super(VistaGestisciPrenotazioni, self).__init__(parent)
+        self.vista_prenotazione = None
         self.prenotazioni = []
         self.setWindowIcon(QIcon('CroceVerde.png'))
         self.h_layout = QHBoxLayout()
@@ -38,12 +39,14 @@ class VistaGestisciPrenotazioni(QWidget):
     """
         Metodo che permette il caricamento del file prenotazioni nel dizionario prenotazioni
     """
+
     def load_prenotazioni(self):
         self.prenotazioni = caricaFile("Prenotazioni")
 
     """
         Metodo astratto che implementa l'aggiornamento della vista della lista delle prenotazioni
     """
+
     @abstractmethod
     def update_ui(self):
         pass
@@ -55,6 +58,7 @@ class VistaGestisciPrenotazioni(QWidget):
             - se sei un medico apre VistaPrenotazioneMedico
             - se sei un paziente apre VistaPrenotazionePaziente
     """
+
     def show_selected_info(self):
         try:
             selected = self.list_view.selectedIndexes()[0].data()
@@ -67,16 +71,12 @@ class VistaGestisciPrenotazioni(QWidget):
                 prenotazione = ricerca(id)
 
             if self.utente == "admin":
-                f = 1
-                print("SEI ADMIN")
                 self.vista_prenotazione = VistaPrenotazioneAmm(prenotazione, elimina_callback=self.update_ui)
                 self.vista_prenotazione.show()
             elif self.utente == "medico":
-                f = 1
                 self.vista_prenotazione = VistaPrenotazioneMedico(prenotazione, elimina_callback=self.update_ui)
                 self.vista_prenotazione.show()
             elif self.utente == "paziente":
-                f = 1
                 self.vista_prenotazione = VistaPrenotazionePaziente(prenotazione, elimina_callback=self.update_ui)
                 self.vista_prenotazione.show()
         except IndexError:
@@ -86,6 +86,7 @@ class VistaGestisciPrenotazioni(QWidget):
     """
         Metodo che permette di inserire caselle di testo e prelevare il valore all'interno aggiungendolo al dizionario qlines[]
     """
+
     def add_info_text(self, nome, label):
         self.h_layout.addWidget(QLabel(label))
         current_text = QLineEdit(self)
@@ -101,6 +102,7 @@ class VistaGestisciPrenotazioni(QWidget):
             - se sei un paziente apre VistaPrenotazionePaziente
         Se non trovo la prenotazione apro un pop up di errore
     """
+
     def ricerca_prenotazione_ID(self):
         # controllo validità dell'ID
         try:
@@ -126,7 +128,8 @@ class VistaGestisciPrenotazioni(QWidget):
                 elif self.utente == "paziente":
                     if prenotazione.cf_paziente == self.paziente.CF:
                         f = 1
-                        self.vista_prenotazione = VistaPrenotazionePaziente(prenotazione, elimina_callback=self.update_ui)
+                        self.vista_prenotazione = VistaPrenotazionePaziente(prenotazione,
+                                                                            elimina_callback=self.update_ui)
                         self.vista_prenotazione.show()
 
         # se non ho trovato la prenotazione apro un pop up di errore

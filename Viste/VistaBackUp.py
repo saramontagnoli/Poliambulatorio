@@ -9,14 +9,16 @@ from datetime import datetime
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QWidget, QVBoxLayout, QPushButton, QMessageBox, QLabel, QLineEdit, QComboBox
-from Gestione.GestoreBackUp import GestoreBackUp, effettuaBackUp
 
+from Gestione.GestoreBackUp import GestoreBackUp, effettuaBackUp
 
 """
     Evento del click al button Esegui Backup Adesso
     Effettua il backup richiamante il metodo effettua backup
     Mostra un pop up che segnala il completamento del backup
 """
+
+
 def backup_click():
     effettuaBackUp()
 
@@ -38,6 +40,7 @@ class VistaBackUp(QWidget):
             - se clicco invio e ho inserito i dati correttamente avrò l'aggiornamento del file contenente le impostazioni del backup
             - se clicco Esegui Backup Adesso avrò l'avvio del backup e un package con la copia di tutti i file dei dati
     """
+
     def __init__(self):
         super(VistaBackUp, self).__init__()
         self.setWindowIcon(QIcon('CroceVerde.png'))
@@ -76,10 +79,10 @@ class VistaBackUp(QWidget):
         self.setLayout(self.v_layout)
         self.setWindowTitle("Back-up")
 
-
     """
         Metodo che permette di inserire caselle di testo e prelevare il valore all'interno aggiungendolo al dizionario qlines[]
     """
+
     def add_info_text(self, nome, label):
         # aggiunta label e casella di testo
         self.v_layout.addWidget(QLabel(label))
@@ -91,9 +94,9 @@ class VistaBackUp(QWidget):
     """
         Metodo che permette di tenere traccia dei cambiamenti di selezione nella combobox della periodicità del backup
     """
+
     def selectionchange(self):
         return self.combo_frequenza.currentText()
-
 
     """
         Metodo che permette di effettuare la modifica delle impostazioni del backup dei dati
@@ -102,6 +105,7 @@ class VistaBackUp(QWidget):
         Altrimenti il try-except bloccherà gli input errati mostrando un pop up di errore
         Se la modifica è stata portata a termine invece apparirà un pop up di successo
     """
+
     def modifica_click(self):
         # try-except per il controllo di ora e frequenza
         try:

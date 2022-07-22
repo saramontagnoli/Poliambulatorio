@@ -14,9 +14,11 @@ class VistaModificaPaziente(QWidget):
         Inserimento caselle di testo per la modifica dei dati
         Inserimento button per conferma modifica
     """
+
     def __init__(self, paziente):
 
         super(VistaModificaPaziente, self).__init__()
+        self.checkbox = None
         self.paziente = paziente
         self.setWindowIcon(QIcon('CroceVerde.png'))
         self.v_layout = QVBoxLayout()
@@ -43,6 +45,7 @@ class VistaModificaPaziente(QWidget):
     """
         Metodo che permette di inserire caselle di testo e prelevare il valore all'interno aggiungendolo al dizionario qlines[]
     """
+
     def add_info_text(self, nome, label):
         self.v_layout.addWidget(QLabel(label))
         current_text = QLineEdit(self)
@@ -52,6 +55,7 @@ class VistaModificaPaziente(QWidget):
     """
         Metodo che permette di inserire checkbox e prelevare il valore aggiungendolo al dizionario qlines[]
     """
+
     def add_checkbox(self, nome, label):
         self.checkbox = QCheckBox(label, self)
         self.checkbox.resize(320, 40)
@@ -62,6 +66,7 @@ class VistaModificaPaziente(QWidget):
     """
         Metodo che controlla lo stato della checkbox (selezionata o no)
     """
+
     def clickBox(self, state):
         if state == QtCore.Qt.Checked:
             return True
@@ -76,6 +81,7 @@ class VistaModificaPaziente(QWidget):
         Il try-except blocca gli input errati mostrando un pop up di errore
         Se la modifica è stata portata a termine correttamente apparirà un pop up di successo
     """
+
     def modifica_paziente(self):
         # controllo che tutte le caselle siano state riempite
         for value in self.qlines.values():

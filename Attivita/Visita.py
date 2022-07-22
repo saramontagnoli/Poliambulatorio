@@ -7,7 +7,6 @@ from Gestione.GestoreFile import scriviFile
 
 
 class Visita:
-
     """
         Costruttore della classe
         Set degli attributi di Visita secondo i parametri passati
@@ -17,6 +16,7 @@ class Visita:
         nella piattaforma risulta precompilato e caricato di default dall'amministratore
         Il file è stato quindi creato una sola volta con chiamate eseguite nel main
     """
+
     def __init__(self, id, nome, nota, id_reparto, costo):
         self.id = id
         self.nome = nome

@@ -17,6 +17,7 @@ class VistaPaziente(QWidget):
         Controllo le variabili boolean, se sono True stampo la variabile, altrimenti non stampo nulla
         Inserimento del button di elimina del paziente
     """
+
     def __init__(self, paziente, elimina_callback):
         super(VistaPaziente, self).__init__()
         self.setWindowIcon(QIcon('CroceVerde.png'))
@@ -68,11 +69,11 @@ class VistaPaziente(QWidget):
         self.setLayout(v_layout)
         self.setWindowTitle(f"Paziente {paziente.id} - {paziente.nome} {paziente.cognome}")
 
-
     """
         Metodo che implementa l'evento click per l'eliminazione di un paziente (chiamata metodo rimuoviPaziente in Paziente).
         Pop up di successo ad eliminazione effettuata
     """
+
     def elimina_paziente_click(self, paziente):
         if isinstance(paziente, Paziente):
             # chiamata al metodo di rimozione del paziente
