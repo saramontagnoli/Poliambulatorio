@@ -10,6 +10,36 @@ from PyQt5.QtWidgets import QWidget, QVBoxLayout, QPushButton, QMessageBox
 
 from Gestione.GestoreStatistiche import richiediStatisticheMore, richiediStatisticheRicevute
 
+"""
+     Evento del click al button Richiedi Statistiche Ricevute
+     Mostra un pop up che contiene tutte le informazioni delle statistiche
+ """
+
+
+def stat_ricevute_click():
+    # pop up che contiene le statistiche sulle ricevute, tramite chiamata a GestoreStatistiche
+    messaggio = QMessageBox()
+    messaggio.setWindowIcon(QIcon('CroceVerde.png'))
+    messaggio.setWindowTitle("Statistiche Ricevute")
+    messaggio.setText(richiediStatisticheRicevute())
+    messaggio.exec_()
+    return
+
+
+"""
+    Evento del click al button Richiedi Statistiche More
+    Mostra un pop up che contiene tutte le informazioni delle statistiche
+"""
+
+
+def stat_more_click():
+    # pop up che contiene le statistiche sulle more, tramite chiamata a GestoreStatistiche
+    messaggio = QMessageBox()
+    messaggio.setWindowIcon(QIcon('CroceVerde.png'))
+    messaggio.setWindowTitle("Statistiche More")
+    messaggio.setText(richiediStatisticheMore())
+    messaggio.exec_()
+
 
 class VistaStatistiche(QWidget):
     """
@@ -30,42 +60,15 @@ class VistaStatistiche(QWidget):
 
         # button per richiedere statistiche sulle ricevute e relativo evento click
         btn_stat_ricevute = QPushButton('Statistiche ricevute')
-        btn_stat_ricevute.clicked.connect(lambda: self.stat_ricevute_click())
+        btn_stat_ricevute.clicked.connect(lambda: stat_ricevute_click())
         btn_stat_ricevute.setFixedSize(300, 100)
         v_layout.addWidget(btn_stat_ricevute)
 
         # button per richiedere statistiche sulle more e relativo evento click
         btn_stat_more = QPushButton('Statistiche more')
         btn_stat_more.setFixedSize(300, 100)
-        btn_stat_more.clicked.connect(lambda: self.stat_more_click())
+        btn_stat_more.clicked.connect(lambda: stat_more_click())
         v_layout.addWidget(btn_stat_more)
 
         self.setLayout(v_layout)
         self.setWindowTitle("Statistiche")
-
-    """
-        Evento del click al button Richiedi Statistiche Ricevute
-        Mostra un pop up che contiene tutte le informazioni delle statistiche
-    """
-
-    def stat_ricevute_click(self):
-        # pop up che contiene le statistiche sulle ricevute, tramite chiamata a GestoreStatistiche
-        messaggio = QMessageBox()
-        messaggio.setWindowIcon(QIcon('CroceVerde.png'))
-        messaggio.setWindowTitle("Statistiche Ricevute")
-        messaggio.setText(richiediStatisticheRicevute())
-        messaggio.exec_()
-        return
-
-    """
-        Evento del click al button Richiedi Statistiche More
-        Mostra un pop up che contiene tutte le informazioni delle statistiche
-    """
-
-    def stat_more_click(self):
-        # pop up che contiene le statistiche sulle more, tramite chiamata a GestoreStatistiche
-        messaggio = QMessageBox()
-        messaggio.setWindowIcon(QIcon('CroceVerde.png'))
-        messaggio.setWindowTitle("Statistiche More")
-        messaggio.setText(richiediStatisticheMore())
-        messaggio.exec_()

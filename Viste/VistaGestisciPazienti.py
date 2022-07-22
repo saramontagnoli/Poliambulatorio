@@ -21,6 +21,9 @@ class VistaGestisciPazienti(QWidget):
 
     def __init__(self, parent=None):
         super(VistaGestisciPazienti, self).__init__(parent)
+        self.inserisci_paziente = None
+        self.vista_paziente = None
+        self.pazienti = None
         self.setWindowIcon(QIcon('CroceVerde.png'))
         self.h_layout = QHBoxLayout()
         self.list_view = QListView()

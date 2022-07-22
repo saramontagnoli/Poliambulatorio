@@ -10,7 +10,7 @@ from PyQt5.QtWidgets import QVBoxLayout, QLabel, QSpacerItem, QSizePolicy, QPush
 
 from Attivita.Prenotazione import Prenotazione
 from Gestione.GestoreFile import caricaFile
-from Viste.VistaPrenotazione import VistaPrenotazione
+from Viste.VistaPrenotazione import VistaPrenotazione, visualizza_ricevuta_click, visualizza_mora_click
 
 
 class VistaPrenotazioneAmm(VistaPrenotazione):
@@ -72,7 +72,7 @@ class VistaPrenotazioneAmm(VistaPrenotazione):
         elif prenotazione.conclusa:
             # se la prenotazione è già conclusa e la visita è stata effettuata permetto di visualizzarne la ricevuta
             btn_visualizza_ricevuta = QPushButton('Visualizza ricevuta')
-            btn_visualizza_ricevuta.clicked.connect(lambda: self.visualizza_ricevuta_click(prenotazione))
+            btn_visualizza_ricevuta.clicked.connect(lambda: visualizza_ricevuta_click(prenotazione))
             v_layout.addWidget(btn_visualizza_ricevuta)
 
         # se la prenotazione ha collegata una mora inserisco il button Visualizza mora che rimanda al metodo di visualizzazione mora
@@ -80,7 +80,7 @@ class VistaPrenotazioneAmm(VistaPrenotazione):
         for mora in more:
             if mora.id == prenotazione.id:
                 btn_visualizza_mora = QPushButton('Visualizza mora')
-                btn_visualizza_mora.clicked.connect(lambda: self.visualizza_mora_click(mora))
+                btn_visualizza_mora.clicked.connect(lambda: visualizza_mora_click(mora))
                 v_layout.addWidget(btn_visualizza_mora)
 
         # se la prenotazione non è ancora conclusa o scaduta o già disdetta, inserisco il button per la disdetta che rimanda al metodo di disdetta

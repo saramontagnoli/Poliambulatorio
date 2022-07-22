@@ -6,6 +6,17 @@ from PyQt5 import QtCore
 from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QWidget, QVBoxLayout, QLabel, QLineEdit, QPushButton, QMessageBox, QCheckBox
 
+"""
+      Metodo che controlla lo stato della checkbox (selezionata o no)
+  """
+
+
+def clickBox(state):
+    if state == QtCore.Qt.Checked:
+        return True
+    else:
+        return False
+
 
 class VistaModificaPaziente(QWidget):
     """
@@ -61,17 +72,7 @@ class VistaModificaPaziente(QWidget):
         self.checkbox.resize(320, 40)
         self.qlines[nome] = self.checkbox
         self.v_layout.addWidget(self.checkbox)
-        self.checkbox.stateChanged.connect(self.clickBox)
-
-    """
-        Metodo che controlla lo stato della checkbox (selezionata o no)
-    """
-
-    def clickBox(self, state):
-        if state == QtCore.Qt.Checked:
-            return True
-        else:
-            return False
+        self.checkbox.stateChanged.connect(clickBox)
 
     """
         Metodo che permette di effettuare la modifica delle informazioni del paziente

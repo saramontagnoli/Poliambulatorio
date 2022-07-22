@@ -14,6 +14,61 @@ from Attivita.Prenotazione import Prenotazione
 from Attivita.Referto import Referto
 from Gestione.GestoreFile import caricaFile
 
+"""
+     Metodo che implementa l'evento click per la visualizzazione di una particolare Ricevuta.
+     Carico il file delle ricevute e cerco la ricevuta desiderata aprendo un pop-up con le informazioni
+ """
+
+
+def visualizza_ricevuta_click(prenotazione):
+    if isinstance(prenotazione, Prenotazione):
+        # caricamento delle ricevute nel dizionario ricevute, scorro il dizionario e cerco la prenotazione desiderata, pop-up con le informazioni
+        ricevute = caricaFile("Ricevute")
+
+        for ricevuta in ricevute:
+            if ricevuta.id == prenotazione.id:
+                messaggio = QMessageBox()
+                messaggio.setWindowIcon(QIcon('CroceVerde.png'))
+                messaggio.setWindowTitle("Ricevuta")
+                # pop up contenente le informazioni della ricevuta trovata
+                messaggio.setText(
+                    f"Id: {ricevuta.id} \nImporto: {ricevuta.importo}€ \nData e ora: {ricevuta.data_ora.strftime('%Y-%m-%d %H:%M')}")
+                messaggio.exec_()
+
+
+"""
+        Metodo che implementa l'evento click per la visualizzazione di un particolare Referto.
+        Mediante le informazioni contenute in referto, setto un pop-up contenente tutte le informazioni
+"""
+
+
+def visualizza_referto_click(referto):
+    if isinstance(referto, Referto):
+        messaggio = QMessageBox()
+        messaggio.setWindowIcon(QIcon('CroceVerde.png'))
+        messaggio.setWindowTitle("Referto")
+        # pop up contenente le informazioni di referto
+        messaggio.setText(
+            f"Id: {referto.id} \nNota: {referto.nota} \nData e ora: {referto.data_emissione.strftime('%Y-%m-%d %H:%M')}")
+        messaggio.exec_()
+
+
+"""
+        Metodo che implementa l'evento click per la visualizzazione di una particolare Mora.
+        Mediante le informazioni contenute in mora, setto un pop-up contenente tutte le informazioni
+"""
+
+
+def visualizza_mora_click(mora):
+    if isinstance(mora, Mora):
+        messaggio = QMessageBox()
+        messaggio.setWindowIcon(QIcon('CroceVerde.png'))
+        messaggio.setWindowTitle("Mora")
+        # pop up contenente le informazioni di mora
+        messaggio.setText(
+            f"Id: {mora.id} \nImporto: {round(mora.importo, 2)}€ \nNota: {mora.nota} \nData e ora: {mora.data_emissione.strftime('%Y-%m-%d %H:%M')}")
+        messaggio.exec_()
+
 
 class VistaPrenotazione(QWidget):
     """
@@ -57,53 +112,3 @@ class VistaPrenotazione(QWidget):
                 messaggio.exec_()
         self.elimina_callback()
         self.close()
-
-    """
-        Metodo che implementa l'evento click per la visualizzazione di una particolare Ricevuta.
-        Carico il file delle ricevute e cerco la ricevuta desiderata aprendo un pop-up con le informazioni
-    """
-
-    def visualizza_ricevuta_click(self, prenotazione):
-        if isinstance(prenotazione, Prenotazione):
-            # caricamento delle ricevute nel dizionario ricevute, scorro il dizionario e cerco la prenotazione desiderata, pop-up con le informazioni
-            ricevute = caricaFile("Ricevute")
-
-            for ricevuta in ricevute:
-                if ricevuta.id == prenotazione.id:
-                    messaggio = QMessageBox()
-                    messaggio.setWindowIcon(QIcon('CroceVerde.png'))
-                    messaggio.setWindowTitle("Ricevuta")
-                    # pop up contenente le informazioni della ricevuta trovata
-                    messaggio.setText(
-                        f"Id: {ricevuta.id} \nImporto: {ricevuta.importo}€ \nData e ora: {ricevuta.data_ora.strftime('%Y-%m-%d %H:%M')}")
-                    messaggio.exec_()
-
-    """
-        Metodo che implementa l'evento click per la visualizzazione di una particolare Mora.
-        Mediante le informazioni contenute in mora, setto un pop-up contenente tutte le informazioni
-    """
-
-    def visualizza_mora_click(self, mora):
-        if isinstance(mora, Mora):
-            messaggio = QMessageBox()
-            messaggio.setWindowIcon(QIcon('CroceVerde.png'))
-            messaggio.setWindowTitle("Mora")
-            # pop up contenente le informazioni di mora
-            messaggio.setText(
-                f"Id: {mora.id} \nImporto: {round(mora.importo, 2)}€ \nNota: {mora.nota} \nData e ora: {mora.data_emissione.strftime('%Y-%m-%d %H:%M')}")
-            messaggio.exec_()
-
-    """
-        Metodo che implementa l'evento click per la visualizzazione di un particolare Referto.
-        Mediante le informazioni contenute in referto, setto un pop-up contenente tutte le informazioni
-    """
-
-    def visualizza_referto_click(self, referto):
-        if isinstance(referto, Referto):
-            messaggio = QMessageBox()
-            messaggio.setWindowIcon(QIcon('CroceVerde.png'))
-            messaggio.setWindowTitle("Referto")
-            # pop up contenente le informazioni di referto
-            messaggio.setText(
-                f"Id: {referto.id} \nNota: {referto.nota} \nData e ora: {referto.data_emissione.strftime('%Y-%m-%d %H:%M')}")
-            messaggio.exec_()

@@ -11,7 +11,7 @@ from PyQt5.QtWidgets import QVBoxLayout, QLabel, QSpacerItem, QSizePolicy, QPush
 from Attivita.Prenotazione import Prenotazione
 from Gestione.GestoreFile import caricaFile
 from Viste.VistaInserisciReferto import VistaInserisciReferto
-from Viste.VistaPrenotazione import VistaPrenotazione
+from Viste.VistaPrenotazione import VistaPrenotazione, visualizza_referto_click
 
 
 class VistaPrenotazioneMedico(VistaPrenotazione):
@@ -81,7 +81,7 @@ class VistaPrenotazioneMedico(VistaPrenotazione):
                 if referto.id == prenotazione.id:
                     flag = True
                     btn_visualizza_referto = QPushButton('Visualizza referti')
-                    btn_visualizza_referto.clicked.connect(lambda: self.visualizza_referto_click(referto))
+                    btn_visualizza_referto.clicked.connect(lambda: visualizza_referto_click(referto))
                     v_layout.addWidget(btn_visualizza_referto)
             if not flag:
                 btn_inserisci_referto = QPushButton('Inserisci referto')

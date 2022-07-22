@@ -8,6 +8,17 @@ from PyQt5.QtWidgets import QWidget, QPushButton, QLabel, QLineEdit, QGridLayout
 
 from Gestione.GestoreAccesso import GestoreAccesso
 
+"""
+    Metodo che inserisce il button e collega l'evento on_click
+"""
+
+
+def get_generic_button(titolo, on_click):
+    button = QPushButton(titolo)
+    button.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+    button.clicked.connect(on_click)
+    return button
+
 
 class VistaLogin(QWidget):
     """
@@ -37,18 +48,8 @@ class VistaLogin(QWidget):
         grid_layout.addWidget(self.user_pwd, 1, 1)
 
         # inserimento di un generic button e relativo evento click
-        grid_layout.addWidget(self.get_generic_button("Login", self.go_login), 2, 0, 2, 2)
+        grid_layout.addWidget(get_generic_button("Login", self.go_login), 2, 0, 2, 2)
         self.setLayout(grid_layout)
-
-    """
-        Metodo che inserisce il button e collega l'evento on_click
-    """
-
-    def get_generic_button(self, titolo, on_click):
-        button = QPushButton(titolo)
-        button.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
-        button.clicked.connect(on_click)
-        return button
 
     """
         Metodo per evento del click al button Login
