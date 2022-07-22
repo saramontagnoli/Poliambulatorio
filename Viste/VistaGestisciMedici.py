@@ -27,7 +27,7 @@ class VistaGestisciMedici(QWidget):
         self.h_layout.addWidget(self.list_view)
         self.qlines = {}
 
-        # inserimento button per apertura del medico, rimanda all'evento click show_selecteed_info che visualizza il medico
+        # inserimento button per apertura del medico, rimanda all'evento click show_selected_info che visualizza il medico
         buttons_layout = QVBoxLayout()
         open_button = QPushButton('Apri')
         open_button.clicked.connect(self.show_selected_info)
@@ -126,7 +126,7 @@ class VistaGestisciMedici(QWidget):
         self.inserisci_medico.show()
 
     """
-        Metodo che permette di inserire caselle di testo e prelevare il valore all'interno aggiungedolo al dizionario qlines[]
+        Metodo che permette di inserire caselle di testo e prelevare il valore all'interno aggiungendolo al dizionario qlines[]
     """
     def add_info_text(self, nome, label):
         self.h_layout.addWidget(QLabel(label))

@@ -51,7 +51,7 @@ class VistaHomeAmm(QWidget):
 
 
     """
-        Metodo che inserisce il button e linka l'evento on_click
+        Metodo che inserisce il button e collega l'evento on_click
     """
     def get_generic_button(self, titolo, on_click):
         button = QPushButton(titolo)

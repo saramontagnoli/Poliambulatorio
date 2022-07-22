@@ -63,7 +63,7 @@ class VistaPrenotazione(QWidget):
     """
     def visualizza_ricevuta_click(self, prenotazione):
         if isinstance(prenotazione, Prenotazione):
-            # caricamento delle ricevute nel dizionario ricevute, scorro il dizionario e cerco la prenotazione desisderata, pop-up con le informazioni
+            # caricamento delle ricevute nel dizionario ricevute, scorro il dizionario e cerco la prenotazione desiderata, pop-up con le informazioni
             ricevute = caricaFile("Ricevute")
 
             for ricevuta in ricevute:

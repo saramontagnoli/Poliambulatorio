@@ -23,6 +23,7 @@ class VistaPrenotazioneMedico(VistaPrenotazione):
         Inserimento dei button di creazione o visualizzazione referto (in base ai controlli effettuati)
         Inserimento del button di disdetta della prenotazione (in base ai controlli effettuati)
     """
+
     def __init__(self, prenotazione, elimina_callback):
         super(VistaPrenotazione, self).__init__()
         self.setWindowIcon(QIcon('CroceVerde.png'))
@@ -89,11 +90,11 @@ class VistaPrenotazioneMedico(VistaPrenotazione):
         self.setLayout(v_layout)
         self.setWindowTitle("Prenotazione")
 
-
     """
         Metodo che implementa l'evento click per la creazione di un referto (chiamata alla vista di inserimento nuovo referto).
         Si richiama la vista dove si possono inserire le informazioni di un nuovo referto
     """
+
     def inserisci_referto_click(self, prenotazione):
         if isinstance(prenotazione, Prenotazione):
             # chiamata alla vista di inserimento di un nuovo referto

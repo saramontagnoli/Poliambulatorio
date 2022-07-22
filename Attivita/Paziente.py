@@ -40,7 +40,7 @@ class Paziente(Utilizzatore):
 
     """
         Metodo che ritorna tutte le informazioni registrate di Paziente.
-        Essendo Paziemte una classe derivata, si richiama il metodo di get dalla classe padre, mentre
+        Essendo Paziente una classe derivata, si richiama il metodo di get dalla classe padre, mentre
         le informazioni contenute solo in Paziente vengono posizionata nel dizionario tramite il self.
         Si ritorna il dizionario "info" con dentro le informazioni complete di Paziente.
     """
@@ -56,7 +56,7 @@ class Paziente(Utilizzatore):
     """
         Metodo per la ricerca di un determinato Paziente sulla base del Codice Fiscale.
         Si richiama il metodo di ricerca dal GestoreFile che permette l'apertura 
-        e lo scorrimento del file contennte i Pazienti.
+        e lo scorrimento del file contenente i Pazienti.
     """
     def ricercaUtilizzatoreCF(self, CF):
         return ricercaElemFile("Pazienti", CF)
@@ -65,7 +65,7 @@ class Paziente(Utilizzatore):
     """
         Metodo per la ricerca di un determinato Paziente sulla base dell'ID.
         Si richiama il metodo di ricerca dal GestoreFile che permette l'apertura 
-        e lo scorrimento del file contennte i Pazienti.
+        e lo scorrimento del file contenente i Pazienti.
     """
     def ricercaUtilizzatoreId(self, id):
         return ricercaElemFile("Pazienti", id)

@@ -36,7 +36,7 @@ class VistaInserisciReferto(QWidget):
         self.setWindowTitle("Referto")
 
     """
-        Metodo che permette di inserire caselle di testo e prelevare il valore all'interno aggiungedolo al dizionario qlines[]
+        Metodo che permette di inserire caselle di testo e prelevare il valore all'interno aggiungendolo al dizionario qlines[]
     """
     def add_info_text(self, nome, label):
         self.v_layout.addWidget(QLabel(label))

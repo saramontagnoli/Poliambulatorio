@@ -17,7 +17,7 @@ class VistaStatistiche(QWidget):
         Si effettuano tutti i set di icone, size, titolo della finestra e visualizzazione
         Inserimento di due button che rimandano a:
             -statistiche sulle more (button Statistiche more)
-            -statistiche sulle ricevute (buttton Statistiche ricevute)
+            -statistiche sulle ricevute (button Statistiche ricevute)
         Entrambi i button richiamo due funzioni tramite lambda al click
     """
     def __init__(self):

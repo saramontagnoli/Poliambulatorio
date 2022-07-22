@@ -1,6 +1,6 @@
 """
     Classe di modellazione per il Reparto
-    Rappresenta l'area di competenzd del Medico e quindi della Visita
+    Rappresenta l'area di competenza del Medico e quindi della Visita
 """
 
 from Gestione.GestoreFile import scriviFile
@@ -11,7 +11,7 @@ class Reparto:
     """
         Costruttore della classe
         Set degli attributi di Reparto secondo i parametri passati
-        Scrittura su file della informazioni del Reparto
+        Scrittura su file delle informazioni del Reparto
 
         Il costruttore è stato utilizzato solo per la creazione iniziale del file che
         nella piattaforma risulta precompilato e caricato di default dall'amministratore

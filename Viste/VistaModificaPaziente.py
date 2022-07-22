@@ -41,7 +41,7 @@ class VistaModificaPaziente(QWidget):
         self.setWindowTitle("Modifica paziente")
 
     """
-        Metodo che permette di inserire caselle di testo e prelevare il valore all'interno aggiungedolo al dizionario qlines[]
+        Metodo che permette di inserire caselle di testo e prelevare il valore all'interno aggiungendolo al dizionario qlines[]
     """
     def add_info_text(self, nome, label):
         self.v_layout.addWidget(QLabel(label))
@@ -50,7 +50,7 @@ class VistaModificaPaziente(QWidget):
         self.v_layout.addWidget(current_text)
 
     """
-        Metodo che permette di inserire checkbox e prelevare il valore aggiungedolo al dizionario qlines[]
+        Metodo che permette di inserire checkbox e prelevare il valore aggiungendolo al dizionario qlines[]
     """
     def add_checkbox(self, nome, label):
         self.checkbox = QCheckBox(label, self)
@@ -71,7 +71,7 @@ class VistaModificaPaziente(QWidget):
     """
         Metodo che permette di effettuare la modifica delle informazioni del paziente
         Controllo che tutte le caselle siano state riempite
-        Se sono corrette le innformazioni richiamo il metodo di setInfoPaziente per apportare le modifiche
+        Se sono corrette le informazioni richiamo il metodo di setInfoPaziente per apportare le modifiche
         Non tutti i parametri possono essere cambiati.
         Il try-except blocca gli input errati mostrando un pop up di errore
         Se la modifica è stata portata a termine correttamente apparirà un pop up di successo
@@ -111,7 +111,7 @@ class VistaModificaPaziente(QWidget):
             messaggio.exec_()
 
         except:
-            # pop up di errore se le informazini inserite sono sbagliate
+            # pop up di errore se le informazioni inserite sono sbagliate
             QMessageBox.critical(self, 'Errore', 'Controlla bene i dati inseriti',
                                  QMessageBox.Ok, QMessageBox.Ok)
             return

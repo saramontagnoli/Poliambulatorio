@@ -1,6 +1,6 @@
 """
     Interfaccia grafica per la visualizzazione della lista delle prenotazioni
-    La classe padre raggruppa al suo interno i metodi e attributi in comune tra VistaGestisciPrenmedico, VistaGestisciPrenPaziente
+    La classe padre raggruppa al suo interno i metodi e attributi in comune tra VistaGestisciPrenMedico, VistaGestisciPrenPaziente
     e VistaGestisciPrenAmm
     (ereditarietà)
 """
@@ -51,7 +51,7 @@ class VistaGestisciPrenotazioni(QWidget):
     """
         Metodo che permette la visualizzazione delle informazioni della prenotazione che si vuole aprire
         Controlla l'utente attuale e per ognuno apre la vista della prenotazione relativa
-            - se sei l'addmin apre VistaPrenotazioneAmm
+            - se sei l'admin apre VistaPrenotazioneAmm
             - se sei un medico apre VistaPrenotazioneMedico
             - se sei un paziente apre VistaPrenotazionePaziente
     """
@@ -84,7 +84,7 @@ class VistaGestisciPrenotazioni(QWidget):
             return
 
     """
-        Metodo che permette di inserire caselle di testo e prelevare il valore all'interno aggiungedolo al dizionario qlines[]
+        Metodo che permette di inserire caselle di testo e prelevare il valore all'interno aggiungendolo al dizionario qlines[]
     """
     def add_info_text(self, nome, label):
         self.h_layout.addWidget(QLabel(label))
@@ -96,7 +96,7 @@ class VistaGestisciPrenotazioni(QWidget):
         Metodo per la ricerca di un determinata Prenotazione sulla base dell'ID.
         Controllo che l'ID inserito sia valido
         Se trovo la prenotazione del dizionario prenotazioni controllo l'utente connesso e apro la vista della prenotazione relativa:
-            - se sei l'addmin apre VistaPrenotazioneAmm
+            - se sei l'admin apre VistaPrenotazioneAmm
             - se sei un medico apre VistaPrenotazioneMedico
             - se sei un paziente apre VistaPrenotazionePaziente
         Se non trovo la prenotazione apro un pop up di errore
@@ -110,7 +110,7 @@ class VistaGestisciPrenotazioni(QWidget):
             return
 
         f = 0
-        # sccorro le prenotazioni, se la trovo controllo l'utente collegato, aprendo per ognuno la vista relativa
+        # scorro le prenotazioni, se la trovo controllo l'utente collegato, aprendo per ognuno la vista relativa
         for prenotazione in self.prenotazioni:
             if prenotazione.id == ID:
                 if self.utente == "admin":

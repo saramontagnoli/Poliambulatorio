@@ -28,7 +28,7 @@ class VistaGestisciPazienti(QWidget):
         self.h_layout.addWidget(self.list_view)
         self.qlines = {}
 
-        # inserimento button per apertura del paziente, rimanda all'evento click show_selecteed_info che visualizza il paziente
+        # inserimento button per apertura del paziente, rimanda all'evento click show_selected_info che visualizza il paziente
         buttons_layout = QVBoxLayout()
         open_button = QPushButton('Apri')
         open_button.clicked.connect(self.show_selected_info)
@@ -99,7 +99,7 @@ class VistaGestisciPazienti(QWidget):
 
     """
         Metodo che permette la visualizzazione delle informazioni del paziente che si vuole aprire
-        Cerco il apziente selezionato che voglio aprire e richiamo la vista di visualizzazione delle informazioni
+        Cerco il paziente selezionato che voglio aprire e richiamo la vista di visualizzazione delle informazioni
     """
     def show_selected_info(self):
         try:
@@ -108,7 +108,7 @@ class VistaGestisciPazienti(QWidget):
             id = int(selected.split("-")[1].strip().split(" ")[1])
             paziente = None
 
-            #cerco il pazidente che sto cercando di aprire
+            # cerco il paziente che sto cercando di aprire
             if tipo == "Paziente":
                 paziente = Paziente().ricercaUtilizzatoreId(id)
 
@@ -128,7 +128,7 @@ class VistaGestisciPazienti(QWidget):
         self.inserisci_paziente.show()
 
     """
-        Metodo che permette di inserire caselle di testo e prelevare il valore all'interno aggiungedolo al dizionario qlines[]
+        Metodo che permette di inserire caselle di testo e prelevare il valore all'interno aggiungendolo al dizionario qlines[]
     """
     def add_info_text(self, nome, label):
         self.h_layout.addWidget(QLabel(label))

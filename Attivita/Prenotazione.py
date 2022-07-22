@@ -176,7 +176,7 @@ class Prenotazione:
         Controllo chi sta richiedendo la disdetta:
             - se il paziente chiede la disdetta e i 5 giorni sono passati, allora avrà a suo carico la mora
             - se il paziente chiede la disdetta e i 5 giorni non sono ancora passati, non avrà alcuna mora
-            - se è il medico o l'amministratore a disdire per problemi interni, il paziente non anvrà alcuna mora
+            - se è il medico o l'amministratore a disdire per problemi interni, il paziente non avrà alcuna mora
         Set del flag di disdetta della prenotazione a prescindere dai controlli della mora.
     """
     def disdiciPrenotazione(self, num):
@@ -189,7 +189,7 @@ class Prenotazione:
             # se i 5 giorni per la disdetta sono scaduti procedo con l'inserimento della mora
             if sottrazione_data.days < 5:
 
-                # caricamente del file visite in dizionario visite, mediante la chiamata a GestoreFile
+                # caricamento del file visite in dizionario visite, mediante la chiamata a GestoreFile
                 visite = caricaFile("Visite")
 
                 # scorro il dizionario delle visite e salvo il costo della visita scelta nella prenotazione
@@ -197,7 +197,7 @@ class Prenotazione:
                     if self.id_visita == visita.id:
                         costo = visita.costo
 
-                # se è il paziente a disdire creo la mora con un costo, se è l'amm/medico creo una mora con motivazione a costo zero
+                # se è il paziente a disdire creo la mora con un costo, se è l'amministratore/medico creo una mora con motivazione a costo zero
                 if num == 1:
                     Mora(self.id, costo, "Non disdetta in tempo. ")
                 else:
@@ -214,7 +214,7 @@ class Prenotazione:
 
 
     """
-        Metodo di controllo per la scadenzaa di Prenotazione.
+        Metodo di controllo per la scadenza di Prenotazione.
         Controllo se la Prenotazione è già scaduta o conclusa
         Se la prenotazione è scaduta vuol dire che il paziente non si è presentato alla visita e non ha disdetto la prenotazione
         quindi dovrà pagare una mora.
@@ -227,7 +227,7 @@ class Prenotazione:
             scadenza = datetime.datetime.today()
             scadenza = scadenza.replace(day=scadenza.day - 1)
 
-            # se la prenotazione risulta scaaduta eseguo il set del flag
+            # se la prenotazione risulta scaduta eseguo il set del flag
             if self.data < scadenza:
                 self.scaduta = True
 

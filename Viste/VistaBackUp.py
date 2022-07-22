@@ -1,6 +1,6 @@
 """
     Interfaccia grafica per la gestione del backup da parte dell'admin della piattaforma
-    La vista permette di veedere una casella di testo e una combo box per la modifica delle impostazioni del backup
+    La vista permette di vedere una casella di testo e una combo box per la modifica delle impostazioni del backup
     La vista, inoltre, ha un button che permette di eseguire il backup in maniera immediata
 """
 
@@ -78,7 +78,7 @@ class VistaBackUp(QWidget):
 
 
     """
-        Metodo che permette di inserire caselle di testo e prelevare il valore all'interno aggiungedolo al dizionario qlines[]
+        Metodo che permette di inserire caselle di testo e prelevare il valore all'interno aggiungendolo al dizionario qlines[]
     """
     def add_info_text(self, nome, label):
         # aggiunta label e casella di testo

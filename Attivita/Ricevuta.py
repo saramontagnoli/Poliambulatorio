@@ -12,7 +12,7 @@ class Ricevuta:
     """
         Costruttore della classe
         Set degli attributi di Ricevuta secondo i parametri passati
-        Scrittura su file della informazioni della Ricevuta creata
+        Scrittura su file delle informazioni della Ricevuta creata
     """
     def __init__(self, id, importo):
         self.id = id

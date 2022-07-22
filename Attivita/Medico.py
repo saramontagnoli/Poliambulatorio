@@ -56,7 +56,7 @@ class Medico(Utilizzatore):
     """
         Metodo per la ricerca di un determinato Medico sulla base del Codice Fiscale.
         Si richiama il metodo di ricerca dal GestoreFile che permette l'apertura 
-        e lo scorrimento del file contennte i Medici.
+        e lo scorrimento del file contenente i Medici.
     """
     def ricercaUtilizzatoreCF(self, CF):
         return ricercaElemFile("Medici", CF)
@@ -65,7 +65,7 @@ class Medico(Utilizzatore):
     """
         Metodo per la ricerca di un determinato Medico sulla base dell'ID.
         Si richiama il metodo di ricerca dal GestoreFile che permette l'apertura 
-        e lo scorrimento del file contennte i Medici.
+        e lo scorrimento del file contenente i Medici.
     """
     def ricercaUtilizzatoreId(self, id):
         return ricercaElemFile("Medici", id)

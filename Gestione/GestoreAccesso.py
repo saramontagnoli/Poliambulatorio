@@ -1,7 +1,7 @@
 """
     Classe che implementa la gestione degli accessi alla piattaforma
     Rappresenta la gestione della form di login, smistando i vari livelli di accesso e i diversi utenti (pazienti e medici)
-    e il superutente (l'amministratore)
+    e il super utente (l'amministratore)
 """
 
 from Gestione.GestoreFile import caricaFile
@@ -31,7 +31,7 @@ class GestoreAccesso:
     """
     def login(self, username, password):
 
-        # controllo se è l'admin a voler accedere (superutente)
+        # controllo se è l'admin a voler accedere (super utente)
         if username == "admin" and password == "admin":
             # apro la vista dell'admin
             self.vista_home = VistaHomeAmm()

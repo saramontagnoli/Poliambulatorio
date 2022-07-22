@@ -70,7 +70,7 @@ class VistaPaziente(QWidget):
 
 
     """
-        Metodo che implementa l'evento click per l'eliminazione di un paziente (chiamata metodo rimuovipaziente in Paziente).
+        Metodo che implementa l'evento click per l'eliminazione di un paziente (chiamata metodo rimuoviPaziente in Paziente).
         Pop up di successo ad eliminazione effettuata
     """
     def elimina_paziente_click(self, paziente):

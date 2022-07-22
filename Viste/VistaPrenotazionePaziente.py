@@ -75,7 +75,7 @@ class VistaPrenotazionePaziente(VistaPrenotazione):
             for referto in referti:
                 if referto.id == prenotazione.id:
                     flag = True
-                    # se il referto esiste stampo il button di visualizza referto, rimanda all'avento click
+                    # se il referto esiste stampo il button di visualizza referto, rimanda all'evento click
                     btn_visualizza_referto = QPushButton('Visualizza referto')
                     btn_visualizza_referto.clicked.connect(lambda: self.visualizza_referto_click(referto))
                     v_layout.addWidget(btn_visualizza_referto)

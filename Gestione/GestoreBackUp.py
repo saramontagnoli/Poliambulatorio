@@ -30,7 +30,7 @@ class GestoreBackUp:
         Caricamento delle impostazioni sulla periodicità e ora del backup
     """
     def __init__(self):
-        # caricamento del file con chiamta a GestoreFile
+        # caricamento del file con chiama a GestoreFile
         self.impostazioni = caricaFile("Backup")
 
         # salvataggio informazioni delle impostazioni lette dal file

@@ -20,7 +20,7 @@ class VistaPrenotazioneAmm(VistaPrenotazione):
         Inserimento di tutte le informazioni della prenotazione con delle label
         Se le variabili boolean sono True stampa il campo: SI, altrimenti non stampa il campo
         Inserimento dei button di creazione o visualizzazione ricevuta (in base ai controlli effettuati)
-        Inserimento del button di una evemtuale mora (se esiste nel file More)
+        Inserimento del button di una eventuale mora (se esiste nel file More)
         Inserimento del button di disdetta della prenotazione (in base ai controlli effettuati)
     """
     def __init__(self, prenotazione, elimina_callback):

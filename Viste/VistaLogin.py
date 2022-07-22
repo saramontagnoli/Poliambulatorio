@@ -1,6 +1,6 @@
 """
     Interfaccia grafica per la vista del form di login per l'accesso alla piattaforma
-    Ci sono due caselle di testo per inserimento di username e password e un tasto di invio
+    Ci sono due caselle di testo per inserimento di username e password e un tasto d'invio
 """
 
 from PyQt5.QtGui import QIcon
@@ -14,7 +14,7 @@ class VistaLogin(QWidget):
     """
         Costruttore della classe
         Si effettuano tutti i set di icone, size, titolo della finestra e visualizzazione
-        Inserimento di due caselle di testo per l'inserimento di username e password, e di un tasto di invio
+        Inserimento di due caselle di testo per l'inserimento di username e password, e di un tasto d'invio
     """
     def __init__(self):
         super().__init__()
@@ -42,7 +42,7 @@ class VistaLogin(QWidget):
 
 
     """
-        Metodo che inserisce il button e linka l'evento on_click
+        Metodo che inserisce il button e collega l'evento on_click
     """
     def get_generic_button(self, titolo, on_click):
         button = QPushButton(titolo)
