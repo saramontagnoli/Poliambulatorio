@@ -48,18 +48,20 @@ class TestGestisciPazienti(TestCase):
                 pazienti = pickle.load(f)
         self.assertIsNotNone(pazienti)
 
-        # controllo che il paziente sia presente e chiamo la rimozione del paziente
+        # controllo che il paziente sia presente e chiamo la rimozione del paziente + rimozione effettiva
         self.assertIn(1, pazienti)
         self.paziente = Paziente().ricercaUtilizzatoreId(1)
         self.paziente.rimuoviPaziente()
 
-        # aggiorno il file dei pazienti controllando che il paziente sia stato rimosso
+        # carico il file pazienti controllando che il paziente sia stato rimosso
         if os.path.isfile('File/Pazienti.pickle'):
             with open('File/Pazienti.pickle', 'rb') as f:
                 pazienti = pickle.load(f)
         self.assertIsNotNone(pazienti)
         self.assertNotIn(1, pazienti)
 
-
+"""
+    Main che permette l'esecuzione del test
+"""
 if __name__ == '__main__':
     unittest.main()
