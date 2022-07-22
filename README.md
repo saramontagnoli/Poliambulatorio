@@ -16,7 +16,7 @@ Medico 		| mcf1 | mpw1
 
 ### Gestione File
 
-In caso di cancellazione dei File di salvataggio, necessari al corretto funzionamento del programma, ne verrano caricati automaticamente dei nuovi dalla cartella Appoggio.
+In caso di cancellazione dei File di salvataggio, necessari al corretto funzionamento del programma, ne verranno caricati automaticamente dei nuovi dalla cartella Appoggio.
 
 La cartella Appoggio contiene dei File impostati di default.
 
