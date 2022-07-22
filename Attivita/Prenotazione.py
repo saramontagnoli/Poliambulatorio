@@ -69,7 +69,6 @@ class Prenotazione:
         if data.isoweekday() > 5:
             # errore, la data scelta cade durante il weekend (sabato o domenica)
             raise WeekEndException
-            # return -3
 
         self.data = data
 
