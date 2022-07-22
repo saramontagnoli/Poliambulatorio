@@ -56,5 +56,3 @@ class TestGestisciPrenotazioni(TestCase):
 
 if __name__ == '__main__':
     unittest.main()
-
-# "Il sabato e la domenica l''ambulatorio è chiuso"
