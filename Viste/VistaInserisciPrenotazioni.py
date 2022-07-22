@@ -8,6 +8,12 @@ from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QWidget, QVBoxLayout, QLabel, QLineEdit, QPushButton, QMessageBox, QComboBox
 
 from Attivita.Prenotazione import Prenotazione
+from Eccezioni.MaxPrenException import MaxPrenException
+from Eccezioni.MedicoOccupatoException import MedicoOccupatoException
+from Eccezioni.PazienteAssenteException import PazienteAssenteException
+from Eccezioni.PazienteOccupatoException import PazienteOccupatoException
+from Eccezioni.RepartoMedicoException import RepartoMedicoException
+from Eccezioni.WeekEndException import WeekEndException
 from Gestione.GestoreFile import caricaFile
 
 
@@ -111,7 +117,7 @@ class VistaInserisciPrenotazioni(QWidget):
         Controllo se l'ID inserito è già presente nell'archivio
         Gestione degli errori derivanti dal metodo aggiungiPrenotazione
         Se non c'è nulla di errato la prenotazione viene aggiunta ed è visualizzabile nella lista delle prenotazioni, altrimenti
-        stampo dei pop up di errore con la desscrizione dettagliata dell'errore.
+        stampo dei pop up di errore con la descrizione dettagliata dell'errore.
     """
     def aggiungi_prenotazione(self):
         # controllo che l'ID sia un numero, l'except blocca gli errori mostrando un pop up
@@ -149,52 +155,56 @@ class VistaInserisciPrenotazioni(QWidget):
 
             # chiamata al metodo aggiungiPrenotazione in Prenotazione, con passaggio parametri
             prenotazione = Prenotazione()
-            prova = prenotazione.aggiungiPrenotazione(id, data, ora, id_medico, id_visita, cf_paziente)
+            prenotazione.aggiungiPrenotazione(id, data, ora, id_medico, id_visita, cf_paziente)
 
             """
                 Restituzione degli errori dal metodo aggiungiPrenotazione:
-                    - ERRORE 0: Il codice fiscale non è nell'archivio
-                    - ERRORE -1: Il reparto del medico e il reparto della visita non corrispondono
-                    - ERRORE -2: Il medico ha già una visita nella data e ora scelte
-                    - ERRORE -3: Non si può prenotare una visita durante il weekend (sabato, domenica)
-                    - ERRORE -4: Il paziente ha già prenotato una visita in quella stessa data e ora
-                    - ERRORE -5: Il paziente ha troppe prenotazioni attive al momento (non può averne 5 o +)
+                    - EXCEPTION: Il codice fiscale non è nell'archivio
+                    - EXCEPTION: Il reparto del medico e il reparto della visita non corrispondono
+                    - EXCEPTION: Il medico ha già una visita nella data e ora scelte
+                    - EXCEPTION: Non si può prenotare una visita durante il weekend (sabato, domenica)
+                    - EXCEPTION: Il paziente ha già prenotato una visita in quella stessa data e ora
+                    - EXCEPTION: Il paziente ha troppe prenotazioni attive al momento (non può averne 5 o +)
                 Per ogni controllo di errore viene aperto un pop-up relativo con la scrittura del messaggio
             """
-            if prova == 0:
-                QMessageBox.critical(self, 'Errore', 'Codice fiscale non valido',
-                                     QMessageBox.Ok, QMessageBox.Ok)
-                return
+        except PazienteAssenteException:
+            QMessageBox.critical(self, 'Errore', 'Codice fiscale non valido',
+                                 QMessageBox.Ok, QMessageBox.Ok)
+            return
 
-            if prova == -1:
-                QMessageBox.critical(self, 'Errore', 'Il reparto del medico e della visita non corrispondono',
-                                     QMessageBox.Ok, QMessageBox.Ok)
-                return
+            # sto scegliendo una visita e un medico di reparti diversi
+        except RepartoMedicoException:
+            QMessageBox.critical(self, 'Errore', 'Il reparto del medico e della visita non corrispondono',
+                                 QMessageBox.Ok, QMessageBox.Ok)
+            return
 
-            if prova == -2:
-                QMessageBox.critical(self, 'Errore', 'Il medico è già impegnato in un''altra visita',
-                                     QMessageBox.Ok, QMessageBox.Ok)
-                return
+            # il medico ha già un'altra visita
+        except MedicoOccupatoException:
+            QMessageBox.critical(self, 'Errore', 'Il medico è già impegnato in un''altra visita',
+                                 QMessageBox.Ok, QMessageBox.Ok)
+            return
 
-            if prova == -3:
-                QMessageBox.critical(self, 'Errore', 'Il sabato e la domenica l''ambulatorio è chiuso',
-                                     QMessageBox.Ok, QMessageBox.Ok)
-                return
+            # sto prenotando di sabato o domenica
+        except WeekEndException:
+            QMessageBox.critical(self, 'Errore', 'Il sabato e la domenica l''ambulatorio è chiuso',
+                                 QMessageBox.Ok, QMessageBox.Ok)
+            return
 
-            if prova == -4:
-                QMessageBox.critical(self, 'Errore',
-                                     'Il paziente ha già prenotato per un''altra visita in questa data e ora',
-                                     QMessageBox.Ok, QMessageBox.Ok)
-                return
+        except PazienteOccupatoException:
+            QMessageBox.critical(self, 'Errore',
+                                 'Il paziente ha già prenotato per un''altra visita in questa data e ora',
+                                 QMessageBox.Ok, QMessageBox.Ok)
+            return
 
-            if prova == -5:
-                QMessageBox.critical(self, 'Errore', 'Il paziente ha troppe prenotazioni attive al momento',
-                                     QMessageBox.Ok, QMessageBox.Ok)
-                return
+        except MaxPrenException:
+            QMessageBox.critical(self, 'Errore', 'Il paziente ha troppe prenotazioni attive al momento',
+                                 QMessageBox.Ok, QMessageBox.Ok)
+            return
+
         except:
-            # pop up errore se i dati inseriti non sono corretti
             QMessageBox.critical(self, 'Errore', 'Controlla bene i dati inseriti',
                                  QMessageBox.Ok, QMessageBox.Ok)
             return
+
         self.callback()
         self.close()
