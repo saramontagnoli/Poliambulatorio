@@ -13,11 +13,31 @@ from PyQt5.QtCore import QCoreApplication
 from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QWidget, QGridLayout, QPushButton, QSizePolicy
 
-from Viste.VistaGestisciPazienti import VistaGestisciPazienti
+from Viste.VistaBackUp import VistaBackUp
 from Viste.VistaGestisciMedici import VistaGestisciMedici
+from Viste.VistaGestisciPazienti import VistaGestisciPazienti
 from Viste.VistaGestisciPrenAmm import VistaGestisciPrenAmm
 from Viste.VistaStatistiche import VistaStatistiche
-from Viste.VistaBackUp import VistaBackUp
+
+"""
+    Metodo che inserisce il button e collega l'evento on_click
+"""
+
+
+def get_generic_button(titolo, on_click):
+    button = QPushButton(titolo)
+    button.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+    button.clicked.connect(on_click)
+    return button
+
+
+"""
+        Metodo che permette di eseguire il logout chiudendo l'applicazione
+"""
+
+
+def go_logout():
+    QCoreApplication.quit()
 
 
 class VistaHomeAmm(QWidget):
@@ -33,35 +53,32 @@ class VistaHomeAmm(QWidget):
             - logout
         Ogni button ha l'evento click relativo che apre la vista per poter effettuare quella richiesta
     """
+
     def __init__(self, parent=None):
         super(VistaHomeAmm, self).__init__(parent)
+        self.vista_backup = None
+        self.vista_statistiche = None
+        self.vista_gestisci_medici = None
+        self.vista_gestisci_pazienti = None
+        self.vista_gestisci_prenotazioni = None
         self.setWindowIcon(QIcon('CroceVerde.png'))
         grid_layout = QGridLayout()
 
         # button nella home dell'amministratore, ognuno con il suo evento click
-        grid_layout.addWidget(self.get_generic_button("Gestisci Prenotazioni", self.go_prenotazioni), 0, 0)
-        grid_layout.addWidget(self.get_generic_button("Gestisci Pazienti", self.go_pazienti), 1, 1)
-        grid_layout.addWidget(self.get_generic_button("Gestisci Medici", self.go_medici), 1, 0)
-        grid_layout.addWidget(self.get_generic_button("Gestisci Statistiche", self.go_statistiche), 0, 1)
-        grid_layout.addWidget(self.get_generic_button("Gestisci BackUp", self.go_backup), 2, 0, 1, 2)
-        grid_layout.addWidget(self.get_generic_button("Log-out", self.go_logout), 3, 0, 1, 2)
+        grid_layout.addWidget(get_generic_button("Gestisci Prenotazioni", self.go_prenotazioni), 0, 0)
+        grid_layout.addWidget(get_generic_button("Gestisci Pazienti", self.go_pazienti), 1, 1)
+        grid_layout.addWidget(get_generic_button("Gestisci Medici", self.go_medici), 1, 0)
+        grid_layout.addWidget(get_generic_button("Gestisci Statistiche", self.go_statistiche), 0, 1)
+        grid_layout.addWidget(get_generic_button("Gestisci BackUp", self.go_backup), 2, 0, 1, 2)
+        grid_layout.addWidget(get_generic_button("Log-out", go_logout), 3, 0, 1, 2)
         self.setLayout(grid_layout)
         self.resize(400, 300)
         self.setWindowTitle("ADMIN")
 
-
-    """
-        Metodo che inserisce il button e linka l'evento on_click
-    """
-    def get_generic_button(self, titolo, on_click):
-        button = QPushButton(titolo)
-        button.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
-        button.clicked.connect(on_click)
-        return button
-
     """
         Metodi per eventi del click ai button visualizzati nella home dell'admin
     """
+
     def go_prenotazioni(self):
         # apertura della vista di gestione delle prenotazioni
         self.vista_gestisci_prenotazioni = VistaGestisciPrenAmm()
@@ -86,11 +103,3 @@ class VistaHomeAmm(QWidget):
         # apertura della vista di gestione del backup
         self.vista_backup = VistaBackUp()
         self.vista_backup.show()
-
-
-    """
-        Metodo che permette di eseguire il logout chiudendo l'applicazione
-    """
-    def go_logout(self):
-        QCoreApplication.quit()
-

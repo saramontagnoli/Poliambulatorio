@@ -17,6 +17,7 @@ class TestGestisciPazienti(TestCase):
         Carico il dizionario dei pazienti, controllo che non sia None
         Controllo che il paziente appena inserito sia presente
     """
+
     def test_add_paziente(self):
         # inserimento di un nuovo Paziente
         self.paziente = Paziente()
@@ -31,7 +32,7 @@ class TestGestisciPazienti(TestCase):
 
         self.assertIsNotNone(pazienti)
 
-        #verifico che sia presente il paziente appena inserito
+        # verifico che sia presente il paziente appena inserito
         self.assertIn(1, pazienti)
 
     """
@@ -40,6 +41,7 @@ class TestGestisciPazienti(TestCase):
         Controllo che il paziente sia presente
         Richiamo il metodo di rimozione e aggiorno il file dei pazienti controllando che il paziente non sia più presente
     """
+
     def test_rimuovi_paziente(self):
         # caricamento del file dei pazienti e controllo che non sia None
         pazienti = None
@@ -59,6 +61,7 @@ class TestGestisciPazienti(TestCase):
                 pazienti = pickle.load(f)
         self.assertIsNotNone(pazienti)
         self.assertNotIn(1, pazienti)
+
 
 """
     Main che permette l'esecuzione del test

@@ -14,6 +14,7 @@ class VistaModificaMedico(QWidget):
         Inserimento caselle di testo per la modifica dei dati
         Inserimento button per conferma modifica
     """
+
     def __init__(self, medico):
 
         super(VistaModificaMedico, self).__init__()
@@ -40,8 +41,9 @@ class VistaModificaMedico(QWidget):
         self.setWindowTitle("Modifica medico")
 
     """
-        Metodo che permette di inserire caselle di testo e prelevare il valore all'interno aggiungedolo al dizionario qlines[]
+        Metodo che permette di inserire caselle di testo e prelevare il valore all'interno aggiungendolo al dizionario qlines[]
     """
+
     def add_info_text(self, nome, label):
         self.v_layout.addWidget(QLabel(label))
         current_text = QLineEdit(self)
@@ -51,11 +53,12 @@ class VistaModificaMedico(QWidget):
     """
         Metodo che permette di effettuare la modifica delle informazioni del medico
         Controllo che tutte le caselle siano state riempite
-        Se sono corrette le innformazioni richiamo il metodo di setInfoMedico per apportare le modifiche
+        Se sono corrette le informazioni richiamo il metodo di setInfoMedico per apportare le modifiche
         Non tutti i parametri possono essere cambiati.
         Il try-except blocca gli input errati mostrando un pop up di errore
         Se la modifica è stata portata a termine correttamente apparirà un pop up di successo
     """
+
     def modifica_medico(self):
         # controllo che tutte le caselle siano state riempite
         for value in self.qlines.values():
@@ -89,7 +92,7 @@ class VistaModificaMedico(QWidget):
             messaggio.exec_()
 
         except:
-            # pop up di errore se le informazini inserite sono sbagliate
+            # pop up di errore se le informazioni inserite sono sbagliate
             QMessageBox.critical(self, 'Errore', 'Controlla bene i dati inseriti',
                                  QMessageBox.Ok, QMessageBox.Ok)
             return

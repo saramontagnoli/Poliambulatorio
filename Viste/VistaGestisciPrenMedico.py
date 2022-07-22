@@ -2,7 +2,7 @@
     Interfaccia grafica per la visualizzazione della lista delle prenotazioni LATO MEDICO
     Si stampa una lista, cliccando sulla prenotazione desiderata e cliccando APRI si può visualizzare le informazioni
     della prenotazione.
-    E' presente una casella di testa che permette la ricerca secondo ID grazie al button corrispondente
+    È presente una casella di testa che permette la ricerca secondo ID grazie al button corrispondente
     La classe figlia eredita i metodi e attributi dalla classe padre VistaGestisciPrenotazioni
     (ereditarietà)
 """
@@ -20,6 +20,7 @@ class VistaGestisciPrenMedico(VistaGestisciPrenotazioni):
         Inserimento dei button per apertura prenotazione
         Inserimento casella di testo e due button per la ricerca secondo ID
     """
+
     def __init__(self, medico, parent=None):
         super(VistaGestisciPrenotazioni, self).__init__(parent)
         self.medico = medico
@@ -31,7 +32,7 @@ class VistaGestisciPrenMedico(VistaGestisciPrenotazioni):
         self.qlines = {}
         self.utente = "medico"
 
-        # inserimento button per apertura della prenotazione, rimanda all'evento click show_selecteed_info che visualizza la prenotazione
+        # inserimento button per apertura della prenotazione, rimanda all'evento click show_selected_info che visualizza la prenotazione
         buttons_layout = QVBoxLayout()
         open_button = QPushButton('Apri')
         open_button.clicked.connect(self.show_selected_info)
@@ -64,6 +65,7 @@ class VistaGestisciPrenMedico(VistaGestisciPrenotazioni):
         Aggiungo l'elemento prenotazione alla vista lista degli elementi
         Nella vista prendo solo le prenotazioni corrispondenti al medico attuale
     """
+
     def update_ui(self):
         # caricamento del dizionario
         self.prenotazioni = []
@@ -71,7 +73,7 @@ class VistaGestisciPrenMedico(VistaGestisciPrenotazioni):
         listview_model = QStandardItemModel(self.list_view)
         for prenotazione in self.prenotazioni:
             if prenotazione.id_medico == self.medico.id:
-                # cotnrollo la scadenza della prenotazione
+                # controllo la scadenza della prenotazione
                 prenotazione.scadenzaPrenotazione()
                 item = QStandardItem()
 

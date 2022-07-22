@@ -6,8 +6,6 @@
 """
 
 import datetime
-import os
-import pickle
 
 from Gestione.GestoreFile import caricaFile
 
@@ -15,6 +13,8 @@ from Gestione.GestoreFile import caricaFile
     Metodo che permette di richiedere le statistiche sulle more emesse (n° di more e importo totale more)
     Ritorno una stringa formattata che contiene l'anno corrente, il totale delle more e il numero di more emesse
 """
+
+
 def richiediStatisticheMore():
     # caricamento delle more nel dizionario more
     more = caricaFile("More")
@@ -22,7 +22,7 @@ def richiediStatisticheMore():
     num = 0
     anno_attuale = int(datetime.datetime.today().year)
 
-    # scorro tutto il dizionario more per controllare le more all'anno attuale, incrementare un contatore e una varaibile somma
+    # scorro tutto il dizionario more per controllare le more all'anno attuale, incrementare un contatore e una variabile somma
     for mora in more:
         anno_mora = int(mora.data_emissione.year)
         if anno_mora == anno_attuale:
@@ -37,14 +37,16 @@ def richiediStatisticheMore():
     Metodo che permette di richiedere le statistiche sulle ricevute (n° di ricevute e importo totale ricevute)
     Ritorno una stringa formattata che contiene l'anno corrente, il totale delle ricevute e il numero di ricevute
 """
+
+
 def richiediStatisticheRicevute():
-    # caricamente delle ricevute nel dizionario ricevute
+    # caricamento delle ricevute nel dizionario ricevute
     ricevute = caricaFile("Ricevute")
     somma = 0
     num = 0
     anno_attuale = int(datetime.datetime.today().year)
 
-    # scorro tutto il dizionario ricevute per controllare le ricevute all'anno attuale, incrementare un contatore e una varaibile somma
+    # scorro tutto il dizionario ricevute per controllare le ricevute all'anno attuale, incrementare un contatore e una variabile somma
     for ricevuta in ricevute:
         anno_ricevuta = int(ricevuta.data_ora.year)
 

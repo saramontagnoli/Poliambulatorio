@@ -18,8 +18,12 @@ class VistaGestisciMedici(QWidget):
         Inserimenti di due button per apertura medico e nuovo medico
         Inserimento casella di testo per ricerca dei medici per ID o CF a seconda del button premuto
     """
+
     def __init__(self, parent=None):
         super(VistaGestisciMedici, self).__init__(parent)
+        self.inserisci_medico = None
+        self.vista_medico = None
+        self.medici = None
         self.setWindowIcon(QIcon('CroceVerde.png'))
         self.h_layout = QHBoxLayout()
         self.list_view = QListView()
@@ -27,7 +31,7 @@ class VistaGestisciMedici(QWidget):
         self.h_layout.addWidget(self.list_view)
         self.qlines = {}
 
-        # inserimento button per apertura del medico, rimanda all'evento click show_selecteed_info che visualizza il medico
+        # inserimento button per apertura del medico, rimanda all'evento click show_selected_info che visualizza il medico
         buttons_layout = QVBoxLayout()
         open_button = QPushButton('Apri')
         open_button.clicked.connect(self.show_selected_info)
@@ -68,6 +72,7 @@ class VistaGestisciMedici(QWidget):
     """
         Metodo che permette il caricamento del file medici nel dizionario medici
     """
+
     def load_medici(self):
         self.medici = caricaFile("Medici")
 
@@ -79,6 +84,7 @@ class VistaGestisciMedici(QWidget):
         Aggiungo l'elemento medico alla vista lista degli elementi
         Ho quindi una lista di item contenente tutti i medici
     """
+
     def update_ui(self):
         self.medici = []
         self.load_medici()
@@ -98,6 +104,7 @@ class VistaGestisciMedici(QWidget):
         Metodo che permette la visualizzazione delle informazioni del medico che si vuole aprire
         Cerco il medico selezionato che voglio aprire e richiamo la vista di visualizzazione delle informazioni
     """
+
     def show_selected_info(self):
         try:
             selected = self.list_view.selectedIndexes()[0].data()
@@ -105,7 +112,7 @@ class VistaGestisciMedici(QWidget):
             id = int(selected.split("-")[1].strip().split(" ")[1])
             medico = None
 
-            #cerco il medico che sto cercando di aprire
+            # cerco il medico che sto cercando di aprire
             if tipo == "Medico":
                 medico = Medico().ricercaUtilizzatoreId(id)
 
@@ -116,18 +123,19 @@ class VistaGestisciMedici(QWidget):
             QMessageBox.critical(self, 'Errore', 'Nessun elemento selezionato', QMessageBox.Ok, QMessageBox.Ok)
             return
 
-
     """
         Metodo che gestisce l'evento click dell'inserimento di un nuovo medico
         Permette l'apertura della vista per l'inserimento di un nuovo medico
     """
+
     def show_new(self):
         self.inserisci_medico = VistaInserisciMedici(callback=self.update_ui)
         self.inserisci_medico.show()
 
     """
-        Metodo che permette di inserire caselle di testo e prelevare il valore all'interno aggiungedolo al dizionario qlines[]
+        Metodo che permette di inserire caselle di testo e prelevare il valore all'interno aggiungendolo al dizionario qlines[]
     """
+
     def add_info_text(self, nome, label):
         self.h_layout.addWidget(QLabel(label))
         current_text = QLineEdit(self)
@@ -140,6 +148,7 @@ class VistaGestisciMedici(QWidget):
         Se trovo il medico che sto cercando richiamo la vista per la visualizzazione delle informazioni del medico
         Se non trovo il medico apro un pop up di errore
     """
+
     def ricerca_medico_CF(self):
         f = 0
 
@@ -166,6 +175,7 @@ class VistaGestisciMedici(QWidget):
         Se trovo il medico che sto cercando richiamo la vista per la visualizzazione delle informazioni del medico
         Se non trovo il medico apro un pop up di errore
     """
+
     def ricerca_medico_ID(self):
         f = 0
         # prelevo l'ID dal campo controllando anche che sia valido

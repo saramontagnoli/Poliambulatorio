@@ -10,7 +10,7 @@ from PyQt5.QtWidgets import QVBoxLayout, QLabel, QSpacerItem, QSizePolicy, QPush
 
 from Attivita.Prenotazione import Prenotazione
 from Gestione.GestoreFile import caricaFile
-from Viste.VistaPrenotazione import VistaPrenotazione
+from Viste.VistaPrenotazione import VistaPrenotazione, visualizza_ricevuta_click, visualizza_mora_click
 
 
 class VistaPrenotazioneAmm(VistaPrenotazione):
@@ -20,9 +20,10 @@ class VistaPrenotazioneAmm(VistaPrenotazione):
         Inserimento di tutte le informazioni della prenotazione con delle label
         Se le variabili boolean sono True stampa il campo: SI, altrimenti non stampa il campo
         Inserimento dei button di creazione o visualizzazione ricevuta (in base ai controlli effettuati)
-        Inserimento del button di una evemtuale mora (se esiste nel file More)
+        Inserimento del button di una eventuale mora (se esiste nel file More)
         Inserimento del button di disdetta della prenotazione (in base ai controlli effettuati)
     """
+
     def __init__(self, prenotazione, elimina_callback):
         super(VistaPrenotazione, self).__init__()
         self.setWindowIcon(QIcon('CroceVerde.png'))
@@ -71,7 +72,7 @@ class VistaPrenotazioneAmm(VistaPrenotazione):
         elif prenotazione.conclusa:
             # se la prenotazione è già conclusa e la visita è stata effettuata permetto di visualizzarne la ricevuta
             btn_visualizza_ricevuta = QPushButton('Visualizza ricevuta')
-            btn_visualizza_ricevuta.clicked.connect(lambda: self.visualizza_ricevuta_click(prenotazione))
+            btn_visualizza_ricevuta.clicked.connect(lambda: visualizza_ricevuta_click(prenotazione))
             v_layout.addWidget(btn_visualizza_ricevuta)
 
         # se la prenotazione ha collegata una mora inserisco il button Visualizza mora che rimanda al metodo di visualizzazione mora
@@ -79,7 +80,7 @@ class VistaPrenotazioneAmm(VistaPrenotazione):
         for mora in more:
             if mora.id == prenotazione.id:
                 btn_visualizza_mora = QPushButton('Visualizza mora')
-                btn_visualizza_mora.clicked.connect(lambda: self.visualizza_mora_click(mora))
+                btn_visualizza_mora.clicked.connect(lambda: visualizza_mora_click(mora))
                 v_layout.addWidget(btn_visualizza_mora)
 
         # se la prenotazione non è ancora conclusa o scaduta o già disdetta, inserisco il button per la disdetta che rimanda al metodo di disdetta
@@ -91,11 +92,11 @@ class VistaPrenotazioneAmm(VistaPrenotazione):
         self.setLayout(v_layout)
         self.setWindowTitle("Prenotazione")
 
-
     """
         Metodo che implementa l'evento click per la creazione di una ricevuta (chiamata al metodo creaRicevuta in Prenotazione).
         Se la creazione è andata a buon fine mando un pop up di successo, altrimenti un pop up di errore
     """
+
     def crea_ricevuta_click(self, prenotazione):
         if isinstance(prenotazione, Prenotazione):
             messaggio = QMessageBox()

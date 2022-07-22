@@ -11,7 +11,7 @@ from PyQt5.QtWidgets import QVBoxLayout, QLabel, QSpacerItem, QSizePolicy, QPush
 from Attivita.Prenotazione import Prenotazione
 from Gestione.GestoreFile import caricaFile
 from Viste.VistaInserisciReferto import VistaInserisciReferto
-from Viste.VistaPrenotazione import VistaPrenotazione
+from Viste.VistaPrenotazione import VistaPrenotazione, visualizza_referto_click
 
 
 class VistaPrenotazioneMedico(VistaPrenotazione):
@@ -23,8 +23,10 @@ class VistaPrenotazioneMedico(VistaPrenotazione):
         Inserimento dei button di creazione o visualizzazione referto (in base ai controlli effettuati)
         Inserimento del button di disdetta della prenotazione (in base ai controlli effettuati)
     """
+
     def __init__(self, prenotazione, elimina_callback):
         super(VistaPrenotazione, self).__init__()
+        self.inserisci_referto = None
         self.setWindowIcon(QIcon('CroceVerde.png'))
         self.elimina_callback = elimina_callback
         self.utente = "medico"
@@ -79,7 +81,7 @@ class VistaPrenotazioneMedico(VistaPrenotazione):
                 if referto.id == prenotazione.id:
                     flag = True
                     btn_visualizza_referto = QPushButton('Visualizza referti')
-                    btn_visualizza_referto.clicked.connect(lambda: self.visualizza_referto_click(referto))
+                    btn_visualizza_referto.clicked.connect(lambda: visualizza_referto_click(referto))
                     v_layout.addWidget(btn_visualizza_referto)
             if not flag:
                 btn_inserisci_referto = QPushButton('Inserisci referto')
@@ -89,11 +91,11 @@ class VistaPrenotazioneMedico(VistaPrenotazione):
         self.setLayout(v_layout)
         self.setWindowTitle("Prenotazione")
 
-
     """
         Metodo che implementa l'evento click per la creazione di un referto (chiamata alla vista di inserimento nuovo referto).
         Si richiama la vista dove si possono inserire le informazioni di un nuovo referto
     """
+
     def inserisci_referto_click(self, prenotazione):
         if isinstance(prenotazione, Prenotazione):
             # chiamata alla vista di inserimento di un nuovo referto

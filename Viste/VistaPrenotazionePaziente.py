@@ -10,7 +10,8 @@ from PyQt5.QtWidgets import QVBoxLayout, QLabel, QSpacerItem, QSizePolicy, QPush
 
 from Attivita.Prenotazione import Prenotazione
 from Gestione.GestoreFile import caricaFile
-from Viste.VistaPrenotazione import VistaPrenotazione
+from Viste.VistaPrenotazione import VistaPrenotazione, visualizza_referto_click, visualizza_ricevuta_click, \
+    visualizza_mora_click
 
 
 class VistaPrenotazionePaziente(VistaPrenotazione):
@@ -22,6 +23,7 @@ class VistaPrenotazionePaziente(VistaPrenotazione):
         Inserimento dei button di visualizzazione referto, mora e ricevuta (in base ai controlli effettuati)
         Inserimento del button di disdetta della prenotazione (in base ai controlli effettuati)
     """
+
     def __init__(self, prenotazione, elimina_callback):
         super(VistaPrenotazione, self).__init__()
         self.setWindowIcon(QIcon('CroceVerde.png'))
@@ -71,13 +73,11 @@ class VistaPrenotazionePaziente(VistaPrenotazione):
             # caricamento dei referti nel dizionario referti
             referti = caricaFile("Referti")
 
-            flag = False
             for referto in referti:
                 if referto.id == prenotazione.id:
-                    flag = True
-                    # se il referto esiste stampo il button di visualizza referto, rimanda all'avento click
+                    # se il referto esiste stampo il button di visualizza referto, rimanda all'evento click
                     btn_visualizza_referto = QPushButton('Visualizza referto')
-                    btn_visualizza_referto.clicked.connect(lambda: self.visualizza_referto_click(referto))
+                    btn_visualizza_referto.clicked.connect(lambda: visualizza_referto_click(referto))
                     v_layout.addWidget(btn_visualizza_referto)
 
         # caricamento delle more nel dizionario more
@@ -87,13 +87,13 @@ class VistaPrenotazionePaziente(VistaPrenotazione):
             if mora.id == prenotazione.id:
                 # se la mora esiste stampo il button di visualizza mora, rimanda all'evento click
                 btn_visualizza_mora = QPushButton('Visualizza mora')
-                btn_visualizza_mora.clicked.connect(lambda: self.visualizza_mora_click(mora))
+                btn_visualizza_mora.clicked.connect(lambda: visualizza_mora_click(mora))
                 v_layout.addWidget(btn_visualizza_mora)
 
         # se la prenotazione risulta conclusa inserisco il button di visualizza ricevuta, rimanda all'evento click
         if prenotazione.conclusa:
             btn_visualizza_ricevuta = QPushButton('Visualizza ricevuta')
-            btn_visualizza_ricevuta.clicked.connect(lambda: self.visualizza_ricevuta_click(prenotazione))
+            btn_visualizza_ricevuta.clicked.connect(lambda: visualizza_ricevuta_click(prenotazione))
             v_layout.addWidget(btn_visualizza_ricevuta)
 
         self.setLayout(v_layout)

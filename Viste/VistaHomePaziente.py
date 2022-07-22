@@ -14,6 +14,26 @@ from PyQt5.QtWidgets import QWidget, QGridLayout, QPushButton, QSizePolicy, QMes
 from Viste.VistaGestisciPrenPaziente import VistaGestisciPrenPaziente
 from Viste.VistaModificaPaziente import VistaModificaPaziente
 
+"""
+       Metodo che inserisce il button e collega l'evento on_click
+   """
+
+
+def get_generic_button(titolo, on_click):
+    button = QPushButton(titolo)
+    button.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+    button.clicked.connect(on_click)
+    return button
+
+
+"""
+        Metodo che permette di eseguire il logout chiudendo l'applicazione
+"""
+
+
+def go_logout():
+    QCoreApplication.quit()
+
 
 class VistaHomePaziente(QWidget):
     """
@@ -26,35 +46,29 @@ class VistaHomePaziente(QWidget):
             - logout
         Ogni pulsante ha l'evento click relativo che apre la vista per poter effettuare quella richiesta
     """
+
     def __init__(self, paziente, parent=None):
         super(VistaHomePaziente, self).__init__(parent)
+        self.vista_modifica_paziente = None
+        self.vista_gestisci_pren_paziente = None
         self.paziente = paziente
         self.setWindowIcon(QIcon('CroceVerde.png'))
         grid_layout = QGridLayout()
         print(self.paziente.CF)
 
         # button nella home del paziente, ognuno con il suo evento click
-        grid_layout.addWidget(self.get_generic_button("Vedi Prenotazioni", self.go_prenotazioni), 0, 0)
-        grid_layout.addWidget(self.get_generic_button("Modifica Informazioni", self.go_modifica), 0, 1)
-        grid_layout.addWidget(self.get_generic_button("Visualizza Informazioni", self.go_vis_info), 1, 0)
-        grid_layout.addWidget(self.get_generic_button("Logout", self.go_logout), 1, 1)
+        grid_layout.addWidget(get_generic_button("Vedi Prenotazioni", self.go_prenotazioni), 0, 0)
+        grid_layout.addWidget(get_generic_button("Modifica Informazioni", self.go_modifica), 0, 1)
+        grid_layout.addWidget(get_generic_button("Visualizza Informazioni", self.go_vis_info), 1, 0)
+        grid_layout.addWidget(get_generic_button("Logout", go_logout), 1, 1)
         self.setLayout(grid_layout)
         self.resize(400, 300)
         self.setWindowTitle(f"{self.paziente.nome} {self.paziente.cognome} - {self.paziente.id}")
 
     """
-        Metodo che inserisce il button e linka l'evento on_click
-    """
-    def get_generic_button(self, titolo, on_click):
-        button = QPushButton(titolo)
-        button.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
-        button.clicked.connect(on_click)
-        return button
-
-
-    """
         Metodi per eventi del click ai button visualizzati nella home del paziente
     """
+
     def go_prenotazioni(self):
         # apertura della vista di gestione delle prenotazioni del paziente
         self.vista_gestisci_pren_paziente = VistaGestisciPrenPaziente(self.paziente)
@@ -64,7 +78,6 @@ class VistaHomePaziente(QWidget):
         # apertura della vista di modifica delle informazioni del paziente
         self.vista_modifica_paziente = VistaModificaPaziente(self.paziente)
         self.vista_modifica_paziente.show()
-
 
     def go_vis_info(self):
         messaggio = QMessageBox()
@@ -85,10 +98,3 @@ class VistaHomePaziente(QWidget):
             f"Id: {self.paziente.id} \nNome: {self.paziente.nome} \nCognome: {self.paziente.cognome} \nCF: {self.paziente.CF} \nData nascita: {self.paziente.data_nascita.strftime('%Y-%m-%d')} \nGenere: {self.paziente.genere} \nIndirizzo: {self.paziente.indirizzo}\nMail: {self.paziente.mail} \nTelefono: {self.paziente.telefono} \nNota: {self.paziente.nota} \nAllergia: {allergia_str} \nMalattia pregressa: {malattia_pregressa_str}")
         messaggio.exec_()
         return
-
-
-    """
-        Metodo che permette di eseguire il logout chiudendo l'applicazione
-    """
-    def go_logout(self):
-        QCoreApplication.quit()

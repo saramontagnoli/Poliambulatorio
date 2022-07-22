@@ -3,7 +3,7 @@
     Si stampa una lista, cliccando sulla prenotazione desiderata e cliccando APRI si può visualizzare le informazioni
     della prenotazione.
     Inoltre è presente il button NUOVA che permette di essere reindirizzati alla vista dell'inserimento di una prenotazione
-    E' presente una casella di testa che permette la ricerca secondo ID grazie al button corrispondente
+    È presente una casella di testa che permette la ricerca secondo ID grazie al button corrispondente
     La classe figlia eredita i metodi e attributi dalla classe padre VistaGestisciPrenotazioni
     (ereditarietà)
 """
@@ -22,8 +22,10 @@ class VistaGestisciPrenAmm(VistaGestisciPrenotazioni):
         Inserimento dei button per apertura prenotazione e nuova prenotazione
         Inserimento casella di testo e due button per la ricerca secondo ID
     """
+
     def __init__(self):
         super(VistaGestisciPrenotazioni, self).__init__()
+        self.inserisci_prenotazione = None
         self.setWindowIcon(QIcon('CroceVerde.png'))
         self.h_layout = QHBoxLayout()
         self.list_view = QListView()
@@ -32,7 +34,7 @@ class VistaGestisciPrenAmm(VistaGestisciPrenotazioni):
         self.qlines = {}
         self.utente = "admin"
 
-        # inserimento button per apertura della prenotazione, rimanda all'evento click show_selecteed_info che visualizza la prenotazione
+        # inserimento button per apertura della prenotazione, rimanda all'evento click show_selected_info che visualizza la prenotazione
         buttons_layout = QVBoxLayout()
         open_button = QPushButton('Apri')
         open_button.clicked.connect(self.show_selected_info)
@@ -66,10 +68,10 @@ class VistaGestisciPrenAmm(VistaGestisciPrenotazioni):
         Metodo che gestisce l'evento click della nuova prenotazione
         Permette l'apertura della vista per l'inserimento di una nuova prenotazione
     """
+
     def show_new(self):
         self.inserisci_prenotazione = VistaInserisciPrenotazioni(callback=self.update_ui)
         self.inserisci_prenotazione.show()
-
 
     """
         Metodo che permette l'aggiornamento della lista delle prenotazioni nella vista
@@ -80,13 +82,14 @@ class VistaGestisciPrenAmm(VistaGestisciPrenotazioni):
         Se la prenotazione è disdetta o scaduta o conclusa vicino aggiungo (NON ATTIVA)
         Aggiungo l'elemento prenotazione alla vista lista degli elementi
     """
+
     def update_ui(self):
         # caricamento del dizionario
         self.prenotazioni = []
         self.load_prenotazioni()
         listview_model = QStandardItemModel(self.list_view)
         for prenotazione in self.prenotazioni:
-            # cotnrollo la scadenza della prenotazione
+            # controllo la scadenza della prenotazione
             prenotazione.scadenzaPrenotazione()
             item = QStandardItem()
 

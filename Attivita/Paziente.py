@@ -8,11 +8,11 @@ from Gestione.GestoreFile import scriviFile, ricercaElemFile, rimuoviElemFile
 
 
 class Paziente(Utilizzatore):
-
     """
         Costruttore della classe
         Richiamo la classe padre con super, set degli attributi della classe figlia
     """
+
     def __init__(self):
         # richiamo classe padre
         super().__init__()
@@ -25,9 +25,9 @@ class Paziente(Utilizzatore):
         Essendo Paziente una classe derivata, si richiama il metodo di set dalla classe padre, mentre
         le informazioni contenute solo in Paziente vengono inserite tramite il self.
     """
+
     def setInfoPaziente(self, id, nome, cognome, password, data_nascita, CF, telefono, genere, mail, indirizzo, nota,
                         allergia, malattia_pregressa):
-
         # chiamata al metodo set della classe padre (Utilizzatore)
         self.setInfoUtilizzatore(id, password, cognome, nome, data_nascita, CF, telefono, genere, mail, indirizzo,
                                  nota)
@@ -37,13 +37,13 @@ class Paziente(Utilizzatore):
         # chiamata a GestoreFile per salvataggio su file delle informazioni del Paziente
         scriviFile("Pazienti", self)
 
-
     """
         Metodo che ritorna tutte le informazioni registrate di Paziente.
-        Essendo Paziemte una classe derivata, si richiama il metodo di get dalla classe padre, mentre
+        Essendo Paziente una classe derivata, si richiama il metodo di get dalla classe padre, mentre
         le informazioni contenute solo in Paziente vengono posizionata nel dizionario tramite il self.
         Si ritorna il dizionario "info" con dentro le informazioni complete di Paziente.
     """
+
     def getInfoPaziente(self):
         # chiamata al metodo get della classe padre
         info = self.getInfoUtilizzatore()
@@ -52,24 +52,23 @@ class Paziente(Utilizzatore):
         info["malattia_pregressa"] = self.malattia_pregressa
         return info
 
-
     """
         Metodo per la ricerca di un determinato Paziente sulla base del Codice Fiscale.
         Si richiama il metodo di ricerca dal GestoreFile che permette l'apertura 
-        e lo scorrimento del file contennte i Pazienti.
+        e lo scorrimento del file contenente i Pazienti.
     """
+
     def ricercaUtilizzatoreCF(self, CF):
         return ricercaElemFile("Pazienti", CF)
-
 
     """
         Metodo per la ricerca di un determinato Paziente sulla base dell'ID.
         Si richiama il metodo di ricerca dal GestoreFile che permette l'apertura 
-        e lo scorrimento del file contennte i Pazienti.
+        e lo scorrimento del file contenente i Pazienti.
     """
+
     def ricercaUtilizzatoreId(self, id):
         return ricercaElemFile("Pazienti", id)
-
 
     """
         Metodo per la rimozione di un determinato Paziente sulla base dell'ID.
@@ -77,6 +76,7 @@ class Paziente(Utilizzatore):
         e lo scorrimento del file rimuovendo il Paziente in questione.
         Elimino anche il Paziente dal self
     """
+
     def rimuoviPaziente(self):
         # chiamata a GestoreFile per la rimozione del paziente dal file
         rimuoviElemFile("Pazienti", self)

@@ -24,6 +24,7 @@ class VistaInserisciPrenotazioni(QWidget):
         Inserimento caselle di testo per l'inserimento dei dati
         Inserimento button per conferma inserimento
     """
+
     def __init__(self, callback):
         super(VistaInserisciPrenotazioni, self).__init__()
         self.setWindowIcon(QIcon('CroceVerde.png'))
@@ -36,7 +37,7 @@ class VistaInserisciPrenotazioni(QWidget):
         self.add_info_text("data", "Data (DD/MM/YYYY)")
         self.add_info_text("cf_paziente", "CF Paziente")
 
-        # inserimento di una combobox per selezionare l'orario della prenotazione e salvataggio nel diz. qlines[] della scelta
+        # Inserimento di una combobox per selezionare l'orario della prenotazione e salvataggio nel diz. qlines[] della scelta
         self.combo_ora = QComboBox()
 
         options = ["8:00", "8:30", "9:00", "9:30", "10:00", "10:30", "11:00", "11:30", "14:00", "14:30", "15:00",
@@ -55,7 +56,7 @@ class VistaInserisciPrenotazioni(QWidget):
         # caricamento delle visite nel dizionario
         self.visite = caricaFile("Visite")
 
-        # inserimento di una combobox per selezionare la visita e salvataggio nel diz. qlines[]
+        # Inserimento di una combobox per selezionare la visita e salvataggio nel diz. qlines[]
         self.combo_visita = QComboBox()
 
         for visita in self.visite:
@@ -71,7 +72,7 @@ class VistaInserisciPrenotazioni(QWidget):
         # caricamento dei medici nel dizionario
         self.medici = caricaFile("Medici")
 
-        # inserimento di una combobox per selezionare il medico e salvataggio nel diz. qlines[]
+        # Inserimento di una combobox per selezionare il medico e salvataggio nel diz. qlines[]
         self.combo_medico = QComboBox()
 
         for medico in self.medici:
@@ -97,12 +98,14 @@ class VistaInserisciPrenotazioni(QWidget):
     """
         Metodo che permette di monitorare i cambiamenti alle selezioni sulla combobox
     """
-    def selectionchange(self, i):
+
+    def selectionchange(self):
         return self.combo_visita.currentText()
 
     """
-        Metodo che permette di inserire caselle di testo e prelevare il valore all'interno aggiungedolo al dizionario qlines[]
+        Metodo che permette di inserire caselle di testo e prelevare il valore all'interno aggiungendolo al dizionario qlines[]
     """
+
     def add_info_text(self, nome, label):
         self.v_layout.addWidget(QLabel(label))
         current_text = QLineEdit(self)
@@ -119,8 +122,9 @@ class VistaInserisciPrenotazioni(QWidget):
         Se non c'è nulla di errato la prenotazione viene aggiunta ed è visualizzabile nella lista delle prenotazioni, altrimenti
         stampo dei pop up di errore con la descrizione dettagliata dell'errore.
     """
+
     def aggiungi_prenotazione(self):
-        # controllo che l'ID sia un numero, l'except blocca gli errori mostrando un pop up
+        # controllo che l'ID sia un numero, except blocca gli errori mostrando un pop up
         try:
             id = int(self.qlines["id"].text())
         except:

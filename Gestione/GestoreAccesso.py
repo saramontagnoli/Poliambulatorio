@@ -1,7 +1,7 @@
 """
     Classe che implementa la gestione degli accessi alla piattaforma
     Rappresenta la gestione della form di login, smistando i vari livelli di accesso e i diversi utenti (pazienti e medici)
-    e il superutente (l'amministratore)
+    e il super utente (l'amministratore)
 """
 
 from Gestione.GestoreFile import caricaFile
@@ -11,14 +11,13 @@ from Viste.VistaHomePaziente import VistaHomePaziente
 
 
 class GestoreAccesso:
-
     """
         Costruttore della classe
         Definisco la vista home a None
     """
+
     def __init__(self):
         self.vista_home = None
-
 
     """
         Metodo che permette la gestione del login alla piattaforma del poliambulatorio.
@@ -29,9 +28,10 @@ class GestoreAccesso:
         In base all'utente che accede alla piattaforma (se i dati sono corretti) si apre la relativa vista dell'area privata 
         con tutte le funzionalità da poter svolgere
     """
+
     def login(self, username, password):
 
-        # controllo se è l'admin a voler accedere (superutente)
+        # controllo se è l'admin a voler accedere (super utente)
         if username == "admin" and password == "admin":
             # apro la vista dell'admin
             self.vista_home = VistaHomeAmm()

@@ -17,11 +17,13 @@ class VistaInserisciPazienti(QWidget):
         Costruttore della classe
         Set della finestra dell'inserimento di un nuovo paziente
         Inserimento caselle di testo per l'inserimento di un paziente nuovo
-        Inserimento della combobox per scdelta di genere
+        Inserimento della combobox per scelta di genere
         Inserimento button per conferma inserimento nuovo paziente
     """
+
     def __init__(self, callback):
         super(VistaInserisciPazienti, self).__init__()
+        self.checkbox = None
         self.setWindowIcon(QIcon('CroceVerde.png'))
         self.callback = callback
         self.v_layout = QVBoxLayout()
@@ -37,7 +39,7 @@ class VistaInserisciPazienti(QWidget):
         self.add_info_text("mail", "Email")
         self.add_info_text("telefono", "Telefono")
 
-        # inserimento di una combobox per selezionare il genere del paziente (M, F, A) e salvataggio nel diz. qlines[] della scelta
+        # Inserimento di una combobox per selezionare il genere del paziente (M, F, A) e salvataggio nel diz. qlines[] della scelta
         self.combo_genere = QComboBox()
 
         options = ["M", "F", "A"]
@@ -77,9 +79,9 @@ class VistaInserisciPazienti(QWidget):
     """
         Metodo che permette di monitorare i cambiamenti alle selezioni sulla combobox
     """
-    def selectionchange(self, i):
-        return self.combo_genere.currentText()
 
+    def selectionchange(self):
+        return self.combo_genere.currentText()
 
     def clickBox(self, state):
         if state == QtCore.Qt.Checked:
@@ -88,14 +90,14 @@ class VistaInserisciPazienti(QWidget):
             return False
 
     """
-        Metodo che permette di inserire caselle di testo e prelevare il valore all'interno aggiungedolo al dizionario qlines[]
+        Metodo che permette di inserire caselle di testo e prelevare il valore all'interno aggiungendolo al dizionario qlines[]
     """
+
     def add_info_text(self, nome, label):
         self.v_layout.addWidget(QLabel(label))
         current_text = QLineEdit(self)
         self.qlines[nome] = current_text
         self.v_layout.addWidget(current_text)
-
 
     """
         Metodo che permette di effettuare l'aggiunta di un nuovo paziente da parte dell'amministratore
@@ -107,8 +109,9 @@ class VistaInserisciPazienti(QWidget):
         Se non c'è nulla di errato il paziente viene aggiunto ed è visualizzabile nella lista dei pazienti, altrimenti
         stampo dei pop up di errore con la descrizione dettagliata dell'errore.
     """
+
     def aggiungi_paziente(self):
-        # controllo che l'ID sia un numero, l'except blocca gli errori mostrando un pop up
+        # controllo che l'ID sia un numero, except blocca gli errori mostrando un pop up
         try:
             id = int(self.qlines["id"].text())
         except:
@@ -151,7 +154,6 @@ class VistaInserisciPazienti(QWidget):
                     QMessageBox.critical(self, 'Errore', 'ID già utilizzato', QMessageBox.Ok,
                                          QMessageBox.Ok)
                     return
-
 
             # chiamata al metodo setInfoPaziente con passaggio parametri per l'aggiunta del paziente
             paziente.setInfoPaziente(id, nome, cognome, password, data_nascita, CF, telefono, genere, mail, indirizzo,

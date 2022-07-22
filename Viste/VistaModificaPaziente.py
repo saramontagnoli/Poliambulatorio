@@ -6,6 +6,17 @@ from PyQt5 import QtCore
 from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QWidget, QVBoxLayout, QLabel, QLineEdit, QPushButton, QMessageBox, QCheckBox
 
+"""
+      Metodo che controlla lo stato della checkbox (selezionata o no)
+  """
+
+
+def clickBox(state):
+    if state == QtCore.Qt.Checked:
+        return True
+    else:
+        return False
+
 
 class VistaModificaPaziente(QWidget):
     """
@@ -14,9 +25,11 @@ class VistaModificaPaziente(QWidget):
         Inserimento caselle di testo per la modifica dei dati
         Inserimento button per conferma modifica
     """
+
     def __init__(self, paziente):
 
         super(VistaModificaPaziente, self).__init__()
+        self.checkbox = None
         self.paziente = paziente
         self.setWindowIcon(QIcon('CroceVerde.png'))
         self.v_layout = QVBoxLayout()
@@ -41,8 +54,9 @@ class VistaModificaPaziente(QWidget):
         self.setWindowTitle("Modifica paziente")
 
     """
-        Metodo che permette di inserire caselle di testo e prelevare il valore all'interno aggiungedolo al dizionario qlines[]
+        Metodo che permette di inserire caselle di testo e prelevare il valore all'interno aggiungendolo al dizionario qlines[]
     """
+
     def add_info_text(self, nome, label):
         self.v_layout.addWidget(QLabel(label))
         current_text = QLineEdit(self)
@@ -50,32 +64,25 @@ class VistaModificaPaziente(QWidget):
         self.v_layout.addWidget(current_text)
 
     """
-        Metodo che permette di inserire checkbox e prelevare il valore aggiungedolo al dizionario qlines[]
+        Metodo che permette di inserire checkbox e prelevare il valore aggiungendolo al dizionario qlines[]
     """
+
     def add_checkbox(self, nome, label):
         self.checkbox = QCheckBox(label, self)
         self.checkbox.resize(320, 40)
         self.qlines[nome] = self.checkbox
         self.v_layout.addWidget(self.checkbox)
-        self.checkbox.stateChanged.connect(self.clickBox)
-
-    """
-        Metodo che controlla lo stato della checkbox (selezionata o no)
-    """
-    def clickBox(self, state):
-        if state == QtCore.Qt.Checked:
-            return True
-        else:
-            return False
+        self.checkbox.stateChanged.connect(clickBox)
 
     """
         Metodo che permette di effettuare la modifica delle informazioni del paziente
         Controllo che tutte le caselle siano state riempite
-        Se sono corrette le innformazioni richiamo il metodo di setInfoPaziente per apportare le modifiche
+        Se sono corrette le informazioni richiamo il metodo di setInfoPaziente per apportare le modifiche
         Non tutti i parametri possono essere cambiati.
         Il try-except blocca gli input errati mostrando un pop up di errore
         Se la modifica è stata portata a termine correttamente apparirà un pop up di successo
     """
+
     def modifica_paziente(self):
         # controllo che tutte le caselle siano state riempite
         for value in self.qlines.values():
@@ -111,7 +118,7 @@ class VistaModificaPaziente(QWidget):
             messaggio.exec_()
 
         except:
-            # pop up di errore se le informazini inserite sono sbagliate
+            # pop up di errore se le informazioni inserite sono sbagliate
             QMessageBox.critical(self, 'Errore', 'Controlla bene i dati inseriti',
                                  QMessageBox.Ok, QMessageBox.Ok)
             return
