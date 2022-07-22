@@ -6,6 +6,8 @@ Attualmente è possibile effettuare prenotazioni a date passate perché si prend
 
 In questo modo dal run del codice è possibile inserire una prenotazione passata e vedere che viene settata a "scaduta", simulando così un paziente che non si è presentato alla visita senza disdire prima la prenotazione.
 
+Inoltre è anche possibile considerare concluse le prenotazioni future (nonostante la data della prenotazione non coincida con la data del giorno attuale) così da simulare e vedere il caricamento della ricevuta da parte dell’amministratore e il caricamento del referto da parte del medico.
+
 ### Esempi di Log-in funzionanti per il codice
 
 Ruolo | Username (CF) 		| Password
@@ -25,5 +27,6 @@ I file Reparti e Visite contengono dati utili per iniziare a gestire le varie pr
 Per questo motivo, cancellare i file nella cartella Appoggio è sconsigliato.
 
 In alternativa, è possibile copiare i file dalla cartella Backup, creata precedentemente, alla cartella File.
+
 
 
